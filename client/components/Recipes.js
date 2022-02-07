@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
@@ -11,40 +12,6 @@ const axios = require("axios");
 import { SPOON_API_KEY } from "@env";
 
 const spnAPI = "https://api.spoonacular.com/recipes/";
-
-//dummy data - uncomment below to use
-// const RESULTS = [
-//     {
-//         "id": 639203,
-//         "title": "Chocolate Soup",
-//         "image": "https://spoonacular.com/recipeImages/639203-312x231.jpg",
-//         "imageType": "jpg"
-//     },
-//     {
-//         "id": 639167,
-//         "title": "Chocolate Plums",
-//         "image": "https://spoonacular.com/recipeImages/639167-312x231.jpg",
-//         "imageType": "jpg"
-//     },
-//     {
-//         "id": 639234,
-//         "title": "Chocolate Wafers",
-//         "image": "https://spoonacular.com/recipeImages/639234-312x231.jpg",
-//         "imageType": "jpg"
-//     },
-//     {
-//         "id": 639168,
-//         "title": "Chocolate Popcorn",
-//         "image": "https://spoonacular.com/recipeImages/639168-312x231.jpg",
-//         "imageType": "jpg"
-//     },
-//     {
-//         "id": 67308,
-//         "title": "Chocolate Souffle",
-//         "image": "https://spoonacular.com/recipeImages/67308-312x231.jpg",
-//         "imageType": "jpg"
-//     }
-// ]
 
 const Recipes = () => {
   //set state (locally). useState returns an array with 2 items: first is the name of the state variable
@@ -60,8 +27,6 @@ const Recipes = () => {
       setRecipes(res.data.results);
     };
     fetchRecipes();
-    // uncomment below and comment above to use with RESULTS dummy data
-    // setRecipes(RESULTS)
   }, []);
 
   const Recipe = ({ title, image }) => (
