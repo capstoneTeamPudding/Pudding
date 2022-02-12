@@ -21,7 +21,7 @@ export const getFoodItemThunk = (foodItemId) => {
   return async (dispatch) => {
     try {
       const { data: foodItem } = await axios.get(
-        `https://pink-impala-56.loca.lt/api/foodItems/${foodItemId}`
+        `https://grumpy-eel-46.loca.lt/api/foodItems/${foodItemId}`
       );
       dispatch(_getFoodItem(foodItem));
     } catch (error) {
@@ -34,7 +34,7 @@ export const updateFoodItemThunk = (foodItem) => {
   return async (dispatch) => {
     try {
       const { data: updated } = await axios.put(
-        `https://pink-impala-56.loca.lt/api/foodItems/${foodItem.id}`,
+        `https://grumpy-eel-46.loca.lt/api/foodItems/${foodItem.id}`,
         foodItem
       );
       dispatch(_updateFoodItem(updated));

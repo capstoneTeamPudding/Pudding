@@ -41,7 +41,10 @@ export default function SingleFoodItem({ route, navigation }) {
     viewFoodItem(route.params.userUid, route.params.foodItemId);
   }, []);
 
-  const onPressRecipe = () => navigation.navigate("Recipes", { name });
+  const onPressRecipe = () =>
+    navigation.navigate("Recipes", {
+      name: fridgeSelector.foodItems[0].foodItem_name,
+    });
   console.log(fridgeSelector.foodItems[0]);
   return (
     <SafeAreaView style={styles.container}>
