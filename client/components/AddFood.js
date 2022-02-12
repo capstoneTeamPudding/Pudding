@@ -10,14 +10,26 @@ import {
   Image,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { addFoodItemThunk } from "../store/foodItems";
+import { addToFridgeThunk } from "../store/fridge";
 
 export default function AddFood({ navigation }) {
   let dispatch = useDispatch();
   const [name, setName] = useState("");
-  const [quantity, setQuantity] = useState();
+  const [quantity, setQuantity] = useState(1);
   const [category, setCategory] = useState("");
 
-  const handleSubmit = () => {};
+  const addFoodItem = (foodItem) => {
+    dispatch(addFoodItemThunk(foodItem));
+  };
+  const addToFridge = (userUid, foodItem, quantity) => {
+    dispatch(addToFridgeThunk(userUid, foodItem, quantity));
+  };
+
+  const handleSubmit = (userUid, name, quantity) => {
+    addToFridge("u087CSU21PhXkg73Rd4Uxa2ugtw2", name, quantity);
+    Alert.alert(`Successfully added ${name} to your fridge!`);
+  };
   return (
     <SafeAreaView style={styles.container}>
       <SafeAreaView style={styles.item}>
@@ -28,13 +40,6 @@ export default function AddFood({ navigation }) {
           placeholder="I.E. Russet Potato"
           value={name}
           onChangeText={(name) => setName(name)}
-        />
-        <Text style={styles.itemText2}>Type of Food:</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="I.E. Vegetable"
-          value={category}
-          onChangeText={(category) => setCategory(category)}
         />
         <Image
           style={styles.tinyThyme}
