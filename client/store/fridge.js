@@ -3,6 +3,7 @@ import axios from "axios";
 export const GET_FRIDGE = "GET_FRIDGE";
 export const GET_FRIDGE_ITEM = "GET_FRIDGE_ITEM";
 export const ADD_TO_FRIDGE = "ADD_TO_FRIDGE";
+export const UPDATE_FRIDGE = "UPDATE_FRIDGE";
 export const DELETE_FOODITEM_FROM_FRIDGE = "DELETE_FOODITEM_FROM_FRIDGE";
 export const DELETE_FRIDGE = "DELETE_FRIDGE";
 
@@ -21,6 +22,13 @@ export const _getFridgeItem = (foodItem) => {
 };
 
 export const _addToFridge = (foodItem) => {
+  return {
+    type: ADD_TO_FRIDGE,
+    foodItem,
+  };
+};
+
+export const _updateFridge = (foodItem) => {
   return {
     type: ADD_TO_FRIDGE,
     foodItem,
@@ -68,13 +76,13 @@ export const getFridgeItemThunk = (userUid, foodItemId) => {
   };
 };
 
-export const addToFridgeThunk = (userUid, foodItem_name, quantity) => {
+export const addToFridgeThunk = (uid, foodItem_name, quantity) => {
   return async (dispatch) => {
     try {
       const { data: foodItem } = await axios.post(
-        `https://helpless-donkey-8.loca.lt/api/fridge/${userUid}`,
+        `https://helpless-donkey-8.loca.lt/api/fridge/${uid}`,
         {
-          userUid,
+          uid,
           foodItem_name,
           quantity,
         }
@@ -87,17 +95,14 @@ export const addToFridgeThunk = (userUid, foodItem_name, quantity) => {
   };
 };
 
-export const updateFridgeThunk = (fridgeItem) => {
+export const updateFridgeThunk = (foodItem) => {
   return async (dispatch) => {
     try {
-      const { data: foodItem } = await axios.put(
-        `https://helpless-donkey-8.loca.lt/api/fridge/${userUid}/${foodItemId}`,
-        {
-          userUid,
-          foodItemId,
-        }
+      const { data: food } = await axios.put(
+        `https://helpless-donkey-8.loca.lt/api/fridge/${foodItem.userUid}/${foodItem.foodItemId}`,
+        foodItem
       );
-      dispatch(_addToFridge(foodItem));
+      dispatch(_updateFridge(foodItem));
     } catch (err) {
       console.log("ADD TO FRIDGE ERROR");
       console.error(err);
@@ -105,13 +110,13 @@ export const updateFridgeThunk = (fridgeItem) => {
   };
 };
 
-export const deleteFoodItemFromFridgeThunk = (userUid, foodItemId) => {
+export const deleteFoodItemFromFridgeThunk = (uid, foodItemId) => {
   return async (dispatch) => {
     try {
       await axios.delete(
-        `https://helpless-donkey-8.loca.lt/api/fridge/${userUid}/${foodItemId}`,
+        `https://helpless-donkey-8.loca.lt/api/fridge/${uid}/${foodItemId}`,
         {
-          userUid,
+          uid,
           foodItemId,
         }
       );
@@ -141,6 +146,12 @@ export default function fridgeReducer(state = initialState, action) {
       return action.fridge;
     case ADD_TO_FRIDGE:
       return [...state, action.foodItem];
+    case UPDATE_FRIDGE:
+      return state.map((foodItem) =>
+        foodItem.foodItemId === action.foodItem.foodItemId
+          ? action.foodItem
+          : foodItem
+      );
     case GET_FRIDGE_ITEM:
       return action.foodItem;
     case DELETE_FOODITEM_FROM_FRIDGE:

@@ -17,17 +17,20 @@ export default function AddFood({ navigation }) {
   let dispatch = useDispatch();
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState(1);
-  const [category, setCategory] = useState("");
 
   const addFoodItem = (foodItem) => {
     dispatch(addFoodItemThunk(foodItem));
   };
-  const addToFridge = (userUid, foodItem, quantity) => {
-    dispatch(addToFridgeThunk(userUid, foodItem, quantity));
+  const addToFridge = (uid, foodItem_name, quantity) => {
+    dispatch(addToFridgeThunk(uid, foodItem_name, quantity));
   };
 
-  const handleSubmit = (userUid, name, quantity) => {
-    addToFridge("u087CSU21PhXkg73Rd4Uxa2ugtw2", name, quantity);
+  const handleSubmit = async () => {
+    try {
+      await addToFridge("u087CSU21PhXkg73Rd4Uxa2ugtw2", name, quantity);
+    } catch (error) {
+      console.log(error);
+    }
     Alert.alert(`Successfully added ${name} to your fridge!`);
   };
   return (

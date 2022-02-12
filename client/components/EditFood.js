@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getFridgeItemThunk,
   deleteFoodItemFromFridgeThunk,
+  updateFridgeThunk,
 } from "../store/fridge";
 
 export default function EditFood({ route, navigation }) {
@@ -22,25 +23,39 @@ export default function EditFood({ route, navigation }) {
   const [quantity, setQuantity] = useState();
   const fridgeSelector = useSelector((state) => state.fridgeReducer);
   const foodItemSelector = useSelector((state) => state.foodItemReducer);
-  //uh passthrough?//);
   let userUid = route.params.userUid;
-  let id = route.params.foodItemId;
+  let id = route.params.id;
 
   const viewFoodItem = (userUid, foodItemId) => {
     dispatch(getFridgeItemThunk(userUid, foodItemId));
   };
 
-  const deleteFromFridge = (userUid, foodItemId) => {
-    dispatch(deleteFoodItemFromFridgeThunk(userUid, foodItemId));
+  const editFoodItem = (fooditem) => {
+    dispatch(updateFridgeThunk(fooditem));
   };
 
-  const handleSubmit = () => {
-    //IDK
+  const handleSubmit = async () => {
+    console.log(userUid);
+    try {
+      await editFoodItem({
+        userUid,
+        foodItemId: id,
+        name,
+        quantity,
+      });
+      Alert.alert(`Successfully updated ${name}!`);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  const deleteFromFridge = (uid, foodItemId) => {
+    dispatch(deleteFoodItemFromFridgeThunk(uid, foodItemId));
+  };
+
   useEffect(() => {
     viewFoodItem(route.params.userUid, route.params.id);
   }, []);
-  console.log();
   return (
     <SafeAreaView style={styles.container}>
       {!fridgeSelector ? (

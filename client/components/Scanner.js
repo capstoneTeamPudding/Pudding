@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { addFoodItemThunk } from "../store/foodItems";
 import { addToFridgeThunk } from "../store/fridge";
-// import { EDEMAM_KEY, EDEMAM_ID } from "../../.keys";
+import { EDEMAM_KEY, EDEMAM_ID } from "../../.keys";
 import axios from "axios";
 
 let EdamamURL = "https://api.edamam.com/api/food-database/v2/parser?";
@@ -23,8 +23,8 @@ export default function Scanner({ navigation }) {
   const addFoodItem = (foodItem) => {
     dispatch(addFoodItemThunk(foodItem));
   };
-  const addToFridge = (userId, foodItem, quantity) => {
-    dispatch(addToFridgeThunk(userId, foodItem, quantity));
+  const addToFridge = (userUid, foodItem, quantity) => {
+    dispatch(addToFridgeThunk(userUid, foodItem, quantity));
   };
 
   const askForCameraPermission = () => {
