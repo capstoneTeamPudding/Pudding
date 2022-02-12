@@ -2,7 +2,7 @@ const router = require("express").Router();
 const User = require("../db/models/User");
 
 
-const { checkAuth } = require("../auth-middleware.js");
+// const { checkAuth } = require("../auth-middleware.js");
 
 router.post("/login", async (req, res, next) => {
   try {
@@ -31,7 +31,7 @@ router.post("/signup", async (req, res, next) => {
   }
 });
 
-router.get("/me", checkAuth, async (req, res, next) => {
+router.get("/me", async (req, res, next) => {
   try {
     const user = await User.findByPk(req.body.uid);
     res.json(user);
@@ -40,7 +40,7 @@ router.get("/me", checkAuth, async (req, res, next) => {
   }
 });
 
-router.put("/update", checkAuth, async (req, res, next) => {
+router.put("/update", async (req, res, next) => {
   try {
     const user = await User.findByPk(req.body.uid);
     if (user) {
