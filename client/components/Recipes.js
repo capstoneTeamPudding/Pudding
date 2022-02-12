@@ -9,7 +9,7 @@ import {
   View,
 } from "react-native";
 const axios = require("axios");
-// import { SPOON_API_KEY } from "../../.keys";
+ import { SPOON_API_KEY } from "../../.keys";
 import SingleRecipe from "./SingleRecipe";
 
 
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
-    backgroundColor: "#dce6df",
+    //backgroundColor: "#dce6df",
     borderRadius: 20,
     borderColor: "teal",
     borderWidth: 1,
