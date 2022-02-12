@@ -12,19 +12,24 @@ import {
   View,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { getFridgeThunk } from "../store/fridge";
+import { getFridgeThunk, deleteFridgeThunk } from "../store/fridge";
 
 export default function Fridge({ navigation }) {
   const [selectedId, setSelectedId] = useState(null);
+  const [Fridge, setFridge] = useState([]);
   const dispatch = useDispatch();
   const fridgeSelector = useSelector((state) => state.fridgeReducer);
 
-  const viewFridge = (userId) => {
-    dispatch(getFridgeThunk(userId));
+  const viewFridge = (userUid) => {
+    dispatch(getFridgeThunk(userUid));
   };
 
-  useEffect((userId) => {
-    viewFridge(1);
+  const deleteFridge = (userUid) => {
+    dispatch(deleteFridgeThunk(userUid));
+  };
+
+  useEffect((userUid) => {
+    viewFridge("u087CSU21PhXkg73Rd4Uxa2ugtw2");
   }, []);
 
   const FridgeFlatList = ({ item, onPress, backgroundColor, textColor }) => (
@@ -41,47 +46,52 @@ export default function Fridge({ navigation }) {
     </TouchableOpacity>
   );
 
-  const navigationOpacity = (foodItemId) => {
-    navigation.navigate("SingleFoodItem", { id: foodItemId });
+  const navigationOpacity = (foodItemId, userUid) => {
+    navigation.navigate("SingleFoodItem", { foodItemId, userUid });
   };
 
-  const renderFridgeFlatList = ({ navigation, item }) => {
-    const color =
-      item.id === selectedId ? "rgb(42, 82, 69)" : "rgb(65, 140, 115)";
-
+  const renderFridgeFlatList = ({ item }) => {
     return (
       <FridgeFlatList
         item={item}
         onPress={() => {
           setSelectedId(item.id);
-          navigationOpacity(item.id);
+          navigationOpacity(item.id, "u087CSU21PhXkg73Rd4Uxa2ugtw2");
         }}
-        textColor={{ color }}
       />
     );
   };
   let DATA = fridgeSelector.foodItems;
+  console.log(DATA, "FRIDGE");
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity
-        style={styles.touchable}
-        onPress={() => navigation.navigate("Scanner")}
-      >
-        <Text style={{ color: "rgb(65, 140, 115)" }}>Add Food</Text>
-      </TouchableOpacity>
-      <Text style={styles.heading}>My Food</Text>
+      <SafeAreaView>
+        <TouchableOpacity
+          style={styles.touchable}
+          onPress={() => navigation.navigate("Scanner")}
+        >
+          <Text style={{ color: "rgb(65, 140, 115)" }}>Add Food</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
+      <Text>My Food</Text>
       {!DATA ? (
         <Text> Loading... </Text>
       ) : (
         <SafeAreaView>
           <FlatList
-            data={DATA}
+            data={fridgeSelector.foodItems}
             renderItem={renderFridgeFlatList}
             keyExtractor={(item) => item.id}
-            extraData={selectedId}
+            extraData={fridgeSelector}
           />
         </SafeAreaView>
       )}
+      <TouchableOpacity
+        style={styles.touchable}
+        onPress={() => deleteFridge("u087CSU21PhXkg73Rd4Uxa2ugtw2")}
+      >
+        <Text style={{ color: "rgb(65, 140, 115)" }}>DELETE</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
@@ -93,6 +103,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "column",
+    marginTop: 200,
+    marginBottom: 100,
   },
   item: {
     shadowColor: "rgb(44, 89, 74)",
@@ -118,7 +130,6 @@ const styles = StyleSheet.create({
     color: "red",
     borderRadius: 30,
     flexDirection: "row",
-    marginTop: 155,
     margin: 20,
   },
   tinyThyme: {

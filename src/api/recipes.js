@@ -31,11 +31,9 @@ router.get("/:recipeId", async (req, res, next) => {
   }
 });
 
-
-
 router.post("/:userId", async (req, res, next) => {
   try {
-    console.log("reqparams from save route", req.body)
+    console.log("reqparams from save route", req.body);
     let user = await User.findOne({ where: { id: req.params.userId } });
     const recipeToSave = await Recipe.findOrCreate({
       where: { recipe_name: req.body.recipeName, id: req.body.recipeId },
@@ -50,6 +48,7 @@ router.post("/:userId", async (req, res, next) => {
   }
 });
 
+
 router.post("/", async (req, res, next) => {
   try {
     let recipe = await Recipe.findOrCreate({
@@ -60,6 +59,5 @@ router.post("/", async (req, res, next) => {
     next(error);
   }  
 })
-
 
 module.exports = router;

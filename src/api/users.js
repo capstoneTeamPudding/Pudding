@@ -1,4 +1,4 @@
-const router = require('express'). Router()
+const router = require("express").Router();
 const User = require("../db/models/User");
 // const { checkAuth } = require('../auth-middleware');
 
@@ -12,7 +12,7 @@ const User = require("../db/models/User");
       next(err)
     }
   })
-  
+
   // GET /users/:id
   router.get('/:id', async (req, res, next) => {s
     try {
@@ -27,7 +27,7 @@ const User = require("../db/models/User");
       next (err)
     }
   })
-  
+
   // DELETE / users/:id
   router.get('/:id', async (req, res, next) => {
     try {
@@ -38,8 +38,8 @@ const User = require("../db/models/User");
       next (err)
     }
   })
-  
-  
+
+
   router.post('/', async (req, res, next) => {
     try {
       res.json(await User.create(req.body));
@@ -47,8 +47,8 @@ const User = require("../db/models/User");
       next(error);
     }
   });
-  
-  
+
+
   router.put('/:id', async (req, res, next) => {
     try {
       const userToUpdate = await User.findByPk(req.params.id);
@@ -57,7 +57,7 @@ const User = require("../db/models/User");
       next(error);
     }
   });
-  
-  
+
+
   module.exports = router;
- 
+

@@ -18,8 +18,11 @@ app.use(morgan("dev"));
 // body parsing middleware
 app.use(express.json());
 
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 // cors middleware
-app.use(cors({origin: true}));
+app.use(cors({ origin: true }));
 
 // app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(bodyParser.json());
@@ -27,8 +30,6 @@ app.use(cors({origin: true}));
 // auth and api routes
 app.use("/auth", require("./auth"));
 app.use("/api", require("./api"));
-
-
 
 app.get("/", (req, res) =>
   res.sendFile(path.join(__dirname, "..", "public/index.html"))

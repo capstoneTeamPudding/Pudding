@@ -6,25 +6,25 @@ const {
 //seed dummy data
 const fridges = [
   {
-    userId: 1,
+    userUid: "u087CSU21PhXkg73Rd4Uxa2ugtw2",
     foodItemId: 2,
     quantity: 3,
   },
   {
-    userId: 1,
+    userUid: "u087CSU21PhXkg73Rd4Uxa2ugtw2",
     foodItemId: 3,
     quantity: 1,
   },
   {
-    userId: 1,
+    userUid: "u087CSU21PhXkg73Rd4Uxa2ugtw2",
     foodItemId: 4,
     quantity: 1,
   },
   {
-    userId: 1,
+    userUid: "u087CSU21PhXkg73Rd4Uxa2ugtw2",
     foodItemId: 1,
     quantity: 1,
-  }
+  },
 ];
 
 const foodItems = [

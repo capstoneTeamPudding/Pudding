@@ -15,8 +15,8 @@ import Registration from "./client/components/Registration";
 import SingleRecipe from "./client/components/SingleRecipe";
 import SingleFoodItem from "./client/components/SingleFoodItem";
 import SearchSingleRecipe from "./client/components/SearchSingleRecipe";
-import BETA from "./client/components/BETA";
-
+import EditFood from "./client/components/EditFood";
+import AddFood from "./client/components/AddFood";
 
 const Stack = createNativeStackNavigator();
 
@@ -44,7 +44,7 @@ const AppSource = () => {
             headerTitleStyle: {
               fontWeight: "bold",
             },
-            headerLeft: null
+            headerLeft: null,
           }}
         />
         {/* <Stack.Screen name="Profile" component={Profile}/> */}
@@ -60,7 +60,7 @@ const AppSource = () => {
             headerTitleStyle: {
               fontWeight: "bold",
             },
-            headerLeft: () => false
+            headerLeft: () => false,
           }}
         />
         <Stack.Screen
@@ -75,7 +75,7 @@ const AppSource = () => {
             headerTitleStyle: {
               fontWeight: "bold",
             },
-            headerLeft: () => false
+            headerLeft: () => false,
           }}
         />
         <Stack.Screen
@@ -163,10 +163,10 @@ const AppSource = () => {
           }}
         />
         <Stack.Screen
-          name="BETA"
-          component={BETA}
+          name="Edit"
+          component={EditFood}
           options={{
-            title: "BETA",
+            title: "Edit",
             headerStyle: {
               backgroundColor: "rgb(65, 140, 115)",
             },
@@ -176,6 +176,7 @@ const AppSource = () => {
             },
           }}
         />
+        <Stack.Screen name="AddFood" component={AddFood} />
       </Stack.Navigator>
     </NavigationContainer>
   );

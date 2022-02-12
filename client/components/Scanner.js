@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { addFoodItemThunk } from "../store/foodItems";
 import { addToFridgeThunk } from "../store/fridge";
-// import { EDEMAM_KEY, EDEMAM_ID } from "../../.keys";
+import { EDEMAM_KEY, EDEMAM_ID } from "../../.keys";
 import axios from "axios";
 
 let EdamamURL = "https://api.edamam.com/api/food-database/v2/parser?";
@@ -23,8 +23,8 @@ export default function Scanner({ navigation }) {
   const addFoodItem = (foodItem) => {
     dispatch(addFoodItemThunk(foodItem));
   };
-  const addToFridge = (foodItem) => {
-    dispatch(addToFridgeThunk(foodItem));
+  const addToFridge = (userUid, foodItem, quantity) => {
+    dispatch(addToFridgeThunk(userUid, foodItem, quantity));
   };
 
   const askForCameraPermission = () => {
@@ -55,7 +55,7 @@ export default function Scanner({ navigation }) {
       {
         text: "Yes",
         onPress: () => {
-          addToFridge(foodName);
+          addToFridge("u087CSU21PhXkg73Rd4Uxa2ugtw2", foodName, 1);
           Alert.alert(`Successfully added ${foodName} to your fridge!`);
         },
       },
@@ -99,13 +99,7 @@ export default function Scanner({ navigation }) {
         />
         <Button
           title={"Add Manually"}
-          OnPress={() => {
-            return (
-              <View style={styles.container}>
-                <Text> Coming Soon! </Text>
-              </View>
-            );
-          }}
+          OnPress={() => navigation.navigate("Add Food")}
         />
       </View>
     );
@@ -118,6 +112,15 @@ export default function Scanner({ navigation }) {
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={styles.barcode}
       />
+      <Button
+        title="Go to Fridge"
+        onPress={() => navigation.navigate("Fridge")}
+      />
+      <Button
+        title="Add Manually"
+        onPress={() => navigation.navigate("AddFood")}
+      />
+
       {scanned && (
         <View>
           <BarCodeScanner style={{ height: 0 }} />
