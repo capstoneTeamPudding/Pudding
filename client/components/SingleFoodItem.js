@@ -44,6 +44,8 @@ export default function SingleFoodItem({ route, navigation }) {
   const onPressRecipe = () =>
     navigation.navigate("Recipes", {
       name: fridgeSelector.foodItems[0].foodItem_name,
+      foodItemId: fridgeSelector.foodItems[0].foodItemId,
+      userUid: userUid,
     });
   console.log(fridgeSelector.foodItems[0]);
   return (

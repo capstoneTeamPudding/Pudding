@@ -16,6 +16,7 @@ import { getFridgeThunk, deleteFridgeThunk } from "../store/fridge";
 
 export default function Fridge({ navigation }) {
   const [selectedId, setSelectedId] = useState(null);
+  const [Fridge, setFridge] = useState([]);
   const dispatch = useDispatch();
   const fridgeSelector = useSelector((state) => state.fridgeReducer);
 
@@ -61,6 +62,7 @@ export default function Fridge({ navigation }) {
     );
   };
   let DATA = fridgeSelector.foodItems;
+  console.log(DATA, "FRIDGE");
   return (
     <SafeAreaView style={styles.container}>
       <SafeAreaView>
@@ -80,7 +82,7 @@ export default function Fridge({ navigation }) {
             data={fridgeSelector.foodItems}
             renderItem={renderFridgeFlatList}
             keyExtractor={(item) => item.id}
-            extraData={selectedId}
+            extraData={fridgeSelector}
           />
         </SafeAreaView>
       )}

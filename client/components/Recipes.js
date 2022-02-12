@@ -7,11 +7,11 @@ import {
   SafeAreaView,
   Text,
   View,
+  Button,
 } from "react-native";
 const axios = require("axios");
 import { SPOON_API_KEY } from "../../.keys";
 import SingleRecipe from "./SingleRecipe";
-
 
 const spnAPI = "https://api.spoonacular.com/recipes/";
 
@@ -23,29 +23,28 @@ const Recipe = ({ title, image, onPress }) => (
 );
 
 const Recipes = ({ route, navigation }) => {
-  //set state (locally). useState returns an array with 2 items: first is the name of the state variable
-  //(recipes), second is the function to change/set variable to the state. With the dummy data RESULTS,
-  //I am setting the RESULTS object to the recipes variable so i can access the data
   const [recipes, setRecipes] = useState([]);
   const [currentRecipe, setCurrentRecipe] = useState(null);
-  //console.log(route)
   let ingredient = route.params.name;
-  //where you preform side effects, including data fetching, manually changing the DOM, using history (also available as a hook). Basically componentDidMount, componentDidUpdate and componentWillUnmount combined.
+  let foodItemId = route.params.foodItemId;
+  let userUid = route.params.userUid;
+
   useEffect(() => {
     const fetchRecipes = async () => {
-      //console.log(`${spnAPI}complexSearch?query=${ingredient}&number=4&apiKey=${SPOON_API_KEY}`)
       const res = await axios.get(
         `${spnAPI}complexSearch?query=${ingredient}&number=4&apiKey=${SPOON_API_KEY}`
       );
       setRecipes(res.data.results);
-      //console.log(res.data.results)
     };
     fetchRecipes();
   }, []);
-  
+
   const navigateSingleRecipe = (recipeId, recipeName, image) => {
-    // @Elena make sure you change "SearchSingleRecipe" to the name of your Component
-    navigation.navigate("SingleRecipe", { id: recipeId, title: recipeName, image: image });
+    navigation.navigate("SingleRecipe", {
+      id: recipeId,
+      title: recipeName,
+      image: image,
+    });
   };
 
   const renderRecipe = ({ item }) => {
@@ -54,20 +53,20 @@ const Recipes = ({ route, navigation }) => {
         title={item.title}
         image={item.image}
         onPress={() => {
-          setCurrentRecipe(item.id)
-          navigateSingleRecipe(item.id, item.title, item.image)
+          setCurrentRecipe(item.id);
+          navigateSingleRecipe(item.id, item.title, item.image);
         }}
       />
     );
   };
-
+  //cannot figure out how to get loading OR the message to show
   return (
     <View style={styles.container}>
       {recipes.length === null ? (
-        <View>
-          <Text>Loading...</Text>
+        <View style={styles.list}>
+          <Text style={styles.title}>Loading... </Text>
         </View>
-      ) : (
+      ) : recipes.length > 1 ? (
         <SafeAreaView style={styles.list}>
           <FlatList
             data={recipes}
@@ -76,6 +75,25 @@ const Recipes = ({ route, navigation }) => {
             extraData={currentRecipe}
           />
         </SafeAreaView>
+      ) : (
+        <View style={styles.list}>
+          <Text style={styles.title}>
+            Hey, we're sorry, it looks like we can't find anything with that
+            ingredient name! You'll likely get better results if you shorten the
+            name!
+          </Text>
+          <Text style={styles.title}>
+            Here's an example! Changing "Trader Joe's Organic Tahini 10.6 oz" to
+            simply "tahini"
+          </Text>
+          <Button
+            style={styles.button}
+            title="Go Back to Ingredient and Try Again"
+            onPress={() =>
+              navigation.navigate("SingleFoodItem", { foodItemId, userUid })
+            }
+          />
+        </View>
       )}
     </View>
   );
@@ -101,7 +119,6 @@ const styles = StyleSheet.create({
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
-    backgroundColor: "#dce6df",
     borderRadius: 20,
     borderColor: "teal",
     borderWidth: 1,

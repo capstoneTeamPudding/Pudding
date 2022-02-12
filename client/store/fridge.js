@@ -45,7 +45,7 @@ export const getFridgeThunk = (userUid) => {
   return async (dispatch) => {
     try {
       const { data: fridge } = await axios.get(
-        `https://grumpy-eel-46.loca.lt/api/fridge/${userUid}`
+        `https://helpless-donkey-8.loca.lt/api/fridge/${userUid}`
       );
       dispatch(_getFridge(fridge));
     } catch (error) {
@@ -58,7 +58,7 @@ export const getFridgeItemThunk = (userUid, foodItemId) => {
   return async (dispatch) => {
     try {
       const { data: fridgeItem } = await axios.get(
-        `https://grumpy-eel-46.loca.lt/api/fridge/${userUid}/${foodItemId}`
+        `https://helpless-donkey-8.loca.lt/api/fridge/${userUid}/${foodItemId}`
       );
       console.log(fridgeItem);
       dispatch(_getFridgeItem(fridgeItem));
@@ -72,7 +72,7 @@ export const addToFridgeThunk = (userUid, foodItem_name, quantity) => {
   return async (dispatch) => {
     try {
       const { data: foodItem } = await axios.post(
-        `https://grumpy-eel-46.loca.lt/api/fridge/${userUid}`,
+        `https://helpless-donkey-8.loca.lt/api/fridge/${userUid}`,
         {
           userUid,
           foodItem_name,
@@ -87,11 +87,29 @@ export const addToFridgeThunk = (userUid, foodItem_name, quantity) => {
   };
 };
 
+export const updateFridgeThunk = (fridgeItem) => {
+  return async (dispatch) => {
+    try {
+      const { data: foodItem } = await axios.put(
+        `https://helpless-donkey-8.loca.lt/api/fridge/${userUid}/${foodItemId}`,
+        {
+          userUid,
+          foodItemId,
+        }
+      );
+      dispatch(_addToFridge(foodItem));
+    } catch (err) {
+      console.log("ADD TO FRIDGE ERROR");
+      console.error(err);
+    }
+  };
+};
+
 export const deleteFoodItemFromFridgeThunk = (userUid, foodItemId) => {
   return async (dispatch) => {
     try {
       await axios.delete(
-        `https://grumpy-eel-46.loca.lt/api/fridge/${userUid}/${foodItemId}`,
+        `https://helpless-donkey-8.loca.lt/api/fridge/${userUid}/${foodItemId}`,
         {
           userUid,
           foodItemId,
@@ -107,7 +125,7 @@ export const deleteFridgeThunk = (userUid) => {
   return async (dispatch) => {
     try {
       await axios.delete(
-        `https://grumpy-eel-46.loca.lt/api/fridge/${userUid}`,
+        `https://helpless-donkey-8.loca.lt/api/fridge/${userUid}`,
         { userUid }
       );
     } catch (err) {
