@@ -21,7 +21,7 @@ export const getFoodItemThunk = (foodItemId) => {
   return async (dispatch) => {
     try {
       const { data: foodItem } = await axios.get(
-        `https://helpless-donkey-8.loca.lt/api/foodItems/${foodItemId}`
+        `https://the-thymely-cook.herokuapp.com/api/foodItems/${foodItemId}`
       );
       dispatch(_getFoodItem(foodItem));
     } catch (error) {
@@ -34,7 +34,7 @@ export const updateFoodItemThunk = (foodItem) => {
   return async (dispatch) => {
     try {
       const { data: updated } = await axios.put(
-        `https://helpless-donkey-8.loca.lt/api/foodItems/${foodItem.id}`,
+        `https://the-thymely-cook.herokuapp.com/api/foodItems/${foodItem.id}`,
         foodItem
       );
       dispatch(_updateFoodItem(updated));

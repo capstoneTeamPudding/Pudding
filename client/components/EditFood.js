@@ -25,6 +25,7 @@ export default function EditFood({ route, navigation }) {
   const foodItemSelector = useSelector((state) => state.foodItemReducer);
   let userUid = route.params.userUid;
   let id = route.params.id;
+  let nameFood = route.params.name;
 
   const viewFoodItem = (userUid, foodItemId) => {
     dispatch(getFridgeItemThunk(userUid, foodItemId));
@@ -63,9 +64,7 @@ export default function EditFood({ route, navigation }) {
       ) : (
         <SafeAreaView style={styles.container}>
           <SafeAreaView style={styles.item}>
-            <Text style={styles.heading}>
-              {fridgeSelector.foodItems[0].foodItem_name}
-            </Text>
+            <Text style={styles.heading}>{nameFood}</Text>
             <Text style={styles.itemText2}>Edit Name:</Text>
             <TextInput
               style={styles.input}

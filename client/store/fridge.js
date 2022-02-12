@@ -30,7 +30,7 @@ export const _addToFridge = (foodItem) => {
 
 export const _updateFridge = (foodItem) => {
   return {
-    type: ADD_TO_FRIDGE,
+    type: UPDATE_FRIDGE,
     foodItem,
   };
 };
@@ -53,7 +53,7 @@ export const getFridgeThunk = (userUid) => {
   return async (dispatch) => {
     try {
       const { data: fridge } = await axios.get(
-        `https://helpless-donkey-8.loca.lt/api/fridge/${userUid}`
+        `https://the-thymely-cook.herokuapp.com/api/fridge/${userUid}`
       );
       dispatch(_getFridge(fridge));
     } catch (error) {
@@ -66,7 +66,7 @@ export const getFridgeItemThunk = (userUid, foodItemId) => {
   return async (dispatch) => {
     try {
       const { data: fridgeItem } = await axios.get(
-        `https://helpless-donkey-8.loca.lt/api/fridge/${userUid}/${foodItemId}`
+        `https://the-thymely-cook.herokuapp.com/api/fridge/${userUid}/${foodItemId}`
       );
       console.log(fridgeItem);
       dispatch(_getFridgeItem(fridgeItem));
@@ -80,7 +80,7 @@ export const addToFridgeThunk = (uid, foodItem_name, quantity) => {
   return async (dispatch) => {
     try {
       const { data: foodItem } = await axios.post(
-        `https://helpless-donkey-8.loca.lt/api/fridge/${uid}`,
+        `https://the-thymely-cook.herokuapp.com/api/fridge/${uid}`,
         {
           uid,
           foodItem_name,
@@ -99,7 +99,7 @@ export const updateFridgeThunk = (foodItem) => {
   return async (dispatch) => {
     try {
       const { data: food } = await axios.put(
-        `https://helpless-donkey-8.loca.lt/api/fridge/${foodItem.userUid}/${foodItem.foodItemId}`,
+        `https://the-thymely-cook.herokuapp.com/api/fridge/${foodItem.userUid}/${foodItem.foodItemId}`,
         foodItem
       );
       dispatch(_updateFridge(foodItem));
@@ -114,7 +114,7 @@ export const deleteFoodItemFromFridgeThunk = (uid, foodItemId) => {
   return async (dispatch) => {
     try {
       await axios.delete(
-        `https://helpless-donkey-8.loca.lt/api/fridge/${uid}/${foodItemId}`,
+        `https://the-thymely-cook.herokuapp.com/api/fridge/${uid}/${foodItemId}`,
         {
           uid,
           foodItemId,
@@ -130,7 +130,7 @@ export const deleteFridgeThunk = (userUid) => {
   return async (dispatch) => {
     try {
       await axios.delete(
-        `https://helpless-donkey-8.loca.lt/api/fridge/${userUid}`,
+        `https://the-thymely-cook.herokuapp.com/api/fridge/${userUid}`,
         { userUid }
       );
     } catch (err) {
@@ -140,7 +140,7 @@ export const deleteFridgeThunk = (userUid) => {
 };
 let initialState = [];
 
-export default function fridgeReducer(state = initialState, action) {
+export default function fridgeReducer(state = [], action) {
   switch (action.type) {
     case GET_FRIDGE:
       return action.fridge;

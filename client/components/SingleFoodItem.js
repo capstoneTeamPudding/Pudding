@@ -83,7 +83,13 @@ export default function SingleFoodItem({ route, navigation }) {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.logout}
-        onPress={() => navigation.navigate("Edit", { userUid, id })}
+        onPress={() =>
+          navigation.navigate("Edit", {
+            userUid,
+            id,
+            name: fridgeSelector.foodItems[0].foodItem_name,
+          })
+        }
       >
         <Text style={{ color: "rgb(65, 140, 115)" }}>Edit</Text>
       </TouchableOpacity>
