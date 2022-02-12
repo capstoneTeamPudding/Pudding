@@ -8,9 +8,9 @@ const app = express();
 module.exports = app;
 
 // keys
-if (process.env.NODE_ENV !== "production") {
-  require("../.keys") && require("dotenv").config();
-}
+// if (process.env.NODE_ENV !== "production") {
+//   require("../.keys") && require("dotenv").config();
+// }
 
 // logging middleware
 app.use(morgan("dev"));
@@ -18,9 +18,6 @@ app.use(morgan("dev"));
 // body parsing middleware
 app.use(express.json());
 
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
 // cors middleware
 app.use(cors({ origin: true }));
 

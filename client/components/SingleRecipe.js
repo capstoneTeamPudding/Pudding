@@ -4,7 +4,7 @@ import { Button, StyleSheet, TouchableOpacity, Image, FlatList, SafeAreaView, Te
 import { saveRecipeThunk } from "../store/singleRecipe";
 const spnAPI = 'https://api.spoonacular.com/recipes/';
 //import {SPOON_API_KEY} from '@env'
-import { SPOON_API_KEY } from "../../.keys";
+// import { SPOON_API_KEY } from "../../.keys";
 const axios = require("axios");
 
 import { useSelector, useDispatch } from "react-redux";
