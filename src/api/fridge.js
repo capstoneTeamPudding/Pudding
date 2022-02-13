@@ -4,8 +4,6 @@ const FoodItem = require("../db/models/FoodItem");
 const Fridge = require("../db/models/Fridge");
 const User = require("../db/models/User");
 
-let UserId = "u087CSU21PhXkg73Rd4Uxa2ugtw2";
-
 router.get("/", async (req, res, next) => {
   try {
     const userFridge = await User.findAll({
@@ -40,11 +38,11 @@ router.get("/:userUid", async (req, res, next) => {
 router.get("/:userUid/:foodItemId", async (req, res, next) => {
   try {
     const userFood = await User.findOne({
-      where: { uid: req.params.userUid },
+      where: { uid: req.body.userUid },
       attributes: ["uid"],
       include: {
         model: FoodItem,
-        where: { id: req.params.foodItemId },
+        where: { id: req.body.foodItemId },
       },
     });
     if (!userFood) {
@@ -77,6 +75,7 @@ router.post("/:uid", async (req, res, next) => {
     let currentUser = await User.findOne({
       where: { uid: req.body.uid },
     });
+
     let fridge = await currentUser.addFoodItem(fooditem[0], {
       through: { quantity: req.body.quantity },
     });
@@ -92,6 +91,7 @@ router.delete("/:uid", async (req, res, next) => {
     const userFridgeItem = await Fridge.findAll({
       where: { userUid: req.body.uid },
     });
+    console.log(userFridgeItem);
     await userFridgeItem.destroy();
     res.status(204).send("No content");
   } catch (error) {
