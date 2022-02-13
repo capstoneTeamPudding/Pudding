@@ -20,7 +20,7 @@ const User = require("../db/models/User");
         where: {
           id: req.params.id
         },
-        attributes: ['id', 'firstName', 'lastName', 'email', 'myFav',]
+        attributes: ['uid', 'firstName', 'lastName', 'email', 'myFav',]
       })
       res.json(users)
     } catch(err) {
