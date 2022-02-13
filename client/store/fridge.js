@@ -110,13 +110,13 @@ export const updateFridgeThunk = (foodItem) => {
   };
 };
 
-export const deleteFoodItemFromFridgeThunk = (uid, foodItemId) => {
+export const deleteFoodItemFromFridgeThunk = (userUid, foodItemId) => {
   return async (dispatch) => {
     try {
       await axios.delete(
-        `https://the-thymely-cook.herokuapp.com/api/fridge/${uid}/${foodItemId}`,
+        `https://the-thymely-cook.herokuapp.com/api/fridge/${userUid}/${foodItemId}`,
         {
-          uid,
+          userUid,
           foodItemId,
         }
       );

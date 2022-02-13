@@ -85,7 +85,7 @@ router.post("/:uid", async (req, res, next) => {
   }
 });
 
-//entire fridge?
+//entire fridge?//notreallynecessary
 router.delete("/:uid", async (req, res, next) => {
   try {
     const userFridgeItem = await Fridge.findAll({

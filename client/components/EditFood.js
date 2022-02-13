@@ -50,8 +50,13 @@ export default function EditFood({ route, navigation }) {
     }
   };
 
-  const deleteFromFridge = (userUid, foodItemId) => {
-    dispatch(deleteFoodItemFromFridgeThunk(userUid: route.params.userUid , foodItemId:  ));
+  const deleteFromFridge = () => {
+    dispatch(
+      deleteFoodItemFromFridgeThunk({
+        userUid: route.params.userUid,
+        foodItemId: route.params.id,
+      })
+    );
   };
 
   useEffect(() => {
@@ -91,10 +96,7 @@ export default function EditFood({ route, navigation }) {
             <Text style={{ color: "rgb(65, 140, 115)" }}>Submit</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.touchable}
-            // onPress={deleteFromFridge(userUid, id)}
-          >
+          <TouchableOpacity style={styles.touchable} onPress={deleteFromFridge}>
             <Text style={{ color: "red" }}>Delete From Fridge</Text>
           </TouchableOpacity>
         </SafeAreaView>
