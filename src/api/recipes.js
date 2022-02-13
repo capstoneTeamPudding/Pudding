@@ -2,7 +2,6 @@ const router = require("express").Router();
 const Recipe = require("../db/models/Recipe");
 const User = require("../db/models/User");
 
-let UserId = 1;
 
 
 router.get("/", async (req, res, next) => {
@@ -31,13 +30,33 @@ router.get("/:recipeId", async (req, res, next) => {
 });
 
 
+router.get("/user/:userUid", async (req, res, next) => {
+  try {
+    const userFav = await User.findOne({
+      where: { uid: req.params.userUid },
+      attributes: ["uid"],
+      include: [
+        {
+          model: Recipe,
+          attributes: ["id", "recipe_name", "imageUrl"],
+          required: true,
+        },
+      ],
+    });
+    res.json(userFav);
+  } catch (error) {
+    next(error);
+  }
+});
+
+
 
 router.post("/:userUid", async (req, res, next) => {
   try {
     //console.log("reqparams from save route", req.body, "userUID is:", req.params.userUid)
     let user = await User.findOne({ where: { uid: req.params.userUid } });
     const recipeToSave = await Recipe.findOrCreate({
-      where: { recipe_name: req.body.recipeName, id: req.body.recipeId },
+      where: { recipe_name: req.body.recipeName, id: req.body.recipeId, imageUrl: req.body.image },
     });
     let user_recipe = user.addRecipe(recipeToSave[0], {
       through: { isfav: true },

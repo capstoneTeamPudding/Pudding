@@ -8,7 +8,7 @@ const axios = require("axios");
 
 import { useSelector, useDispatch } from "react-redux";
 
-export default function SingleRecipe({route}) {
+export default function SingleRecipe({route, navigation}) {
   const [recipe, setRecipe] = useState( null );
   const id = route.params.id
   const name = route.params.title
@@ -23,6 +23,7 @@ export default function SingleRecipe({route}) {
   //my old
   
   useEffect(() => {
+    console.log("route",route.params)
     const fetchRecipe = async () => {
       const { data: recipe } = await axios.get(`${spnAPI}${id}/information?includeNutrition=false&apiKey=${SPOON_API_KEY}`);
       setRecipe(recipe)
@@ -31,9 +32,12 @@ export default function SingleRecipe({route}) {
   }, 
   []);
   const saveToFav = () => {
-    console.log("req.params?", route.params)
-    alert('Saved to favorites!')
-    dispatch(saveRecipeThunk("u087CSU21PhXkg73Rd4Uxa2ugtw2", recipe));
+   
+    dispatch(saveRecipeThunk("u087CSU21PhXkg73Rd4Uxa2ugtw2", recipe, image));
+  };
+  const goToFav = () => {
+    navigation.navigate("Favorites", { 
+    });
   };
   if (recipe) {
       return (
@@ -58,6 +62,9 @@ export default function SingleRecipe({route}) {
         }
         <TouchableOpacity style={styles.button} >
         <Text style={styles.buttonText} onPress={saveToFav}>Save to favorites</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} >
+        <Text style={styles.buttonText} onPress={goToFav}>Favorites</Text>
         </TouchableOpacity>
         <Image
           style={styles.tinyThyme}

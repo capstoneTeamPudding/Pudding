@@ -22,18 +22,18 @@ export const saveRecipe = (recipe) => ({
 
 //THUNK
 
-export const saveRecipeThunk = (userUid,recipeObj) => {
+export const saveRecipeThunk = (userUid,recipeObj,image) => {
   //let userUid = 1;
   let recipeName = recipeObj.title
   let recipeId = recipeObj.id
-  console.log("recipe from thunk", recipeName, recipeId)
+  console.log("recipe from thunk", recipeName, recipeId, image)
   return async (dispatch) => {
     try {
       const { data: recipe } = await axios.post(
         //`https://fuzzy-cow-61.loca.lt/api/recipes/${userUid}`,
         `https://the-thymely-cook.herokuapp.com/api/recipes/${userUid}`,
         {
-          recipeName, recipeId
+          recipeName, recipeId, image
         }
       );
       dispatch(saveRecipe(recipeObj));
