@@ -67,6 +67,15 @@ export const updateUserThunk =
 //     return err.message;
 //   }
 // };
+const verify = (data, dispatch) => {
+  if(data.uid) {
+    dispatch(setUserThunk());
+    return true;
+  } else {
+    console.log("failed to authenticate");
+    return false
+  }
+}
 
 export const authenticateSignUp =
   ({ email, firstName, lastName, password, method }) =>
