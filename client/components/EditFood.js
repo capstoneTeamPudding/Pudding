@@ -55,7 +55,6 @@ export default function EditFood({ route, navigation }) {
       await editFridgeItem({
         userUid,
         foodItemId: id,
-        name,
         quantity,
       });
       Alert.alert(`Successfully updated ${name}!`);
