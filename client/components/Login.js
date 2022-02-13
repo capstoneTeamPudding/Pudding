@@ -65,7 +65,7 @@ export default function Login({ navigation }) {
             "https://us.123rf.com/450wm/eridanka/eridanka2103/eridanka210300026/165315737-a-sprig-of-rosemary-hand-drawn-sketch-style-illustration-design-element.jpg?ver=6",
         }}
       />
-      <Text style={styles.text}>Enter your email and password to sign in:</Text>
+      {/* <Text style={styles.text}>Enter your email and password to sign in:</Text> */}
       <TextInput
         style={styles.emailInput}
         placeholder="Enter your email*"
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
   footerView: {
     flex: 1,
     alignItems: "center",
-    marginTop: 100,
+    marginTop: 146,
   },
   footerText: {
     fontSize: 17,
