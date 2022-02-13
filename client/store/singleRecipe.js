@@ -51,7 +51,7 @@ const initialState = {
 //REDUCER
 
 export default function recipeReducer(state = [], action) {
-    //console.log("I'm recipeReducer, I got ", action.recipe)
+    
   switch (action.type) {
     case SAVE_RECIPE:
       return [...state, action.recipe]
