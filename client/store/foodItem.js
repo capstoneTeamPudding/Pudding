@@ -51,9 +51,7 @@ export default function foodItemReducer(state = initialState, action) {
     case GET_FOOD_ITEM:
       return action.foodItem;
     case UPDATE_FOOD_ITEM:
-      return state.map((foodItem) =>
-        foodItem.id === action.foodItem.id ? action.foodItem : foodItem
-      );
+      return action.foodItem;
     default:
       return state;
   }
