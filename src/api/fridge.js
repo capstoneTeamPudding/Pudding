@@ -19,7 +19,7 @@ router.get("/", async (req, res, next) => {
 router.get("/:userUid", async (req, res, next) => {
   try {
     const userFridge = await User.findOne({
-      where: { uid: req.body.userUid },
+      where: { uid: req.params.userUid },
       attributes: ["uid"],
       include: [
         {
