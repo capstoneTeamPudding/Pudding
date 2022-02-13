@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet, View, TextInput, TouchableOpacity, Alert, Image } from 'react-native';
+import { Text, StyleSheet, SafeAreaView, View, TextInput, TouchableOpacity, Alert, Image } from 'react-native';
 import { auth } from '../firebaseAuth/firebase'
 import { authenticateSignUp } from '../store'
 import { useDispatch } from "react-redux"
@@ -53,7 +53,7 @@ export default function Registration({ navigation }) {
     }
  
   return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <Image 
           style={styles.tinyTomato}
           source={{
@@ -107,82 +107,85 @@ export default function Registration({ navigation }) {
                </Text>
             </Text>
           </View>
-      </View> 
+      </SafeAreaView> 
   );
 };
 
       const styles = StyleSheet.create({
         container: {
-          flex:1,
-          padding:"4%",
-          backgroundColor: "white",
-          alignItems: "center",
-          // justifyContent: "center",
-          position: 'relative',
-          padding: 100
-          
+          flex: 1,
+          backgroundColor: "#E6EDE9",
+          alignItems: "center"
         },
         text: {
           textAlign: "center",
           fontSize: 18,
           margin: 10,
           fontWeight: "bold",
-          color: "#40434E",
+          color: "#40434E"
         },
         firstnameInput: {
           textAlign: "center",
           justifyContent: "center",
-          width: 300,
-          borderWidth: 3,
+          width: "80%",
+          height: 50,
+          backgroundColor: "#EFEEEE",
+          borderWidth: 2,
           borderRadius: 25,
-          borderColor:"rgb(65, 140, 115)",
+          borderColor: "#418C73",
           padding: 10,
-          margin: 5,
+          margin: 10
         },
         lastnameInput: {
           textAlign: "center",
           justifyContent: "center",
-          width: 300,
-          borderWidth: 3,
+          width: "80%",
+          height: 50,
+          backgroundColor: "#EFEEEE",
+          borderWidth: 2,
           borderRadius: 25,
-          borderColor:"rgb(65, 140, 115)",
+          borderColor: "#418C73",
           padding: 10,
-          margin: 5,
+          margin: 10
         },
         emailInput: {
           textAlign: "center",
           justifyContent: "center",
-          width: 300,
-          borderWidth: 3,
+          width: "80%",
+          height: 50,
+          backgroundColor: "#EFEEEE",
+          borderWidth: 2,
           borderRadius: 25,
-          borderColor:"rgb(65, 140, 115)",
+          borderColor: "#418C73",
           padding: 10,
-          margin: 5,
+          margin: 10
         },
         passwordInput: {
           textAlign: "center",
           justifyContent: "center",
-          width: 300,
-          borderWidth: 3,
+          width: "80%",
+          height: 50,
+          backgroundColor: "#EFEEEE",
+          borderWidth: 2,
           borderRadius: 25,
-          borderColor:"rgb(65, 140, 115)",
+          borderColor: "#418C73",
           padding: 10,
-          margin: 5,
+          margin: 10
         },
         buttonText: {
           color: "white",
           fontWeight: "bold",
           textAlign: "center",
+          justifyContent: "center",
+          margin: 16,
+          marginLeft: 40,
+          marginRight: 40
         },
         button: {
-          width: 150,
-          padding: 5,
-          backgroundColor: "#8F540E",
-          borderWidth: 2,
-          borderColor: "#AD8557",
-          borderRadius: 15,
+          backgroundColor: "#418C73",
+          borderRadius: 30,
           alignSelf: "center",
-          margin: 8,
+          margin: 20,
         },
         forgotButton:{
           width: 200,
@@ -205,17 +208,17 @@ export default function Registration({ navigation }) {
         footerView: {
           flex: 1,
           alignItems: 'center',
-          marginTop:80
+          marginTop:50
         },
         footerText: {
           fontSize: 17,
           color: '#2e2e2d',
-          fontFamily: 'Lato_400Regular',
+          fontFamily: 'Avenir',
           letterSpacing: 0.2,
         },
         footerLink: {
           color: '#1261B1',
-          fontFamily: 'Lato_900Black',
+          fontFamily: 'Avenir',
           fontSize: 17,
           letterSpacing: 0.2,
         },

@@ -44,7 +44,7 @@ const AppSource = () => {
             headerTitleStyle: {
               fontWeight: "bold",
             },
-            headerLeft: null,
+            headerLeft: () => false,
           }}
         />
         {/* <Stack.Screen name="Profile" component={Profile}/> */}
