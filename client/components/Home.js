@@ -21,6 +21,7 @@ export default function Home({ navigation }) {
         title="Go to Fridge"
         onPress={() => navigation.navigate("Fridge")}
       />
+      
       {/* <Button
         style={styles.button}
         title="Go to Recipes"
@@ -30,6 +31,11 @@ export default function Home({ navigation }) {
         style={styles.button}
         title="Go to Recipe"
         onPress={() => navigation.navigate("SingleRecipe", { id: 663641, title: "Some Cool Name" })}
+      />
+      <Button
+        style={styles.button}
+        title="Go to Favorites"
+        onPress={() => navigation.navigate("Favorites",  { uid: "u087CSU21PhXkg73Rd4Uxa2ugtw2"})}
       />
       <Logout />
       {/* // <NavigationBar /> */}
