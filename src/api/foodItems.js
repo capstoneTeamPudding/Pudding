@@ -39,7 +39,7 @@ router.post("/", async (req, res, next) => {
 router.put("/:foodItemId", async (req, res, next) => {
   try {
     const foodItem = await FoodItem.findOne({
-      where: { id: req.body.foodItemId },
+      where: { id: req.params.foodItemId },
     });
     await foodItem.update(req.body);
     await foodItem.save();
