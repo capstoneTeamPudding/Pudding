@@ -1,10 +1,9 @@
-/* eslint-disable no-unused-vars */
-
 const router = require("express").Router();
 const Recipe = require("../db/models/Recipe");
 const User = require("../db/models/User");
 
 let UserId = 1;
+
 
 router.get("/", async (req, res, next) => {
   try {
@@ -31,9 +30,11 @@ router.get("/:recipeId", async (req, res, next) => {
   }
 });
 
+
+
 router.post("/:userId", async (req, res, next) => {
   try {
-    console.log("reqparams from save route", req.body);
+    console.log("reqparams from save route", req.body)
     let user = await User.findOne({ where: { id: req.params.userId } });
     const recipeToSave = await Recipe.findOrCreate({
       where: { recipe_name: req.body.recipeName, id: req.body.recipeId },
@@ -48,11 +49,15 @@ router.post("/:userId", async (req, res, next) => {
   }
 });
 
-// router.post("/", async (req, res, next) => {
-//   try {
-//     let recipe = await Recipe.findOrCreate({
-//       where: { recipe_name: req.body.recipe_name },
-//     });
-//     res.status(201).json(recipe[0]);
-//   }
+router.post("/", async (req, res, next) => {
+  try {
+    let recipe = await Recipe.findOrCreate({
+      where: { recipe_name: req.body.recipe_name },
+    });
+    res.status(201).json(recipe[0]);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
