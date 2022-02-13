@@ -32,16 +32,16 @@ router.get("/:recipeId", async (req, res, next) => {
 
 
 
-router.post("/:userId", async (req, res, next) => {
+router.post("/:userUid", async (req, res, next) => {
   try {
-    console.log("reqparams from save route", req.body)
-    let user = await User.findOne({ where: { id: req.params.userId } });
+    //console.log("reqparams from save route", req.body, "userUID is:", req.params.userUid)
+    let user = await User.findOne({ where: { uid: req.params.userUid } });
     const recipeToSave = await Recipe.findOrCreate({
       where: { recipe_name: req.body.recipeName, id: req.body.recipeId },
     });
     let user_recipe = user.addRecipe(recipeToSave[0], {
       through: { isfav: true },
-      //can give it any quantity here will change to scroll through so user sets it
+      
     });
     res.status(201).json(user_recipe);
   } catch (error) {

@@ -31,17 +31,23 @@ export default function SingleRecipe({route}) {
   }, 
   []);
   const saveToFav = () => {
-    //console.log("recipe from saveHandler", recipe)
+    console.log("req.params?", route.params)
     alert('Saved to favorites!')
-    dispatch(saveRecipeThunk(recipe));
+    dispatch(saveRecipeThunk("u087CSU21PhXkg73Rd4Uxa2ugtw2", recipe));
   };
   if (recipe) {
       return (
       <ScrollView>
       <View style={styles.container}>
-        <Image  source={ {uri: image} } />
-        <Text style={styles.text}></Text> 
+      
+        
         <Text style={styles.text}>{name}</Text> 
+        <Image
+          style={styles.recipeimg}
+          source={{
+          uri:image,
+          }}
+        />
         <Text style={styles.text2}>{ recipe.readyInMinutes } Minutes </Text>
         {
             recipe.extendedIngredients.map((ingredient) => (<Text style={styles.text3}> { ingredient.original }</Text>))
@@ -111,6 +117,13 @@ const styles = StyleSheet.create({
   tinyThyme: {
     width: 40,
     height: 40,
+  },
+  recipeimg: {
+    width: 100,
+    height: 100,
+    borderColor: "lightblue",
+    borderRadius: 15,
+    borderWidth: 5,
   },
   buttonText: {
     color: "white",
