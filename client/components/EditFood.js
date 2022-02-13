@@ -42,7 +42,7 @@ export default function EditFood({ route, navigation }) {
 
   const handleName = async () => {
     try {
-      await editFoodItem({ id, name });
+      await editFoodItem({ foodItemId: id, foodItem_name: name });
       Alert.alert(`Successfully updated ${name}!`);
     } catch (error) {
       console.log(error);

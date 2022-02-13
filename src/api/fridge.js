@@ -4,8 +4,6 @@ const FoodItem = require("../db/models/FoodItem");
 const Fridge = require("../db/models/Fridge");
 const User = require("../db/models/User");
 
-let UserId = "u087CSU21PhXkg73Rd4Uxa2ugtw2";
-
 router.get("/", async (req, res, next) => {
   try {
     const userFridge = await User.findAll({
@@ -77,6 +75,7 @@ router.post("/:uid", async (req, res, next) => {
     let currentUser = await User.findOne({
       where: { uid: req.body.uid },
     });
+
     let fridge = await currentUser.addFoodItem(fooditem[0], {
       through: { quantity: req.body.quantity },
     });

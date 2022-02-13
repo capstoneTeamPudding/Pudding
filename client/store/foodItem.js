@@ -51,7 +51,6 @@ export default function foodItemReducer(state = initialState, action) {
     case GET_FOOD_ITEM:
       return action.foodItem;
     case UPDATE_FOOD_ITEM:
-      console.log(state);
       return action.foodItem;
     default:
       return state;
