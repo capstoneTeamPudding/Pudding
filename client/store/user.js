@@ -7,7 +7,7 @@ export const newUser = () =>
         data: {
           email: "krystin@gmail.com",
           firstName: "Krystin",
-          lastName: "Fields"
+          lastName: "Fieldss"
         }
       })
     } catch (err) {

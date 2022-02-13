@@ -11,6 +11,7 @@ import {
   Image,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { updateFoodItemThunk } from "../store/foodItem";
 import {
   getFridgeItemThunk,
   deleteFoodItemFromFridgeThunk,
@@ -31,17 +32,29 @@ export default function EditFood({ route, navigation }) {
     dispatch(getFridgeItemThunk(userUid, foodItemId));
   };
 
-  const editFoodItem = (fooditem) => {
+  const editFridgeItem = (fooditem) => {
     dispatch(updateFridgeThunk(fooditem));
+  };
+
+  const editFoodItem = (fooditem) => {
+    dispatch(updateFoodItemThunk(fooditem));
+  };
+
+  const handleName = async () => {
+    try {
+      await editFoodItem({ foodItemId: id, foodItem_name: name });
+      Alert.alert(`Successfully updated ${name}!`);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleSubmit = async () => {
     console.log(userUid);
     try {
-      await editFoodItem({
+      await editFridgeItem({
         userUid,
         foodItemId: id,
-        name,
         quantity,
       });
       Alert.alert(`Successfully updated ${name}!`);
@@ -77,6 +90,9 @@ export default function EditFood({ route, navigation }) {
               value={name}
               onChangeText={(name) => setName(name)}
             />
+            <TouchableOpacity style={styles.touchable} onPress={handleName}>
+              <Text style={{ color: "rgb(65, 140, 115)" }}>Submit Name</Text>
+            </TouchableOpacity>
             <Image
               style={styles.tinyThyme}
               source={{
@@ -91,10 +107,12 @@ export default function EditFood({ route, navigation }) {
               value={quantity}
               onChangeText={(quantity) => setQuantity(quantity)}
             />
+            <TouchableOpacity style={styles.touchable} onPress={handleSubmit}>
+              <Text style={{ color: "rgb(65, 140, 115)" }}>
+                Submit Quantity
+              </Text>
+            </TouchableOpacity>
           </SafeAreaView>
-          <TouchableOpacity style={styles.touchable} onPress={handleSubmit}>
-            <Text style={{ color: "rgb(65, 140, 115)" }}>Submit</Text>
-          </TouchableOpacity>
 
           <TouchableOpacity style={styles.touchable} onPress={deleteFromFridge}>
             <Text style={{ color: "red" }}>Delete From Fridge</Text>
