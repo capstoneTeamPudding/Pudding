@@ -8,9 +8,9 @@ const app = express();
 module.exports = app;
 
 //keys
-if (process.env.NODE_ENV !== "production") {
-  require("../keys") && require("dotenv").config();
-}
+// if (process.env.NODE_ENV !== "production") {
+//   require("../.keys") && require("dotenv").config();
+// }
 
 // logging middleware
 app.use(morgan("dev"));
