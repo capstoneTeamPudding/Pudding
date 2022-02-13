@@ -6,7 +6,8 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  Alert,
+  StatusBar,
+  SafeAreaView,
   Image,
 } from "react-native";
 import { auth } from "../firebaseAuth/firebase";
@@ -52,7 +53,11 @@ export default function Login({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <StatusBar
+        animated={true}
+        backgroundColor="#61dafb"
+       />
       <Image
         style={styles.tinyTomato}
         source={{
@@ -60,7 +65,7 @@ export default function Login({ navigation }) {
             "https://us.123rf.com/450wm/eridanka/eridanka2103/eridanka210300026/165315737-a-sprig-of-rosemary-hand-drawn-sketch-style-illustration-design-element.jpg?ver=6",
         }}
       />
-      <Text style={styles.text}>Enter your email and password to sign in:</Text>
+      {/* <Text style={styles.text}>Enter your email and password to sign in:</Text> */}
       <TextInput
         style={styles.emailInput}
         placeholder="Enter your email*"
@@ -76,7 +81,7 @@ export default function Login({ navigation }) {
         secureTextEntry={true}
       />
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Submit</Text>
+        <Text style={styles.buttonText}>Log In</Text>
       </TouchableOpacity>
       {/* <TouchableOpacity style={styles.forgotButton} onPress={()=>navigation.navigate('forgotPassword')}>
             // <Text style={styles.buttonText}>Forgot password!!!</Text>
@@ -89,21 +94,19 @@ export default function Login({ navigation }) {
           </Text>
         </Text>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: "4%",
-    backgroundColor: "white",
+    backgroundColor: "#E6EDE9",
     alignItems: "center",
-    // justifyContent: "center",
-    position: "relative",
   },
   text: {
     textAlign: "center",
+    fontFamily: "Avenir",
     fontSize: 15,
     margin: 10,
     fontWeight: "bold",
@@ -112,20 +115,24 @@ const styles = StyleSheet.create({
   emailInput: {
     textAlign: "center",
     justifyContent: "center",
-    width: 300,
-    borderWidth: 3,
+    width: "80%",
+    height: 50,
+    backgroundColor: "#EFEEEE",
+    borderWidth: 2,
     borderRadius: 25,
-    borderColor: "rgb(65, 140, 115)",
+    borderColor: "#418C73",
     padding: 10,
-    margin: 5,
+    margin: 20,
   },
   passwordInput: {
     textAlign: "center",
     justifyContent: "center",
-    width: 300,
-    borderWidth: 3,
+    width: "80%",
+    height: 50,
+    backgroundColor: "#EFEEEE",
+    borderWidth: 2,
     borderRadius: 25,
-    borderColor: "rgb(65, 140, 115)",
+    borderColor: "#418C73",
     padding: 10,
     margin: 5,
   },
@@ -133,16 +140,16 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
+    justifyContent: "center",
+    margin: 16,
+    marginLeft: 40,
+    marginRight: 40
   },
   button: {
-    width: 150,
-    padding: 5,
-    backgroundColor: "#8F540E",
-    borderWidth: 2,
-    borderColor: "#AD8557",
-    borderRadius: 15,
+    backgroundColor: "#418C73",
+    borderRadius: 30,
     alignSelf: "center",
-    margin: 8,
+    margin: 20,
   },
   forgotButton: {
     width: 200,
@@ -159,23 +166,24 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   tinyTomato: {
+    marginTop: 100,
     width: 150,
     height: 150,
   },
   footerView: {
     flex: 1,
     alignItems: "center",
-    marginTop: 100,
+    marginTop: 146,
   },
   footerText: {
     fontSize: 17,
     color: "#2e2e2d",
-    fontFamily: "Lato_400Regular",
+    fontFamily: "Avenir",
     letterSpacing: 0.2,
   },
   footerLink: {
     color: "#1261B1",
-    fontFamily: "Lato_900Black",
+    fontFamily: "Avenir",
     fontSize: 17,
     letterSpacing: 0.2,
   },
