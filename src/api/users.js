@@ -1,18 +1,18 @@
-const router = require('express'). Router()
+const router = require("express").Router();
 const User = require("../db/models/User");
 // const { checkAuth } = require('../auth-middleware');
 
   router.get('/', async (req, res, next) => {
     try {
       const users = await User.findAll({
-        attributes: ['id', 'email']
+        attributes: ['uid', 'firstName', 'lastName', 'email']
       })
       res.json(users)
     } catch (err) {
       next(err)
     }
   })
-  
+
   // GET /users/:id
   router.get('/:id', async (req, res, next) => {s
     try {
@@ -20,14 +20,14 @@ const User = require("../db/models/User");
         where: {
           id: req.params.id
         },
-        attributes: ['id', 'firstName', 'lastName', 'email', 'myFav',]
+        attributes: ['uid', 'firstName', 'lastName', 'email', 'myFav',]
       })
       res.json(users)
     } catch(err) {
       next (err)
     }
   })
-  
+
   // DELETE / users/:id
   router.get('/:id', async (req, res, next) => {
     try {
@@ -38,8 +38,8 @@ const User = require("../db/models/User");
       next (err)
     }
   })
-  
-  
+
+
   router.post('/', async (req, res, next) => {
     try {
       res.json(await User.create(req.body));
@@ -47,8 +47,8 @@ const User = require("../db/models/User");
       next(error);
     }
   });
-  
-  
+
+
   router.put('/:id', async (req, res, next) => {
     try {
       const userToUpdate = await User.findByPk(req.params.id);
@@ -57,7 +57,7 @@ const User = require("../db/models/User");
       next(error);
     }
   });
-  
-  
+
+
   module.exports = router;
- 
+

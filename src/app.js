@@ -8,9 +8,9 @@ const app = express();
 module.exports = app;
 
 // keys
-if (process.env.NODE_ENV !== "production") {
-  require("../.keys") && require("dotenv").config();
-}
+// if (process.env.NODE_ENV !== "production") {
+//   require("../.keys") && require("dotenv").config();
+// }
 
 // logging middleware
 app.use(morgan("dev"));
@@ -19,7 +19,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 // cors middleware
-app.use(cors({origin: true}));
+app.use(cors({ origin: true }));
 
 // app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(bodyParser.json());
@@ -27,8 +27,6 @@ app.use(cors({origin: true}));
 // auth and api routes
 app.use("/auth", require("./auth"));
 app.use("/api", require("./api"));
-
-
 
 app.get("/", (req, res) =>
   res.sendFile(path.join(__dirname, "..", "public/index.html"))

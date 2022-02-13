@@ -1,10 +1,18 @@
 import axios from "axios";
 
 export const GET_FOOD_ITEM = "GET_FOOD_ITEM";
+export const UPDATE_FOOD_ITEM = "UPDATE_FOOD_ITEM";
 
 export const _getFoodItem = (foodItem) => {
   return {
     type: GET_FOOD_ITEM,
+    foodItem,
+  };
+};
+
+export const _updateFoodItem = (foodItem) => {
+  return {
+    type: UPDATE_FOOD_ITEM,
     foodItem,
   };
 };
@@ -22,11 +30,27 @@ export const getFoodItemThunk = (foodItemId) => {
   };
 };
 
+export const updateFoodItemThunk = (foodItem) => {
+  return async (dispatch) => {
+    try {
+      const { data: updated } = await axios.put(
+        `https://the-thymely-cook.herokuapp.com/api/foodItems/${foodItem.id}`,
+        foodItem
+      );
+      dispatch(_updateFoodItem(updated));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
 let initialState = [];
 
 export default function foodItemReducer(state = initialState, action) {
   switch (action.type) {
     case GET_FOOD_ITEM:
+      return action.foodItem;
+    case UPDATE_FOOD_ITEM:
       return action.foodItem;
     default:
       return state;

@@ -1,6 +1,5 @@
 const router = require("express").Router();
 
-// Your routes go here!
 module.exports = router;
 //routers for our own databases --> commented out for now
 router.use("/fridge", require("./fridge"));

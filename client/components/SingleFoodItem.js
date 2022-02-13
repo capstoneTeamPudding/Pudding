@@ -10,52 +10,61 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
-import { deleteFoodItemFromFridgeThunk } from "../store/fridge";
-import { getFoodItemThunk } from "../store/foodItem";
+import {
+  deleteFoodItemFromFridgeThunk,
+  getFridgeItemThunk,
+} from "../store/fridge";
 
 export default function SingleFoodItem({ route, navigation }) {
   const dispatch = useDispatch();
   const fridgeSelector = useSelector((state) => state.fridgeReducer);
   const foodItemSelector = useSelector((state) => state.foodItemReducer);
-  let DATA = foodItemSelector;
-  let name = DATA.foodItem_name;
-  let counts = {
-    A: 0,
-    B: 0,
-    C: 0,
-    D: 0,
-  };
+  let id = route.params.foodItemId;
+  let userUid = route.params.userUid;
 
   //hook usedispatch function
-  const viewFoodItem = (foodItemId) => {
-    dispatch(getFoodItemThunk(foodItemId));
+  const viewFoodItem = (userUid, foodItemId) => {
+    dispatch(getFridgeItemThunk(userUid, foodItemId));
   };
 
-  const deleteFromFridge = (userId, id) => {
-    dispatch(deleteFoodItemFromFridgeThunk(userId, id));
+  const deleteFromFridge = (userUid, foodItemId) => {
+    dispatch(
+      deleteFoodItemFromFridgeThunk(
+        route.params.userUid,
+        route.params.foodItemId
+      )
+    );
   };
 
   //immediate page render
   useEffect((id) => {
-    viewFoodItem(route.params.id);
-    //setFridgey(fridgeSelector.foodItems);
+    viewFoodItem(route.params.userUid, route.params.foodItemId);
   }, []);
-  //const Quantity = () => {
-  //  const result = fridgey.find(({ id }) => id === DATA.id);
 
-  //  console.log("FRIDGE BITCH", foodItemSelector.foodItems);
-  // };
-  const onPressRecipe = () => navigation.navigate("Recipes", { name });
-
+  const onPressRecipe = () =>
+    navigation.navigate("Recipes", {
+      name: fridgeSelector.foodItems[0].foodItem_name,
+      foodItemId: fridgeSelector.foodItems[0].foodItemId,
+      userUid: userUid,
+    });
+  console.log(fridgeSelector.foodItems[0]);
   return (
     <SafeAreaView style={styles.container}>
-      {!DATA ? (
+      {!fridgeSelector ? (
         <Text> Loading... </Text>
       ) : (
         <SafeAreaView style={styles.item}>
-          <Text style={styles.heading}>{name}</Text>
+          <Text style={styles.heading}>
+            {fridgeSelector.foodItems[0].foodItem_name}
+          </Text>
           <View>
-            <Text style={styles.itemText2}>More functionality to come</Text>
+            <Text style={styles.title}>Type of Food:</Text>
+            <Text style={styles.itemText2}>
+              {fridgeSelector.foodItems[0].category}
+            </Text>
+            <Text style={styles.title}>
+              Quantity: {fridgeSelector.foodItems[0].fridge.quantity}
+            </Text>
           </View>
           <View>
             <Image
@@ -72,11 +81,26 @@ export default function SingleFoodItem({ route, navigation }) {
       <TouchableOpacity style={styles.logout} onPress={onPressRecipe}>
         <Text style={{ color: "rgb(65, 140, 115)" }}>Recipe Suggestions</Text>
       </TouchableOpacity>
-      <Button
-        style={styles.button}
-        title="BETA TESTERS!! CLICK HERE"
-        onPress={() => navigation.navigate("BETA")}
-      />
+      <TouchableOpacity
+        style={styles.logout}
+        onPress={() =>
+          navigation.navigate("Edit", {
+            userUid,
+            id,
+            name: fridgeSelector.foodItems[0].foodItem_name,
+          })
+        }
+      >
+        <Text style={{ color: "rgb(65, 140, 115)" }}>Edit</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.logout}
+        onPress={() =>
+          deleteFromFridge(route.params.userUid, route.params.foodItemId)
+        }
+      >
+        <Text style={{ color: "rgb(65, 140, 115)" }}>Delete From Fridge</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
@@ -136,6 +160,18 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-between",
+    margin: 20,
+  },
+  touchable: {
+    shadowColor: "rgb(44, 89, 74)",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    backgroundColor: "white",
+    padding: 16,
+    color: "red",
+    borderRadius: 30,
+    flexDirection: "row",
     margin: 20,
   },
   tinyThyme: {

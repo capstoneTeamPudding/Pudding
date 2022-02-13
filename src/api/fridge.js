@@ -4,25 +4,23 @@ const FoodItem = require("../db/models/FoodItem");
 const Fridge = require("../db/models/Fridge");
 const User = require("../db/models/User");
 
-
-let UserId = 1;
-
 router.get("/", async (req, res, next) => {
   try {
     const userFridge = await User.findAll({
       include: FoodItem,
     });
+
     res.json(userFridge);
   } catch (error) {
     next(error);
   }
 });
 
-router.get("/:userId", async (req, res, next) => {
+router.get("/:userUid", async (req, res, next) => {
   try {
     const userFridge = await User.findOne({
-      where: { id: req.params.userId },
-      attributes: ["id"],
+      where: { uid: req.params.userUid },
+      attributes: ["uid"],
       include: [
         {
           model: FoodItem,
@@ -37,55 +35,77 @@ router.get("/:userId", async (req, res, next) => {
   }
 });
 
-router.post("/:userId", async (req, res, next) => {
+router.get("/:userUid/:foodItemId", async (req, res, next) => {
+  try {
+    const userFood = await User.findOne({
+      where: { uid: req.body.userUid },
+      attributes: ["uid"],
+      include: {
+        model: FoodItem,
+        where: { id: req.body.foodItemId },
+      },
+    });
+    if (!userFood) {
+      res.status(404).send("Sorry you don't have this in your fridge!");
+    } else {
+      res.json(userFood);
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put("/:userUid/:foodItemId", async (req, res, next) => {
+  try {
+    const userFridge = await Fridge.findOne({
+      where: { userUid: req.body.userUid, foodItemId: req.body.foodItemId },
+    });
+    await userFridge.update(req.body);
+    res.json(userFridge);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post("/:uid", async (req, res, next) => {
   try {
     let fooditem = await FoodItem.findOrCreate({
       where: { foodItem_name: req.body.foodItem_name },
     });
-    let currentUser = await User.findOne({ where: { id: 1 } });
-    let fridge = await currentUser.addFoodItem(fooditem[0], {
-      through: { quantity: 1 },
-      //can give it any quantity here will change to scroll through so user sets it
+    let currentUser = await User.findOne({
+      where: { uid: req.body.uid },
     });
 
+    let fridge = await currentUser.addFoodItem(fooditem[0], {
+      through: { quantity: req.body.quantity },
+    });
     res.status(201).json(fridge);
   } catch (error) {
     next(error);
   }
 });
 
-// not sure if I need a put route
-// router.put("/:UserId", async (req, res, next) => {
-//   try {
-//     let currentUser = await User.findOne({ where: { id: 1 } });
-//     let fooditem = await FoodItem.findOne({
-//       where: { foodItem_name: req.body.foodItem_name },
-//     });
-//     res.status(204).send("No content");
-//   } catch (error) {
-//     next(error);
-//   }
-// });
-
-//entire fridge?
-router.delete("/:UserId", async (req, res, next) => {
+//entire fridge?//notreallynecessary
+router.delete("/:uid", async (req, res, next) => {
   try {
-    const fridge = await Fridge.findOne({ where: { id: 1 } });
-    await fridge.destroy();
-    res.send(fridge);
+    const userFridgeItem = await Fridge.findAll({
+      where: { userUid: req.body.uid },
+    });
+    console.log(userFridgeItem);
+    await userFridgeItem.destroy();
+    res.status(204).send("No content");
   } catch (error) {
     next(error);
   }
 });
 
 //one thing in fridge
-router.delete("/:UserId", async (req, res, next) => {
+router.delete("/:userUid/:foodItemId", async (req, res, next) => {
   try {
-    let currentUser = await User.findOne({ where: { id: 1 } });
-    let fooditem = await FoodItem.findOne({
-      where: { foodItem_name: req.body.foodItem_name },
+    const userFridgeItem = await Fridge.findOne({
+      where: { userUid: req.body.userUid, foodItemId: req.body.foodItemId },
     });
-    currentUser.removeFoodItem(fooditem);
+    await userFridgeItem.destroy();
     res.status(204).send("No content");
   } catch (error) {
     next(error);

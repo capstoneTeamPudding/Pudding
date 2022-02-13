@@ -24,7 +24,7 @@ const fridges = [
     userUid: "u087CSU21PhXkg73Rd4Uxa2ugtw2",
     foodItemId: 1,
     quantity: 1,
-  }
+  },
 ];
 
 const foodItems = [
