@@ -17,6 +17,7 @@ import SingleFoodItem from "./client/components/SingleFoodItem";
 import SearchSingleRecipe from "./client/components/SearchSingleRecipe";
 import EditFood from "./client/components/EditFood";
 import AddFood from "./client/components/AddFood";
+import Favorites from "./client/components/Favorites";
 
 const Stack = createNativeStackNavigator();
 
@@ -111,6 +112,20 @@ const AppSource = () => {
           component={Recipes}
           options={{
             title: "Suggested Recipes",
+            headerStyle: {
+              backgroundColor: "rgb(65, 140, 115)",
+            },
+            headerTintColor: "white",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
+        />
+        <Stack.Screen
+          name="Favorites"
+          component={Favorites}
+          options={{
+            title: "Favorites",
             headerStyle: {
               backgroundColor: "rgb(65, 140, 115)",
             },
