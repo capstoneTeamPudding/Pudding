@@ -149,6 +149,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#418C73",
     borderRadius: 30,
     alignSelf: "center",
+    shadowColor: "#2C594A",
+    shadowOffset: { width: -4, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
     margin: 20,
   },
   forgotButton: {
