@@ -1,11 +1,11 @@
-import axios from “axios”;
+import axios from 'axios';
 
-export const GET_FRIDGE = “GET_FRIDGE”;
-export const GET_FRIDGE_ITEM = “GET_FRIDGE_ITEM”;
-export const ADD_TO_FRIDGE = “ADD_TO_FRIDGE”;
-export const UPDATE_FRIDGE = “UPDATE_FRIDGE”;
-export const DELETE_FOODITEM_FROM_FRIDGE = “DELETE_FOODITEM_FROM_FRIDGE”;
-export const DELETE_FRIDGE = “DELETE_FRIDGE”;
+export const GET_FRIDGE = 'GET_FRIDGE';
+export const GET_FRIDGE_ITEM = 'GET_FRIDGE_ITEM';
+export const ADD_TO_FRIDGE = 'ADD_TO_FRIDGE';
+export const UPDATE_FRIDGE = 'UPDATE_FRIDGE';
+export const DELETE_FOODITEM_FROM_FRIDGE = 'DELETE_FOODITEM_FROM_FRIDGE';
+export const DELETE_FRIDGE = 'DELETE_FRIDGE';
 export const _getFridge = (fridge) => {
   return {
     type: GET_FRIDGE,
@@ -82,7 +82,7 @@ export const addToFridgeThunk = (uid, foodItem_name, quantity) => {
       );
       dispatch(_addToFridge(foodItem));
     } catch (err) {
-      console.log(“ADD TO FRIDGE ERROR”);
+      console.log('ADD TO FRIDGE ERROR');
       console.error(err);
     }
   };
@@ -96,7 +96,7 @@ export const updateFridgeThunk = (foodItem) => {
       );
       dispatch(_updateFridge(foodItem));
     } catch (err) {
-      console.log(“ADD TO FRIDGE ERROR”);
+      console.log('ADD TO FRIDGE ERROR');
       console.error(err);
     }
   };
