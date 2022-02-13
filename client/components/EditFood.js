@@ -63,8 +63,8 @@ export default function EditFood({ route, navigation }) {
     }
   };
 
-  const deleteFromFridge = (uid, foodItemId) => {
-    dispatch(deleteFoodItemFromFridgeThunk(uid, foodItemId));
+  const deleteFromFridge = (userUid, foodItemId) => {
+    dispatch(deleteFoodItemFromFridgeThunk(userUid: route.params.userUid , foodItemId:  ));
   };
 
   useEffect(() => {

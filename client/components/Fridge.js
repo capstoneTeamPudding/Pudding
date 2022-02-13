@@ -88,7 +88,7 @@ export default function Fridge({ navigation }) {
       )}
       <TouchableOpacity
         style={styles.touchable}
-        onPress={() => deleteFridge("u087CSU21PhXkg73Rd4Uxa2ugtw2")}
+        onPress={deleteFridge("u087CSU21PhXkg73Rd4Uxa2ugtw2")}
       >
         <Text style={{ color: "rgb(65, 140, 115)" }}>DELETE</Text>
       </TouchableOpacity>
