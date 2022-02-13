@@ -15,7 +15,8 @@ export default function Home({ navigation }) {
             "https://us.123rf.com/450wm/eridanka/eridanka2103/eridanka210300026/165315737-a-sprig-of-rosemary-hand-drawn-sketch-style-illustration-design-element.jpg?ver=6",
         }}
       />
-      <Text>Dummy Navigation Buttons</Text>
+      <Text style={styles.heading}>welcome!</Text>
+      <Text style={styles.subHeading}>your kitchen awaits...</Text>
       <Button
         style={styles.button}
         title="Go to Fridge"
@@ -51,4 +52,14 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
   },
+  heading: {
+    fontFamily: "Avenir",
+    fontSize: 68,
+    color: "#20097B"
+  },
+  subHeading: {
+    fontFamily: "Avenir",
+    fontSize: 28,
+    color: "#20097B"
+  }
 });
