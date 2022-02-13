@@ -24,10 +24,6 @@ export default function Fridge({ navigation }) {
     dispatch(getFridgeThunk(userUid));
   };
 
-  const deleteFridge = (userUid) => {
-    dispatch(deleteFridgeThunk(userUid));
-  };
-
   useEffect((userUid) => {
     viewFridge("u087CSU21PhXkg73Rd4Uxa2ugtw2");
   }, []);
@@ -46,8 +42,8 @@ export default function Fridge({ navigation }) {
     </TouchableOpacity>
   );
 
-  const navigationOpacity = (foodItemId, userUid) => {
-    navigation.navigate("SingleFoodItem", { foodItemId, userUid });
+  const navigationOpacity = (foodItemId, userUid, quantity) => {
+    navigation.navigate("SingleFoodItem", { foodItemId, userUid, quantity });
   };
 
   const renderFridgeFlatList = ({ item }) => {
@@ -56,13 +52,16 @@ export default function Fridge({ navigation }) {
         item={item}
         onPress={() => {
           setSelectedId(item.id);
-          navigationOpacity(item.id, "u087CSU21PhXkg73Rd4Uxa2ugtw2");
+          navigationOpacity(
+            item.id,
+            "u087CSU21PhXkg73Rd4Uxa2ugtw2",
+            item.fridge.quantity
+          );
         }}
       />
     );
   };
   let DATA = fridgeSelector.foodItems;
-  console.log(DATA, "FRIDGE");
   return (
     <SafeAreaView style={styles.container}>
       <SafeAreaView>
@@ -86,12 +85,6 @@ export default function Fridge({ navigation }) {
           />
         </SafeAreaView>
       )}
-      <TouchableOpacity
-        style={styles.touchable}
-        onPress={deleteFridge("u087CSU21PhXkg73Rd4Uxa2ugtw2")}
-      >
-        <Text style={{ color: "rgb(65, 140, 115)" }}>DELETE</Text>
-      </TouchableOpacity>
     </SafeAreaView>
   );
 }
@@ -103,7 +96,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "column",
-    marginTop: 200,
+    marginTop: 150,
     marginBottom: 100,
   },
   item: {
