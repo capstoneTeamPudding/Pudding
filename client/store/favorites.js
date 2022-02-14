@@ -1,5 +1,7 @@
 import axios from "axios";
- import { SPOON_API_KEY } from "../../.keys";
+import { SPOON_API_KEY } from "../../.keys";
+
+
 
 const spnAPI = "https://api.spoonacular.com/recipes/";
 
@@ -14,20 +16,19 @@ export const getFavorites = (recipes) => ({
 
 //Thunks
 
-
 export const getFavoritesThunk = (userUid) => {
-    return async (dispatch) => {
-      try {
-        const { data: favorites } = await axios.get(
-          `https://the-thymely-cook.herokuapp.com/api/recipes/user/${userUid}`
-          //`https://fuzzy-cow-61.loca.lt/api/recipes/user/${userUid}`
-        );
-        dispatch(getFavorites(favorites));
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  return async (dispatch) => {
+    try {
+      const { data: favorites } = await axios.get(
+        `https://the-thymely-cook.herokuapp.com/api/recipes/user/${userUid}`
+        //`https://fuzzy-cow-61.loca.lt/api/recipes/user/${userUid}`
+      );
+      dispatch(getFavorites(favorites));
+    } catch (error) {
+      console.error(error);
+    }
   };
+};
 
 //reducer
 const initialState = [];

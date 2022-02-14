@@ -1,11 +1,9 @@
-import axios from 'axios'
-
+import axios from "axios";
 const spnAPI = 'https://api.spoonacular.com/recipes/'
 
-
 //ACTIONS
-const GET_RECIPE = 'GET_RECIPE'
-const SAVE_RECIPE = 'SAVE_RECIPE'
+const GET_RECIPE = "GET_RECIPE";
+const SAVE_RECIPE = "SAVE_RECIPE";
 
 //ACTION CREATORS
 export const getSingleRecipe = (recipe) => ({
@@ -17,21 +15,22 @@ export const saveRecipe = (recipe) => ({
   recipe,
 });
 
-
 //THUNK
 
-export const saveRecipeThunk = (userUid,recipeObj,image) => {
+export const saveRecipeThunk = (userUid, recipeObj, image) => {
   //let userUid = 1;
-  let recipeName = recipeObj.title
-  let recipeId = recipeObj.id
-  console.log("recipe from thunk", recipeName, recipeId, image)
+  let recipeName = recipeObj.title;
+  let recipeId = recipeObj.id;
+  console.log("recipe from thunk", recipeName, recipeId, image);
   return async (dispatch) => {
     try {
       const { data: recipe } = await axios.post(
         //`https://fuzzy-cow-61.loca.lt/api/recipes/${userUid}`,
         `https://the-thymely-cook.herokuapp.com/api/recipes/${userUid}`,
         {
-          recipeName, recipeId, image
+          recipeName,
+          recipeId,
+          image,
         }
       );
       dispatch(saveRecipe(recipeObj));
@@ -49,10 +48,9 @@ const initialState = {
 //REDUCER
 
 export default function recipeReducer(state = [], action) {
-    //console.log("I'm recipeReducer, I got ", action.recipe)
   switch (action.type) {
     case SAVE_RECIPE:
-      return [...state, action.recipe]
+      return [...state, action.recipe];
     default:
       return state;
   }

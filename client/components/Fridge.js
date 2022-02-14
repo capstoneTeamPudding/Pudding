@@ -12,11 +12,9 @@ import {
   View,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { getFridgeThunk, deleteFridgeThunk } from "../store/fridge";
+import { getFridgeThunk } from "../store/fridge";
 
 export default function Fridge({ navigation }) {
-  const [selectedId, setSelectedId] = useState(null);
-  const [Fridge, setFridge] = useState([]);
   const dispatch = useDispatch();
   const fridgeSelector = useSelector((state) => state.fridgeReducer);
 
@@ -42,8 +40,8 @@ export default function Fridge({ navigation }) {
     </TouchableOpacity>
   );
 
-  const navigationOpacity = (foodItemId, userUid, quantity) => {
-    navigation.navigate("SingleFoodItem", { foodItemId, userUid, quantity });
+  const navigationOpacity = (foodItemId, userUid) => {
+    navigation.navigate("SingleFoodItem", { foodItemId, userUid });
   };
 
   const renderFridgeFlatList = ({ item }) => {
@@ -51,17 +49,13 @@ export default function Fridge({ navigation }) {
       <FridgeFlatList
         item={item}
         onPress={() => {
-          setSelectedId(item.id);
-          navigationOpacity(
-            item.id,
-            "u087CSU21PhXkg73Rd4Uxa2ugtw2",
-            item.fridge.quantity
-          );
+          navigationOpacity(item.id, "u087CSU21PhXkg73Rd4Uxa2ugtw2");
         }}
       />
     );
   };
   let DATA = fridgeSelector.foodItems;
+  console.log(DATA, "FRIDGE");
   return (
     <SafeAreaView style={styles.container}>
       <SafeAreaView>
@@ -96,7 +90,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "column",
-    marginTop: 150,
+    marginTop: 200,
     marginBottom: 100,
   },
   item: {
