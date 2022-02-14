@@ -31,7 +31,7 @@ export default function SingleRecipe({route, navigation}) {
   }, 
   []);
   const saveToFav = () => {
-   
+    alert('saved!')
     dispatch(saveRecipeThunk("u087CSU21PhXkg73Rd4Uxa2ugtw2", recipe, image));
   };
   const goToFav = () => {

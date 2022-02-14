@@ -9,11 +9,12 @@ import {
   Image,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { useFocusEffect } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
-import { getFridgeItemThunk } from "../store/fridge";
+import { getFridgeItemThunk } from "../store/fridgeItem";
 
 export default function SingleFoodItem({ route, navigation }) {
-  const [foodObj, setFoodObj] = useState([]);
+  const [foodObj, setFoodObj] = useState(null);
   const dispatch = useDispatch();
   const fridgeSelector = useSelector((state) => state.fridgeReducer);
   const foodItemSelector = useSelector((state) => state.foodItemReducer);
@@ -29,13 +30,11 @@ export default function SingleFoodItem({ route, navigation }) {
   //immediate page render
   useEffect((foodItemId, userUid) => {
     viewFoodItem(route.params.foodItemId, route.params.userUid);
-    if (fridgeSelector) {
-      setFoodObj(
-        fridgeSelector.foodItems.find(
-          (element) => element.id === route.params.foodItemId
-        )
-      );
-    }
+    setFoodObj(
+      fridgeSelector.foodItems.find(
+        (element) => element.id === route.params.foodItemId
+      )
+    );
   }, []);
 
   const onPressRecipe = () =>

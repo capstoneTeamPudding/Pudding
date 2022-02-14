@@ -16,8 +16,6 @@ import { getFridgeThunk, deleteFridgeThunk } from "../store/fridge";
 import { auth } from "../firebaseAuth/firebase"
 
 export default function Fridge({ navigation }) {
-  const [selectedId, setSelectedId] = useState(null);
-  const [Fridge, setFridge] = useState([]);
   const dispatch = useDispatch();
   const fridgeSelector = useSelector((state) => state.fridgeReducer);
 
@@ -44,8 +42,8 @@ export default function Fridge({ navigation }) {
     </TouchableOpacity>
   );
 
-  const navigationOpacity = (foodItemId, userUid, quantity) => {
-    navigation.navigate("SingleFoodItem", { foodItemId, userUid, quantity });
+  const navigationOpacity = (foodItemId, userUid) => {
+    navigation.navigate("SingleFoodItem", { foodItemId, userUid });
   };
 
   const renderFridgeFlatList = ({ item }) => {
@@ -64,6 +62,7 @@ export default function Fridge({ navigation }) {
     );
   };
   let DATA = fridgeSelector.foodItems;
+  console.log(DATA, "FRIDGE");
   return (
     <SafeAreaView style={styles.container}>
       <SafeAreaView>
@@ -98,7 +97,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "column",
-    marginTop: 150,
+    marginTop: 200,
     marginBottom: 100,
   },
   item: {

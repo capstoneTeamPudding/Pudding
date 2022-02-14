@@ -11,7 +11,7 @@ import {
 } from "react-native";
 const axios = require("axios");
 import { SPOON_API_KEY } from "../../.keys";
-// import SingleRecipe from "./SingleRecipe";
+import SingleRecipe from "./SingleRecipe";
 
 
 const spnAPI = "https://api.spoonacular.com/recipes/";
