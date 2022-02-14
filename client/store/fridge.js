@@ -13,6 +13,10 @@ export const _getFridge = (fridge) => {
 };
 
 export const _addToFridge = (foodItem) => {
+  console.log(
+    foodItem,
+    "FWHEFHWEJDCOWEJCQWOIFWEQC@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+  );
   return {
     type: ADD_TO_FRIDGE,
     foodItem,
@@ -95,16 +99,20 @@ export const deleteFridgeThunk = (userUid) => {
     }
   };
 };
-let initialState = [];
+let initialState = { foodItems: [] };
 
-export default function fridgeReducer(state = [], action) {
+export default function fridgeReducer(state = {}, action) {
   switch (action.type) {
     case GET_FRIDGE:
       return action.fridge;
     case ADD_TO_FRIDGE:
-      return [...state, { foodItem: action.foodItem }];
+      return { ...state, foodItems: [...state.foodItems, action.foodItem[0]] };
+    //
     case DELETE_FRIDGE:
-      return state.filter((user) => user.uid !== action.user.uid);
+      const updatedFridge = state.foodItems.filter(
+        (user) => user.uid !== action.user.uid
+      );
+      return { ...state, foodItems: updatedFridge };
     default:
       return state;
   }
