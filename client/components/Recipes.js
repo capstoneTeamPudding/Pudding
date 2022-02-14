@@ -105,7 +105,7 @@ export default Recipes;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#eee",
+    backgroundColor: "#E6EDE9",
     alignItems: "center",
     justifyContent: "center",
   },

@@ -76,7 +76,7 @@ export default function SingleRecipe({route}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "whitesmoke",
     alignItems: "center",
     justifyContent: "center",
     

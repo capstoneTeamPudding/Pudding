@@ -99,7 +99,7 @@ export default function Fridge({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "whitesmoke",
+    backgroundColor: "#E6EDE9",
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "column",

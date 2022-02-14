@@ -15,8 +15,8 @@ export default function Home({ navigation }) {
             "https://us.123rf.com/450wm/eridanka/eridanka2103/eridanka210300026/165315737-a-sprig-of-rosemary-hand-drawn-sketch-style-illustration-design-element.jpg?ver=6",
         }}
       />
-      <Text style={styles.heading}>welcome!</Text>
-      <Text style={styles.subHeading}>your kitchen awaits...</Text>
+      <Text style={styles.heading}>Team Pudding :)</Text>
+      <Text style={styles.subHeading}>we're almost there!!!</Text>
       <Button
         style={styles.button}
         title="Go to Fridge"
