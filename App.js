@@ -79,7 +79,7 @@ const AppSource = () => {
             headerLeft: () => false,
           }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Home"
           component={Home}
           options={{
@@ -93,7 +93,7 @@ const AppSource = () => {
             },
             headerLeft: () => false,
           }}
-        />
+        /> */}
         <Stack.Screen
           name="Fridge"
           component={Fridge}

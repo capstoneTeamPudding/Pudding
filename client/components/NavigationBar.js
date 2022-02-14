@@ -11,6 +11,7 @@ const Tab = createBottomTabNavigator();
 export default function NavigationBar() {
   return (
     <Tab.Navigator
+      initialRouteName="Home"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
@@ -26,8 +27,9 @@ export default function NavigationBar() {
           // } 
 
           // You can return any component that you like here!
-          return <MaterialCommunityIcons style={styles.icon} name={iconName} size={size} color={color} />;
+          return <MaterialCommunityIcons style={styles.icon} name={iconName} size={32} color={color} />;
         },
+        tabBarShowLabel: false,
         tabBarActiveTintColor: '#418C73',
         tabBarInactiveTintColor: '#B4B4B4',
         
