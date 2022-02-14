@@ -16,10 +16,10 @@ export const _updateFridge = (foodItem) => ({
   foodItem,
 });
 
-export const _deleteFoodItemFromFridge = (fridge) => {
+export const _deleteFoodItemFromFridge = (foodItem) => {
   return {
     type: DELETE_FOODITEM_FROM_FRIDGE,
-    fridge,
+    foodItem,
   };
 };
 
@@ -71,7 +71,9 @@ export default function fridgeItemReducer(state = [], action) {
     case UPDATE_FRIDGE:
       return { ...state, quantity: action.foodItem.quantity };
     case DELETE_FOODITEM_FROM_FRIDGE:
-      return state.filter((foodItem) => foodItem.id !== action.foodItem.id);
+      return state.foodItems.filter(
+        (foodItem) => foodItem.id !== action.foodItem.foodItemId
+      );
     default:
       return state;
   }
