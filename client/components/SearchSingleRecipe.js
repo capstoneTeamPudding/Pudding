@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 const axios = require("axios");
 import { Button, StyleSheet, Image, Text, View } from "react-native";
-//import {SPOON_API_KEY} from "../../.keys"
+//import {SPOON_API_KEY} from../../keys"
 
 const spnAPI = 'https://api.spoonacular.com/recipes/'
 
@@ -49,7 +49,7 @@ export default function SearchSingleRecipe({route}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#E6EDE9",
+    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },
