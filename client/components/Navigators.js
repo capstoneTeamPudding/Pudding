@@ -5,6 +5,7 @@ import Fridge from "./Fridge";
 import Scanner from "./Scanner";
 import Recipes from "./Recipes";
 import SingleRecipe from "./SingleRecipe";
+import Favorites from "./Favorites";
 import SingleFoodItem from "./SingleFoodItem";
 import SearchSingleRecipe  from "./SearchSingleRecipe";
 import EditFood from "./EditFood";
@@ -94,10 +95,10 @@ export function RecipeNav() {
       }}
       >
       <Stack.Screen
-        name="SingleRecipe"
-        component={SingleRecipe}
+        name="Favorites"
+        component={Favorites}
         options={{
-          title: "Recipe"
+          title: "My Favorites"
         }}
       />
     </Stack.Navigator>

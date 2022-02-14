@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 import { StatusBar } from "expo-status-bar";
-import { Button, StyleSheet, Image, Text, View } from "react-native";
+import { Button, StyleSheet, Image, Text, SafeAreaView, View } from "react-native";
 import Logout from "./Logout";
 
 //navigation prop passed down documentation: https://reactnavigation.org/docs/navigation-prop
 export default function Home({ navigation }) {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
       <Image
         style={styles.tinyThyme}
@@ -40,7 +40,7 @@ export default function Home({ navigation }) {
       />
       <Logout />
       {/* // <NavigationBar /> */}
-    </View>
+    </SafeAreaView>
   );
 }
 
