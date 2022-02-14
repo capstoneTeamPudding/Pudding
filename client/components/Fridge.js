@@ -24,8 +24,9 @@ export default function Fridge({ navigation }) {
   };
 
   useEffect((userUid) => {
-    userUid = auth.currentUser.uid
-    viewFridge("u087CSU21PhXkg73Rd4Uxa2ugtw2");
+    const uid = auth.currentUser.uid
+    console.log(`**************${auth.currentUser.uid}`)
+    viewFridge(uid);
   }, []);
 
   const FridgeFlatList = ({ item, onPress, backgroundColor, textColor }) => (
