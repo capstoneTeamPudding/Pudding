@@ -27,7 +27,7 @@ export default function Fridge({ navigation }) {
   useEffect((userUid) => {
     const uid = auth.currentUser.uid;
     viewFridge(uid);
-    if (fridgeSelector.foodItems === null) {
+    if (fridgeSelector.foodItems === undefined) {
       setDATA([]);
     } else {
       setDATA(fridgeSelector.foodItems);
@@ -66,7 +66,7 @@ export default function Fridge({ navigation }) {
       />
     );
   };
-  console.log(fridgeSelector.foodItems);
+
   return (
     <SafeAreaView style={styles.container}>
       <SafeAreaView>
