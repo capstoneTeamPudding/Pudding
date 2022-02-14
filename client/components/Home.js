@@ -10,10 +10,7 @@ export default function Home({ navigation }) {
       <StatusBar style="auto" />
       <Image
         style={styles.tinyThyme}
-        source={{
-          uri:
-            "https://us.123rf.com/450wm/eridanka/eridanka2103/eridanka210300026/165315737-a-sprig-of-rosemary-hand-drawn-sketch-style-illustration-design-element.jpg?ver=6",
-        }}
+        source={ require("../../assets/thyme-1.png")}
       />
       <Text style={styles.heading}>Team Pudding :)</Text>
       <Text style={styles.subHeading}>we're almost there!!!</Text>
@@ -39,7 +36,10 @@ export default function Home({ navigation }) {
         onPress={() => navigation.navigate("Favorites",  { uid: "u087CSU21PhXkg73Rd4Uxa2ugtw2"})}
       />
       <Logout />
-      {/* // <NavigationBar /> */}
+      <Image
+        style={styles.tinyThyme}
+        source={ require("../../assets/thyme-2.png")}
+      />
     </SafeAreaView>
   );
 }
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontFamily: "Avenir",
-    fontSize: 68,
+    fontSize: 38,
     color: "#20097B"
   },
   subHeading: {
