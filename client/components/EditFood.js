@@ -51,16 +51,19 @@ export default function EditFood({ route, navigation }) {
   };
 
   const handleSubmit = (userUid, foodItemId, quantity) => {
-    console.log(uid, id, amount);
     editFridgeItem({ userUid: uid, foodItemId: id, quantity: amount });
     Alert.alert(`Successfully updated ${name}!`);
   };
 
   const deleteFromFridge = (foodItemId, userUid) => {
-    dispatch(deleteFoodItemFromFridgeThunk(id, uid));
+    dispatch(deleteFoodItemFromFridgeThunk(foodItemId, userUid));
   };
 
-  useEffect((foodItemId, userUid) => {
+  const deleteHandle = async (foodItemId, userUid) => {
+    await deleteFromFridge({ foodItemId: id, userUid: uid });
+  };
+
+  useEffect(() => {
     viewFoodItem(id, uid);
     setName(nameFood);
   }, []);
@@ -103,8 +106,11 @@ export default function EditFood({ route, navigation }) {
               </Text>
             </TouchableOpacity>
           </SafeAreaView>
-
-          <TouchableOpacity style={styles.touchable} onPress={deleteFromFridge}>
+          <Text>
+            {"  "}
+            {"  "}
+          </Text>
+          <TouchableOpacity style={styles.touchable} onPress={deleteHandle}>
             <Text style={{ color: "red" }}>Delete From Fridge</Text>
           </TouchableOpacity>
         </SafeAreaView>
@@ -143,7 +149,7 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 30,
     flexDirection: "row",
-    margin: 20,
+    margin: 40,
   },
   input: {
     shadowColor: "rgb(44, 89, 74)",
