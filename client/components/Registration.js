@@ -55,11 +55,9 @@ export default function Registration({ navigation }) {
   return (
       <SafeAreaView style={styles.container}>
         <Image 
-          style={styles.tinyTomato}
-          source={{
-            uri:
-            "https://us.123rf.com/450wm/eridanka/eridanka2103/eridanka210300026/165315737-a-sprig-of-rosemary-hand-drawn-sketch-style-illustration-design-element.jpg?ver=6",
-          }}
+          style={styles.logo_sm}
+          source={ require("../../assets/thyme_logo.png")}
+
         />
           <TextInput
             style={styles.firstnameInput}
@@ -205,14 +203,14 @@ export default function Registration({ navigation }) {
           backgroundColor: 'white',
           marginHorizontal: 20,
         },
-        tinyTomato: {
-          width: 150,
-          height: 150,
+        logo_sm: {
+          width: 200,
+          height: 200,
         },
         footerView: {
           flex: 1,
-          alignItems: 'center',
-          marginTop:50
+          justifyContent: 'flex-end',
+          marginBottom: 36,
         },
         footerText: {
           fontSize: 17,
