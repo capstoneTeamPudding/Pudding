@@ -25,7 +25,7 @@ export default function Fridge({ navigation }) {
   };
 
   useEffect((userUid) => {
-    viewFridge("u087CSU21PhXkg73Rd4Uxa2ugtw2");
+    viewFridge(userUid);
   }, []);
 
   const FridgeFlatList = ({ item, onPress, backgroundColor, textColor }) => (
@@ -54,7 +54,7 @@ export default function Fridge({ navigation }) {
           setSelectedId(item.id);
           navigationOpacity(
             item.id,
-            "u087CSU21PhXkg73Rd4Uxa2ugtw2",
+            userUid,
             item.fridge.quantity
           );
         }}
