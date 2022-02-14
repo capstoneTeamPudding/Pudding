@@ -56,8 +56,7 @@ export default function Scanner({ navigation }) {
       {
         text: "Yes",
         onPress: () => {
-          const userUid = auth.currentUser.uid
-          addToFridge(userUid, foodName, 1);
+          addToFridge("u087CSU21PhXkg73Rd4Uxa2ugtw2" , foodName, 1);
           Alert.alert(`Successfully added ${foodName} to your fridge!`);
         },
       },

@@ -31,11 +31,11 @@ export const _deleteFridge = (fridge) => {
 export const getFridgeThunk = (userUid) => {
   return async (dispatch) => {
     try {
-      const user = auth.currentUser.uid
-      if (user) {
+      const idToken = auth.currentUser.getIdToken(true)
+      if (idToken) {
       const { data: fridge } = await axios.get(
         `https://the-thymely-cook.herokuapp.com/api/fridge/${userUid}`, {
-          // headers: { authtoken: idToken }
+          headers: { authtoken: idToken }
         }
       );
       dispatch(_getFridge(fridge));
@@ -48,8 +48,8 @@ export const getFridgeThunk = (userUid) => {
 export const addToFridgeThunk = (uid, foodItem_name, quantity) => {
   return async (dispatch) => {
     try {
-      const user = await auth.currentUser.uid
-      if(user) {
+      const idToken = await auth.currentUser.getIdToken(true)
+      if(idToken) {
       const { data: foodItem } = await axios.post(
         `https://the-thymely-cook.herokuapp.com/api/fridge/${uid}`,
         {
@@ -57,7 +57,7 @@ export const addToFridgeThunk = (uid, foodItem_name, quantity) => {
           foodItem_name,
           quantity,
         },
-        // {headers: { authtoken: idToken }}
+        {headers: { authtoken: idToken }}
       );
       dispatch(_addToFridge(foodItem));
       }
@@ -68,16 +68,15 @@ export const addToFridgeThunk = (uid, foodItem_name, quantity) => {
   };
 };
 
-
 export const deleteFridgeThunk = (userUid) => {
   return async (dispatch) => {
     try {
-      const user = await auth.currentUser.uid
-      if(user) {
+      const idToken = await auth.currentUser.getIdToken(true);
+      if(idToken) {
         const { data: fridge } = await axios.delete(`https://the-thymely-cook.herokuapp.com/api/fridge/${userUid}`, {
            userUid 
           },
-          // { headers: { authtoken: idToken }}
+          { headers: { authtoken: idToken }}
         );
           dispatch(_deleteFridge(fridge))
       };
