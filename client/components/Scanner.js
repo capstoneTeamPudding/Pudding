@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button, Alert } from "react-native";
+import { Text, View, StyleSheet, Button, Alert, TouchableOpacity } from "react-native";
+import { Overlay } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { addFoodItemThunk } from "../store/foodItems";
@@ -107,20 +108,18 @@ export default function Scanner({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.maintext}>{text}</Text>
-      <BarCodeScanner
-        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={styles.barcode}
-      />
-      <Button
-        title="Go to Fridge"
-        onPress={() => navigation.navigate("Fridge")}
-      />
-      <Button
-        title="Add Manually"
-        onPress={() => navigation.navigate("AddFood")}
-      />
+    <Overlay>
+      <View>
+        {/* <Text style={styles.textSmall}>To scan an item, hold the item's barcode infront of the camera until barcode is in focus</Text> */}
+        <Text style={styles.textSmall}>{text}</Text>
+        <BarCodeScanner
+          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+          style={styles.barcode}
+        />
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Fridge")}>
+          <Text style={styles.buttonText}>Back to Fridge</Text>
+        </TouchableOpacity>
+        </View>
 
       {scanned && (
         <View>
@@ -137,7 +136,7 @@ export default function Scanner({ navigation }) {
           />
         </View>
       )}
-    </View>
+    </Overlay>
   );
 }
 
@@ -151,14 +150,42 @@ const styles = StyleSheet.create({
   barcode: {
     backgroundColor: "tomato",
     alignItems: "center",
-    justifyContent: "center",
     height: 300,
     width: 300,
     overflow: "hidden",
     borderRadius: 30,
   },
+  buttonText: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    justifyContent: "center",
+    margin: 16,
+    marginLeft: 40,
+    marginRight: 40
+  },
+  button: {
+    backgroundColor: "#418C73",
+    borderRadius: 30,
+    alignSelf: "center",
+    shadowColor: "#2C594A",
+    shadowOffset: { width: -4, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    margin: 20,
+  },
+  textSmall: {
+    fontSize: 20,
+    margin: 20,
+    fontWeight: "bold",
+    color: "teal",
+    fontFamily: "Avenir",
+    textAlign: 'center',
+  },
   maintext: {
     fontSize: 16,
     margin: 20,
+    fontFamily: "Avenir",
+    textAlign: 'center',
   },
 });

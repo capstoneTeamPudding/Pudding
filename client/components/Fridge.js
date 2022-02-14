@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
   },
   itemText2: {
     fontSize: 20,
-    color: "rgb(65, 140, 115)",
+    color: "teal",
     fontFamily: "Avenir",
   },
     // touchable: {
