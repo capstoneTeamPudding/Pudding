@@ -38,7 +38,7 @@ export default function AddFood({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <SafeAreaView style={styles.item}>
-        <Text style={styles.heading}>Add Your Food Here</Text>
+        {/* <Text style={styles.heading}>Add Your Food Here</Text> */}
         <Text style={styles.itemText2}>Food Name:</Text>
         <TextInput
           style={styles.input}

@@ -58,10 +58,11 @@ export default function Login({ navigation }) {
         animated={true}
         backgroundColor="#61dafb"
        />
-      <Image
-        style={styles.logo}
-        source={ require("../../assets/thyme_logo.png")}
-      />
+      <Image 
+          style={styles.logo_sm}
+          source={ require("../../assets/thyme_logo.png")}
+
+        />
       {/* <Text style={styles.text}>Enter your email and password to sign in:</Text> */}
       <TextInput
         style={styles.emailInput}
@@ -166,12 +167,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     marginHorizontal: 20,
   },
-  tinyTomato: {
-    marginTop: 100,
-    width: 150,
-    height: 150,
-  },
-  logo: {
+  logo_sm: {
     marginTop: 50,
     width: 300,
     height: 300,
