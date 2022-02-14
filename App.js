@@ -14,9 +14,10 @@ import Login from "./client/components/Login";
 import Registration from "./client/components/Registration";
 import SingleRecipe from "./client/components/SingleRecipe";
 import SingleFoodItem from "./client/components/SingleFoodItem";
-import SearchSingleRecipe from "./client/components/SearchSingleRecipe";
+import SearchSingleRecipe  from "./client/components/SearchSingleRecipe";
 import EditFood from "./client/components/EditFood";
 import AddFood from "./client/components/AddFood";
+import NavigationBar from "./client/components/NavigationBar";
 
 const Stack = createNativeStackNavigator();
 
@@ -53,6 +54,21 @@ const AppSource = () => {
           component={Registration}
           options={{
             title: "Registration",
+            headerStyle: {
+              backgroundColor: "rgb(65, 140, 115)",
+            },
+            headerTintColor: "white",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+            headerLeft: () => false,
+          }}
+        />
+        <Stack.Screen
+          name="NavigationBar"
+          component={NavigationBar}
+          options={{
+            title: "Thymely Cook",
             headerStyle: {
               backgroundColor: "rgb(65, 140, 115)",
             },
