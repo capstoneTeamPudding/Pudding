@@ -56,7 +56,7 @@ export default function SingleRecipe({route, navigation}) {
         />
         <Text style={styles.text2}>{ recipe.readyInMinutes } Minutes </Text>
         {
-            recipe.extendedIngredients.map((ingredient) => (<Text style={styles.text3}> { ingredient.original }</Text>))
+            recipe.extendedIngredients.map((ingredient, index) => (<Text key={index} style={styles.text3}> { ingredient.original }</Text>))
         } 
         <Text style={styles.text2}>Preparation steps: </Text> 
         {
