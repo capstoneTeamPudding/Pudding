@@ -60,7 +60,7 @@ export default function EditFood({ route, navigation }) {
   };
 
   const deleteHandle = async (foodItemId, userUid) => {
-    await deleteFromFridge({ foodItemId: id, userUid: uid });
+    deleteFromFridge(id, uid);
   };
 
   useEffect(() => {
