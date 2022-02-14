@@ -62,7 +62,7 @@ export default function Login({ navigation }) {
         style={styles.tinyTomato}
         source={{
           uri:
-            "https://us.123rf.com/450wm/eridanka/eridanka2103/eridanka210300026/165315737-a-sprig-of-rosemary-hand-drawn-sketch-style-illustration-design-element.jpg?ver=6",
+            "./assets/thyme_logo.png",
         }}
       />
       {/* <Text style={styles.text}>Enter your email and password to sign in:</Text> */}
