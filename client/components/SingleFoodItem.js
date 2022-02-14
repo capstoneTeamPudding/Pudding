@@ -89,7 +89,7 @@ export default function SingleFoodItem({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "whitesmoke",
+    backgroundColor: "#E6EDE9",
     alignItems: "center",
     justifyContent: "center",
   },

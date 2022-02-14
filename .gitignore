@@ -12,6 +12,7 @@ web-build/
 .env
 package-lock.json
 .keys.js
+keys.js
 fbServiceAccountKey.json
 # macOS
 .DS_Store

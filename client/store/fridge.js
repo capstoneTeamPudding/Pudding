@@ -65,8 +65,7 @@ export const deleteFridgeThunk = (userUid) => {
       const {
         data: fridge,
       } = await axios.delete(
-        `https://the-thymely-cook.herokuapp.com/api/fridge/${userUid}`,
-        { userUid }
+        `https://the-thymely-cook.herokuapp.com/api/fridge/${userUid}`
       );
       dispatch(_deleteFridge(fridge));
     } catch (err) {

@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 import { StatusBar } from "expo-status-bar";
-import { Button, StyleSheet, Image, Text, View } from "react-native";
+import { Button, StyleSheet, Image, Text, SafeAreaView, View } from "react-native";
 import Logout from "./Logout";
 
 //navigation prop passed down documentation: https://reactnavigation.org/docs/navigation-prop
 export default function Home({ navigation }) {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
       <Image
         style={styles.tinyThyme}
@@ -15,7 +15,8 @@ export default function Home({ navigation }) {
             "https://us.123rf.com/450wm/eridanka/eridanka2103/eridanka210300026/165315737-a-sprig-of-rosemary-hand-drawn-sketch-style-illustration-design-element.jpg?ver=6",
         }}
       />
-      <Text>Dummy Navigation Buttons</Text>
+      <Text style={styles.heading}>Team Pudding :)</Text>
+      <Text style={styles.subHeading}>we're almost there!!!</Text>
       <Button
         style={styles.button}
         title="Go to Fridge"
@@ -39,14 +40,14 @@ export default function Home({ navigation }) {
       />
       <Logout />
       {/* // <NavigationBar /> */}
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#E6EDE9",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -57,4 +58,14 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
   },
+  heading: {
+    fontFamily: "Avenir",
+    fontSize: 68,
+    color: "#20097B"
+  },
+  subHeading: {
+    fontFamily: "Avenir",
+    fontSize: 28,
+    color: "#20097B"
+  }
 });
