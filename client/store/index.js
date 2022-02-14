@@ -7,6 +7,7 @@ import recipeReducer from "./singleRecipe";
 import foodItemsReducer from "./foodItems";
 import foodItemReducer from "./foodItem";
 import fridgeReducer from "./fridge";
+import favoritesReducer from "./favorites";
 import auth from "./auth"
 //add reducers here! Don't forget to import!
 
@@ -17,6 +18,7 @@ const reducer = combineReducers({
   foodItemsReducer,
   foodItemReducer,
   fridgeReducer,
+  favoritesReducer,
 });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))

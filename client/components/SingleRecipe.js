@@ -4,12 +4,10 @@ import { Button, StyleSheet, TouchableOpacity, Image, FlatList, SafeAreaView, Te
 import { saveRecipeThunk } from "../store/singleRecipe";
 import { SPOON_API_KEY } from "../../.keys";
 const axios = require("axios");
-
 const spnAPI = 'https://api.spoonacular.com/recipes/';
-
 import { useSelector, useDispatch } from "react-redux";
 
-export default function SingleRecipe({route}) {
+export default function SingleRecipe({route, navigation}) {
   const [recipe, setRecipe] = useState( null );
   const id = route.params.id
   const name = route.params.title
@@ -24,6 +22,7 @@ export default function SingleRecipe({route}) {
   //my old
   
   useEffect(() => {
+    console.log("route",route.params)
     const fetchRecipe = async () => {
       const { data: recipe } = await axios.get(`${spnAPI}${id}/information?includeNutrition=false&apiKey=${SPOON_API_KEY}`);
       setRecipe(recipe)
@@ -32,17 +31,26 @@ export default function SingleRecipe({route}) {
   }, 
   []);
   const saveToFav = () => {
-    //console.log("recipe from saveHandler", recipe)
-    alert('Saved to favorites!')
-    dispatch(saveRecipeThunk(recipe));
+    alert('saved!')
+    dispatch(saveRecipeThunk("u087CSU21PhXkg73Rd4Uxa2ugtw2", recipe, image));
+  };
+  const goToFav = () => {
+    navigation.navigate("Favorites", { 
+    });
   };
   if (recipe) {
       return (
       <ScrollView>
       <View style={styles.container}>
-        <Image  source={ {uri: image} } />
-        <Text style={styles.text}></Text> 
+      
+        
         <Text style={styles.text}>{name}</Text> 
+        <Image
+          style={styles.recipeimg}
+          source={{
+          uri:image,
+          }}
+        />
         <Text style={styles.text2}>{ recipe.readyInMinutes } Minutes </Text>
         {
             recipe.extendedIngredients.map((ingredient) => (<Text style={styles.text3}> { ingredient.original }</Text>))
@@ -53,6 +61,9 @@ export default function SingleRecipe({route}) {
         }
         <TouchableOpacity style={styles.button} >
         <Text style={styles.buttonText} onPress={saveToFav}>Save to favorites</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} >
+        <Text style={styles.buttonText} onPress={goToFav}>Favorites</Text>
         </TouchableOpacity>
         <Image
           style={styles.tinyThyme}
@@ -112,6 +123,13 @@ const styles = StyleSheet.create({
   tinyThyme: {
     width: 40,
     height: 40,
+  },
+  recipeimg: {
+    width: 100,
+    height: 100,
+    borderColor: "lightblue",
+    borderRadius: 15,
+    borderWidth: 5,
   },
   buttonText: {
     color: "white",

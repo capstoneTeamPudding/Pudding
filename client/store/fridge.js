@@ -56,7 +56,7 @@ export const getFridgeThunk = (userUid) => {
     }
   };
 };
-export const getFridgeItemThunk = (userUid, foodItemId) => {
+export const getFridgeItemThunk = (foodItemId, userUid) => {
   return async (dispatch) => {
     try {
       const { data: fridgeItem } = await axios.get(
@@ -139,7 +139,7 @@ export default function fridgeReducer(state = [], action) {
     case GET_FRIDGE:
       return action.fridge;
     case ADD_TO_FRIDGE:
-      return [...state, action.foodItem];
+      return [state, action.foodItem];
     case UPDATE_FRIDGE:
       return state.map((foodItem) =>
         foodItem.foodItemId === action.foodItem.foodItemId

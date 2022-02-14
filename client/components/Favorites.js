@@ -12,78 +12,67 @@ import {
   View,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { getFridgeThunk, deleteFridgeThunk } from "../store/fridge";
+import { getFavoritesThunk } from "../store/favorites";
 
-export default function Fridge({ navigation }) {
+export default function Favorites({ navigation }) {
   const [selectedId, setSelectedId] = useState(null);
-  const [Fridge, setFridge] = useState([]);
+  const [Favorites, setFavorites] = useState([]);
   const dispatch = useDispatch();
-  const fridgeSelector = useSelector((state) => state.fridgeReducer);
+  const favoritesSelector = useSelector((state) => state.favoritesReducer);
 
-  const viewFridge = (userUid) => {
-    dispatch(getFridgeThunk(userUid));
+  const getFav = (userUid) => {
+    dispatch(getFavoritesThunk(userUid));
   };
 
   useEffect((userUid) => {
-    viewFridge("u087CSU21PhXkg73Rd4Uxa2ugtw2");
+    getFav("u087CSU21PhXkg73Rd4Uxa2ugtw2");
   }, []);
 
-  const FridgeFlatList = ({ item, onPress, backgroundColor, textColor }) => (
+  const FavoritesFlatList = ({ item, onPress, backgroundColor, textColor }) => (
     <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
+      <Text style={[styles.title, textColor]}>{item.recipe_name}</Text>
       <Image
-        style={styles.tinyThyme}
+        style={styles.thumbnail}
         source={{
           uri:
-            "https://us.123rf.com/450wm/eridanka/eridanka2103/eridanka210300026/165315737-a-sprig-of-rosemary-hand-drawn-sketch-style-illustration-design-element.jpg?ver=6",
+            item.imageUrl,
         }}
       />
-      <Text style={[styles.title, textColor]}>{item.foodItem_name}</Text>
-      <Text style={styles.itemText2}> Amount: {item.fridge.quantity} </Text>
     </TouchableOpacity>
   );
 
-  const navigationOpacity = (foodItemId, userUid, quantity) => {
-    navigation.navigate("SingleFoodItem", { foodItemId, userUid, quantity });
+  const navigationOpacity = (item) => {
+    //console.log("my item",item)
+    navigation.navigate("SingleRecipe", {
+        id: item.id,
+        title: item.recipe_name,
+        image: item.imageUrl,
+      });
   };
-
-  const renderFridgeFlatList = ({ item }) => {
+  const renderFavoritesFlatList = ({ item }) => {
+      
     return (
-      <FridgeFlatList
+      <FavoritesFlatList
         item={item}
         onPress={() => {
           setSelectedId(item.id);
-          navigationOpacity(
-            item.id,
-            "u087CSU21PhXkg73Rd4Uxa2ugtw2",
-            item.fridge.quantity
-          );
+          navigationOpacity(item, "u087CSU21PhXkg73Rd4Uxa2ugtw2");
         }}
       />
     );
   };
-  let DATA = fridgeSelector.foodItems;
+  let DATA = favoritesSelector.recipes;
   return (
     <SafeAreaView style={styles.container}>
-      <SafeAreaView>
-        <TouchableOpacity
-          style={styles.touchable}
-          onPress={() => navigation.navigate("Scanner")}
-        >
-          <Text style={{ color: "rgb(65, 140, 115)" }}>Add Food</Text>
-        </TouchableOpacity>
-      </SafeAreaView>
-      <Text>My Food</Text>
       {!DATA ? (
         <Text> Loading... </Text>
       ) : (
-        <SafeAreaView>
           <FlatList
-            data={fridgeSelector.foodItems}
-            renderItem={renderFridgeFlatList}
+            data={favoritesSelector.recipes}
+            renderItem={renderFavoritesFlatList}
             keyExtractor={(item) => item.id}
-            extraData={fridgeSelector}
+            extraData={favoritesSelector}
           />
-        </SafeAreaView>
       )}
     </SafeAreaView>
   );
@@ -92,12 +81,10 @@ export default function Fridge({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#E6EDE9",
+    backgroundColor: "whitesmoke",
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "column",
-    marginTop: 150,
-    marginBottom: 100,
   },
   item: {
     shadowColor: "rgb(44, 89, 74)",
@@ -105,9 +92,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
     backgroundColor: "white",
-    padding: 16,
+    //padding: 16,
     width: "100%",
-    borderRadius: 30,
+    //borderRadius: 30,
     flexDirection: "row",
     alignItems: "flex-start",
     justifyContent: "space-between",
@@ -119,9 +106,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
     backgroundColor: "white",
-    padding: 16,
+    //padding: 16,
     color: "red",
-    borderRadius: 30,
+   // borderRadius: 30,
     flexDirection: "row",
     margin: 20,
   },
@@ -129,7 +116,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
   },
-  title: {
+  title1: {
     fontSize: 16,
     color: "rgb(65, 140, 115)",
     fontWeight: "bold",
@@ -153,5 +140,34 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     fontFamily: "Avenir",
+  },
+  list: {
+    flex: 1,
+    width: "90%",
+    //paddingTop: 100,
+  },
+  item: {
+    backgroundColor: "#dce6df",
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    //backgroundColor: "#dce6df",
+    borderRadius: 20,
+    borderColor: "teal",
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  title: {
+    fontSize: 24,
+    color: "teal",
+    //paddingTop: 5,
+    fontWeight: "bold",
+    fontFamily: "Avenir",
+  },
+  thumbnail: {
+    width: 150,
+    height: 150,
+    borderRadius: 10,
   },
 });

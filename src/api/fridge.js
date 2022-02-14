@@ -38,11 +38,11 @@ router.get("/:userUid", async (req, res, next) => {
 router.get("/:userUid/:foodItemId", async (req, res, next) => {
   try {
     const userFood = await User.findOne({
-      where: { uid: req.body.userUid },
+      where: { uid: req.params.userUid },
       attributes: ["uid"],
       include: {
         model: FoodItem,
-        where: { id: req.body.foodItemId },
+        where: { id: req.params.foodItemId },
       },
     });
     if (!userFood) {
@@ -58,7 +58,7 @@ router.get("/:userUid/:foodItemId", async (req, res, next) => {
 router.put("/:userUid/:foodItemId", async (req, res, next) => {
   try {
     const userFridge = await Fridge.findOne({
-      where: { userUid: req.body.userUid, foodItemId: req.body.foodItemId },
+      where: { userUid: req.params.userUid, foodItemId: req.params.foodItemId },
     });
     await userFridge.update(req.body);
     res.json(userFridge);
@@ -73,7 +73,7 @@ router.post("/:uid", async (req, res, next) => {
       where: { foodItem_name: req.body.foodItem_name },
     });
     let currentUser = await User.findOne({
-      where: { uid: req.body.uid },
+      where: { uid: req.params.uid },
     });
 
     let fridge = await currentUser.addFoodItem(fooditem[0], {
@@ -89,7 +89,7 @@ router.post("/:uid", async (req, res, next) => {
 router.delete("/:uid", async (req, res, next) => {
   try {
     const userFridgeItem = await Fridge.findAll({
-      where: { userUid: req.body.uid },
+      where: { userUid: req.params.uid },
     });
     console.log(userFridgeItem);
     await userFridgeItem.destroy();
@@ -103,7 +103,7 @@ router.delete("/:uid", async (req, res, next) => {
 router.delete("/:userUid/:foodItemId", async (req, res, next) => {
   try {
     const userFridgeItem = await Fridge.findOne({
-      where: { userUid: req.body.userUid, foodItemId: req.body.foodItemId },
+      where: { userUid: req.params.userUid, foodItemId: req.params.foodItemId },
     });
     await userFridgeItem.destroy();
     res.status(204).send("No content");

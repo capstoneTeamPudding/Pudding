@@ -13,8 +13,10 @@ import {
   STORAGE_BUCKET,
   MESSAGING_SENDER_ID,
   APP_ID,
-  MEASUREMENT_ID,
-} from "../../.keys";
+  MEASUREMENT_ID
+} from "../../.keys"
+
+
 
 const firebaseConfig = {
   apiKey: API_KEY,

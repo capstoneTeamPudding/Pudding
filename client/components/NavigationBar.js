@@ -1,12 +1,19 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+<<<<<<< HEAD
 import { HomeNav, FridgeNav, RecipeNav, ProfileNav } from "./Navigators";
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+=======
+import Fridge from "./Fridge";
+import Home from "./Home";
+import Favorites from "./Favorites";
+>>>>>>> main
 
 const Tab = createBottomTabNavigator();
 
 export default function NavigationBar() {
   return (
+<<<<<<< HEAD
     <Tab.Navigator
       initialRouteName="Home"
       screenOptions={({ route }) => ({
@@ -37,6 +44,13 @@ export default function NavigationBar() {
       <Tab.Screen name="FridgeNav" component={FridgeNav} />
       <Tab.Screen name="ProfileNav" component={ProfileNav} />
     </Tab.Navigator>
+=======
+    <Bottom.Navigator>
+      <Bottom.Screen name="Fridge" component={Fridge} />
+      <Bottom.Screen name="Home" component={Home} />
+      <Bottom.Screen name="Favorites" component={Favorites} />
+    </Bottom.Navigator>
+>>>>>>> main
   );
 }
 
