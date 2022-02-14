@@ -77,15 +77,14 @@ export default function Fridge({ navigation }) {
           <Text style={{ color: "rgb(65, 140, 115)" }}>Add Food</Text>
         </TouchableOpacity>
       </SafeAreaView>
-      <Text>My Food</Text>
       {!DATA ? (
         <Text style={styles.title}>
           {" "}
           Sorry your fridge is EMPTY! Try adding something to your fridge{" "}
         </Text>
       ) : (
-        <SafeAreaView>
-          <FlatList
+        <SafeAreaView style={styles.list}>
+          <FlatList 
             data={fridgeSelector.foodItems}
             renderItem={renderFridgeFlatList}
             keyExtractor={(item) => item.id}
@@ -103,9 +102,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#E6EDE9",
     alignItems: "center",
     justifyContent: "center",
-    flexDirection: "column",
-    marginTop: 200,
-    marginBottom: 100,
+  },
+  list: {
+    flex: 1,
+    width: "90%",
+    paddingTop: 100,
   },
   item: {
     shadowColor: "rgb(44, 89, 74)",
@@ -114,10 +115,8 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     backgroundColor: "white",
     padding: 16,
-    width: "100%",
     borderRadius: 30,
     flexDirection: "row",
-    alignItems: "flex-start",
     justifyContent: "space-between",
     marginBottom: 20,
   },
