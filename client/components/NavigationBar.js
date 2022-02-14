@@ -1,6 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { HomeNav, FridgeNav, RecipeNav } from "./Navigators";
+import { HomeNav, FridgeNav, RecipeNav, ProfileNav } from "./Navigators";
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 const Tab = createBottomTabNavigator();
@@ -18,10 +18,9 @@ export default function NavigationBar() {
             iconName = 'chef-hat'; 
           } else if (route.name === 'FridgeNav') {
             iconName = 'fridge';
-          }
-          // } else if (route.name === 'Profile') {
-          //   iconName = focused ? 'account' : 'account-outline';
-          // } 
+          } else if (route.name === 'ProfileNav') {
+            iconName = 'account';
+          } 
 
           // You can return any component that you like here!
           return <MaterialCommunityIcons name={iconName} size={32} color={color} />;
@@ -36,6 +35,7 @@ export default function NavigationBar() {
       <Tab.Screen name="HomeNav" component={HomeNav} />
       <Tab.Screen name="RecipeNav" component={RecipeNav} />
       <Tab.Screen name="FridgeNav" component={FridgeNav} />
+      <Tab.Screen name="ProfileNav" component={ProfileNav} />
     </Tab.Navigator>
   );
 }

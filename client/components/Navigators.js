@@ -10,8 +10,39 @@ import SearchSingleRecipe  from "./SearchSingleRecipe";
 import EditFood from "./EditFood";
 import AddFood from "./AddFood";
 import Home from "./Home";
+import Profile from "./Profile";
 
 const Stack = createNativeStackNavigator();
+
+export function ProfileNav() {
+  return (
+    <Stack.Navigator 
+      initialRouteName="Profile"
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#418C73',
+        },
+        headerTintColor: "#FFFFFF",
+        headerShadowVisible: false,
+        headerTitleStyle: {
+          fontWeight: "bold",
+          fontFamily: 'Avenir',
+          fontSize: 22,
+          color: "#FFFFFF"
+        },
+        headerBackTitleVisible: false
+      }}
+      >
+      <Stack.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          title: "My Profile"
+        }}
+      />
+    </Stack.Navigator>
+  )
+}
 
 export function HomeNav() {
   return (
