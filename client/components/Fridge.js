@@ -36,15 +36,15 @@ export default function Fridge({ navigation }) {
 
   const FridgeFlatList = ({ item, onPress, backgroundColor, textColor }) => (
     <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
-      <Image
+      {/* <Image
         style={styles.tinyThyme}
         source={{
           uri:
             "https://us.123rf.com/450wm/eridanka/eridanka2103/eridanka210300026/165315737-a-sprig-of-rosemary-hand-drawn-sketch-style-illustration-design-element.jpg?ver=6",
         }}
-      />
+      /> */}
       <Text style={[styles.title, textColor]}>{item.foodItem_name}</Text>
-      <Text style={styles.itemText2}> Amount: {item.fridge.quantity} </Text>
+      <Text style={styles.itemText2}>Qty: {item.fridge.quantity} </Text>
     </TouchableOpacity>
   );
 
@@ -69,23 +69,28 @@ export default function Fridge({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <SafeAreaView>
+      <SafeAreaView style={styles.containerRow}>
         <TouchableOpacity
-          style={styles.touchable}
+          style={styles.button}
+          onPress={() => navigation.navigate("AddFood")}
+        >
+          <Text style={styles.buttonText}>Add Food</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
           onPress={() => navigation.navigate("Scanner")}
         >
-          <Text style={{ color: "rgb(65, 140, 115)" }}>Add Food</Text>
+          <Text style={styles.buttonText}>Scan</Text>
         </TouchableOpacity>
       </SafeAreaView>
-      <Text>My Food</Text>
       {!DATA ? (
         <Text style={styles.title}>
           {" "}
           Sorry your fridge is EMPTY! Try adding something to your fridge{" "}
         </Text>
       ) : (
-        <SafeAreaView>
-          <FlatList
+        <SafeAreaView style={styles.list}>
+          <FlatList 
             data={fridgeSelector.foodItems}
             renderItem={renderFridgeFlatList}
             keyExtractor={(item) => item.id}
@@ -103,9 +108,20 @@ const styles = StyleSheet.create({
     backgroundColor: "#E6EDE9",
     alignItems: "center",
     justifyContent: "center",
-    flexDirection: "column",
-    marginTop: 200,
-    marginBottom: 100,
+    width: "100%",
+  },
+  containerRow: {
+    backgroundColor: "#E6EDE9",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  list: {
+    flex: 1,
+    width: "90%",
+    paddingTop: 100,
   },
   item: {
     shadowColor: "rgb(44, 89, 74)",
@@ -114,52 +130,61 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     backgroundColor: "white",
     padding: 16,
-    width: "100%",
     borderRadius: 30,
     flexDirection: "row",
-    alignItems: "flex-start",
     justifyContent: "space-between",
     marginBottom: 20,
   },
-  touchable: {
-    shadowColor: "rgb(44, 89, 74)",
-    shadowOffset: { width: -2, height: 4 },
+  buttonText: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    justifyContent: "center",
+    margin: 16,
+    marginLeft: 40,
+    marginRight: 40
+  },
+  button: {
+    backgroundColor: "#418C73",
+    borderRadius: 30,
+    alignSelf: "center",
+    shadowColor: "#2C594A",
+    shadowOffset: { width: -4, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
-    backgroundColor: "white",
-    padding: 16,
-    color: "red",
-    borderRadius: 30,
-    flexDirection: "row",
     margin: 20,
   },
   tinyThyme: {
-    width: 20,
-    height: 20,
+    width: 40,
+    height: 40,
   },
   title: {
-    fontSize: 16,
-    color: "rgb(65, 140, 115)",
+    flex: 3,
+    fontSize: 20,
+    color: "#20097B",
     fontWeight: "bold",
     justifyContent: "center",
     alignItems: "center",
     fontFamily: "Avenir",
-  },
-  heading: {
-    fontSize: 25,
-    color: "rgb(65, 140, 115)",
-    fontWeight: "bold",
-    justifyContent: "center",
-    alignItems: "center",
-    fontFamily: "Avenir",
-    margin: 20,
+    flexWrap: "wrap",
+    paddingLeft: 20,
+    paddingRight: 15
   },
   itemText2: {
-    fontSize: 16,
+    fontSize: 20,
     color: "rgb(65, 140, 115)",
-    justifyContent: "center",
-    flexDirection: "row",
-    alignItems: "center",
     fontFamily: "Avenir",
   },
+    // touchable: {
+  //   shadowColor: "rgb(44, 89, 74)",
+  //   shadowOffset: { width: -2, height: 4 },
+  //   shadowOpacity: 0.2,
+  //   shadowRadius: 3,
+  //   backgroundColor: "white",
+  //   padding: 16,
+  //   color: "red",
+  //   borderRadius: 30,
+  //   flexDirection: "row",
+  //   margin: 20,
+  // },
 });
