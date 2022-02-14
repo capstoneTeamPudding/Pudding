@@ -59,11 +59,8 @@ export default function Login({ navigation }) {
         backgroundColor="#61dafb"
        />
       <Image
-        style={styles.tinyTomato}
-        source={{
-          uri:
-            "https://us.123rf.com/450wm/eridanka/eridanka2103/eridanka210300026/165315737-a-sprig-of-rosemary-hand-drawn-sketch-style-illustration-design-element.jpg?ver=6",
-        }}
+        style={styles.logo}
+        source={ require("../../assets/thyme_logo.png")}
       />
       {/* <Text style={styles.text}>Enter your email and password to sign in:</Text> */}
       <TextInput
@@ -174,10 +171,15 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
   },
+  logo: {
+    marginTop: 50,
+    width: 300,
+    height: 300,
+  },
   footerView: {
     flex: 1,
-    alignItems: "center",
-    marginTop: 146,
+    justifyContent: 'flex-end',
+    marginBottom: 36,
   },
   footerText: {
     fontSize: 17,
