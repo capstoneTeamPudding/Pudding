@@ -15,8 +15,8 @@ const Logout = () => {
   const onPressLogout = async () => {
     
     try {
-      await auth.signOut();
-      dispatch(logout());
+      const response = await dispatch(logout());
+      if(response !== true) setError(response)
       navigation.navigate("Login");
       Alert.alert("You have signed out");
       console.log("user signed out!!")

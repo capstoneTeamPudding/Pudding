@@ -32,6 +32,7 @@ export default function Login({ navigation }) {
   React.useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
+        console.log(typeof(auth.currentUser.uid))
         navigation.navigate("Home");
       }
     });

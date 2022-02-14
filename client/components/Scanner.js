@@ -7,6 +7,7 @@ import { addFoodItemThunk } from "../store/foodItems";
 import { addToFridgeThunk } from "../store/fridge";
 import { EDEMAM_KEY, EDEMAM_ID } from "../../.keys";
 import axios from "axios";
+import { auth } from "../firebaseAuth/firebase";
 
 let EdamamURL = "https://api.edamam.com/api/food-database/v2/parser?";
 const EDEMAM_TYPE = "&nutrition-type=logging";
@@ -55,7 +56,8 @@ export default function Scanner({ navigation }) {
       {
         text: "Yes",
         onPress: () => {
-          addToFridge("u087CSU21PhXkg73Rd4Uxa2ugtw2", foodName, 1);
+          const userUid = auth.currentUser.uid
+          addToFridge(userUid, foodName, 1);
           Alert.alert(`Successfully added ${foodName} to your fridge!`);
         },
       },

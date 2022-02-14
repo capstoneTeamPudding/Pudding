@@ -1,4 +1,5 @@
 import axios from "axios";
+import { auth } from "../firebaseAuth/firebase"
 
 export const GET_FRIDGE = "GET_FRIDGE";
 export const GET_FRIDGE_ITEM = "GET_FRIDGE_ITEM";
@@ -47,10 +48,15 @@ export const _deleteFoodItemFromFridge = (fridge) => {
 export const getFridgeThunk = (userUid) => {
   return async (dispatch) => {
     try {
+      const user = auth.currentUser.uid
+      if (user) {
       const { data: fridge } = await axios.get(
-        `https://the-thymely-cook.herokuapp.com/api/fridge/${userUid}`
+        `https://the-thymely-cook.herokuapp.com/api/fridge/${userUid}`, {
+          // headers: { authtoken: idToken }
+        }
       );
       dispatch(_getFridge(fridge));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -59,11 +65,16 @@ export const getFridgeThunk = (userUid) => {
 export const getFridgeItemThunk = (foodItemId, userUid) => {
   return async (dispatch) => {
     try {
+      const user = await auth.currentUser.uid
+      if(user) {
       const { data: fridgeItem } = await axios.get(
-        `https://the-thymely-cook.herokuapp.com/api/fridge/${userUid}/${foodItemId}`
+        `https://the-thymely-cook.herokuapp.com/api/fridge/${userUid}/${foodItemId}`, {
+          // headers: { authtoken: idToken }
+        }
       );
       console.log(fridgeItem);
       dispatch(_getFridgeItem(fridgeItem));
+     }
     } catch (error) {
       console.error(error);
     }
@@ -72,29 +83,39 @@ export const getFridgeItemThunk = (foodItemId, userUid) => {
 export const addToFridgeThunk = (uid, foodItem_name, quantity) => {
   return async (dispatch) => {
     try {
+      const user = await auth.currentUser.uid
+      if(user) {
       const { data: foodItem } = await axios.post(
         `https://the-thymely-cook.herokuapp.com/api/fridge/${uid}`,
         {
           uid,
           foodItem_name,
           quantity,
-        }
+        },
+        // {headers: { authtoken: idToken }}
       );
       dispatch(_addToFridge(foodItem));
+      }
     } catch (err) {
       console.log("ADD TO FRIDGE ERROR");
       console.error(err);
     }
   };
 };
+
 export const updateFridgeThunk = (foodItem) => {
   return async (dispatch) => {
     try {
+      const user = await auth.currentUser.uid
+      if(user) {
       const { data: food } = await axios.put(
-        `https://the-thymely-cook.herokuapp.com/api/fridge/${foodItem.userUid}/${foodItem.foodItemId}`,
+        `https://the-thymely-cook.herokuapp.com/api/fridge/${foodItem.userUid}/${foodItem.foodItemId}`, {
         foodItem
+       },
+      //  { headers: { authtoken: idToken }}
       );
       dispatch(_updateFridge(foodItem));
+     };
     } catch (err) {
       console.log("ADD TO FRIDGE ERROR");
       console.error(err);
@@ -105,29 +126,41 @@ export const updateFridgeThunk = (foodItem) => {
 export const deleteFoodItemFromFridgeThunk = (userUid, foodItemId) => {
   return async (dispatch) => {
     try {
-      const { data: fridge } = await axios.delete(
-        `https://the-thymely-cook.herokuapp.com/api/fridge/${userUid}/${foodItemId}`,
-        {
+      const user = await auth.currentUser.uid
+      if(user) {
+        const { data: fridge } = await axios.delete(`https://the-thymely-cook.herokuapp.com/api/fridge/${userUid}/${foodItemId}`, {
           userUid,
           foodItemId,
-        }
-      );
-      dispatch(_deleteFoodItemFromFridge(fridge));
+      },
+      // { headers: { authtoken: idToken }},
+     );
+          dispatch(_deleteFoodItemFromFridge(fridge))
+      };
     } catch (err) {
       console.error(`Failed to delete fridge item`, err);
     }
   };
 };
+
 export const deleteFridgeThunk = (userUid) => {
   return async (dispatch) => {
     try {
-      const {
-        data: fridge,
-      } = await axios.delete(
-        `https://the-thymely-cook.herokuapp.com/api/fridge/${userUid}`,
-        { userUid }
-      );
-      dispatch(_deleteFridge(fridge));
+      const user = await auth.currentUser.uid
+      if(user) {
+        const { data: fridge } = await axios.delete(`https://the-thymely-cook.herokuapp.com/api/fridge/${userUid}`, {
+           userUid 
+          },
+          // { headers: { authtoken: idToken }}
+        );
+          dispatch(_deleteFridge(fridge))
+      };
+      // const {
+      //   data: fridge,
+      // } = await axios.delete(
+      //   `https://the-thymely-cook.herokuapp.com/api/fridge/${userUid}`,
+      //   { userUid }
+      // );
+      // dispatch(_deleteFridge(fridge));
     } catch (err) {
       console.error(`Failed to delete fridge`, err);
     }
@@ -135,7 +168,7 @@ export const deleteFridgeThunk = (userUid) => {
 };
 let initialState = [];
 
-export default function fridgeReducer(state = [], action) {
+export default function fridgeReducer(state = initialState, action) {
   switch (action.type) {
     case GET_FRIDGE:
       return action.fridge;
