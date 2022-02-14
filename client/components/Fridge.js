@@ -27,10 +27,9 @@ export default function Fridge({ navigation }) {
   useEffect((userUid) => {
     const uid = auth.currentUser.uid;
     viewFridge(uid);
-    if (fridgeSelector.foodItems === undefined) {
+    if (fridgeSelector.foodItems === null) {
       setDATA([]);
-    } else {
-      
+    } else if (fridgeSelector.foodItems) {
       setDATA(fridgeSelector.foodItems);
     }
   }, []);
@@ -80,15 +79,15 @@ export default function Fridge({ navigation }) {
           <Text style={styles.buttonText}>Scan</Text>
         </TouchableOpacity>
       </SafeAreaView>
-      {!DATA ? (
+      {!DATA || fridgeSelector.foodItems === null ? (
         <Text style={styles.title}>
           {" "}
           Sorry your fridge is EMPTY! Try adding something to your fridge{" "}
         </Text>
       ) : (
         <SafeAreaView style={styles.list}>
-          <FlatList 
-            data={fridgeSelector.foodItems}
+          <FlatList
+            data={DATA}
             renderItem={renderFridgeFlatList}
             keyExtractor={(item) => item.id}
             extraData={fridgeSelector}
@@ -113,7 +112,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "100%",
     flexDirection: "row",
-    justifyContent: "space-between",
   },
   list: {
     flex: 1,
@@ -139,7 +137,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     margin: 16,
     marginLeft: 40,
-    marginRight: 40
+    marginRight: 40,
   },
   button: {
     backgroundColor: "#418C73",
@@ -165,14 +163,14 @@ const styles = StyleSheet.create({
     fontFamily: "Avenir",
     flexWrap: "wrap",
     paddingLeft: 20,
-    paddingRight: 15
+    paddingRight: 15,
   },
   itemText2: {
     fontSize: 20,
     color: "rgb(65, 140, 115)",
     fontFamily: "Avenir",
   },
-    // touchable: {
+  // touchable: {
   //   shadowColor: "rgb(44, 89, 74)",
   //   shadowOffset: { width: -2, height: 4 },
   //   shadowOpacity: 0.2,
