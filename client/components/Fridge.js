@@ -30,6 +30,7 @@ export default function Fridge({ navigation }) {
     if (fridgeSelector.foodItems === undefined) {
       setDATA([]);
     } else {
+      console.log("********************************************");
       setDATA(fridgeSelector.foodItems);
     }
   }, []);
@@ -44,7 +45,7 @@ export default function Fridge({ navigation }) {
         }}
       />
       <Text style={[styles.title, textColor]}>{item.foodItem_name}</Text>
-      <Text style={styles.itemText2}> Amount: {item.fridge.quantity} </Text>
+      <Text style={styles.itemText2}> Amount: 1 </Text>
     </TouchableOpacity>
   );
 
@@ -57,11 +58,7 @@ export default function Fridge({ navigation }) {
       <FridgeFlatList
         item={item}
         onPress={() => {
-          navigationOpacity(
-            item.id,
-            auth.currentUser.uid,
-            item.fridge.quantity
-          );
+          navigationOpacity(item.id, auth.currentUser.uid, 1);
         }}
       />
     );

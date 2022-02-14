@@ -61,7 +61,6 @@ router.put("/:userUid/:foodItemId", async (req, res, next) => {
       where: { userUid: req.params.userUid, foodItemId: req.params.foodItemId },
     });
     await userFridge.update(req.body);
-    res.json("USER********************************************", userFridge);
   } catch (error) {
     next(error);
   }
