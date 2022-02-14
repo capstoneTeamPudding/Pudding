@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 const spnAPI = 'https://api.spoonacular.com/recipes/'
-// import {SPOON_API_KEY} from "../.keys.js"
+ import {SPOON_API_KEY} from "../.keys.js"
+//import {SPOON_API_KEY} from '@env';
 
 
 //ACTIONS
@@ -50,7 +51,7 @@ const initialState = {
 //REDUCER
 
 export default function recipeReducer(state = [], action) {
-    
+    //console.log("I'm recipeReducer, I got ", action.recipe)
   switch (action.type) {
     case SAVE_RECIPE:
       return [...state, action.recipe]
