@@ -16,20 +16,20 @@ import {
   getFridgeItemThunk,
   deleteFoodItemFromFridgeThunk,
   updateFridgeThunk,
-} from "../store/fridge";
+} from "../store/fridgeItem";
 
 export default function EditFood({ route, navigation }) {
   let dispatch = useDispatch();
   const [name, setName] = useState("");
-  const [quantity, setQuantity] = useState();
+  const [title, setTitle] = useState(route.params.name);
+  const [amount, setAmount] = useState(null);
   const fridgeSelector = useSelector((state) => state.fridgeReducer);
-  const foodItemSelector = useSelector((state) => state.foodItemReducer);
-  let userUid = route.params.userUid;
+  let uid = route.params.userUid;
   let id = route.params.id;
   let nameFood = route.params.name;
 
-  const viewFoodItem = (userUid, foodItemId) => {
-    dispatch(getFridgeItemThunk(userUid, foodItemId));
+  const viewFoodItem = (foodItemId, userUid) => {
+    dispatch(getFridgeItemThunk(foodItemId, userUid));
   };
 
   const editFridgeItem = (fooditem) => {
@@ -42,39 +42,29 @@ export default function EditFood({ route, navigation }) {
 
   const handleName = async () => {
     try {
-      await editFoodItem({ foodItemId: id, foodItem_name: name });
+      await editFoodItem({ id: id, foodItem_name: name });
+      setTitle(name);
       Alert.alert(`Successfully updated ${name}!`);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleSubmit = async () => {
-    console.log(userUid);
-    try {
-      await editFridgeItem({
-        userUid,
-        foodItemId: id,
-        quantity,
-      });
-      Alert.alert(`Successfully updated ${name}!`);
-    } catch (error) {
-      console.log(error);
-    }
+  const handleSubmit = (userUid, foodItemId, quantity) => {
+    console.log(uid, id, amount);
+    editFridgeItem({ userUid: uid, foodItemId: id, quantity: amount });
+    Alert.alert(`Successfully updated ${name}!`);
   };
 
-  const deleteFromFridge = (userUid, foodItemId) => {
-    dispatch(
-      deleteFoodItemFromFridgeThunk({
-        userUid: route.params.userUid,
-        foodItemId: route.params.id,
-      })
-    );
+  const deleteFromFridge = (foodItemId, userUid) => {
+    dispatch(deleteFoodItemFromFridgeThunk(id, uid));
   };
 
-  useEffect(() => {
-    viewFoodItem(route.params.userUid, route.params.id);
+  useEffect((foodItemId, userUid) => {
+    viewFoodItem(id, uid);
+    setName(nameFood);
   }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       {!fridgeSelector ? (
@@ -82,7 +72,7 @@ export default function EditFood({ route, navigation }) {
       ) : (
         <SafeAreaView style={styles.container}>
           <SafeAreaView style={styles.item}>
-            <Text style={styles.heading}>{nameFood}</Text>
+            <Text style={styles.heading}>{title}</Text>
             <Text style={styles.itemText2}>Edit Name:</Text>
             <TextInput
               style={styles.input}
@@ -104,8 +94,8 @@ export default function EditFood({ route, navigation }) {
             <TextInput
               style={styles.input}
               placeholder="How Much Do You Have?"
-              value={quantity}
-              onChangeText={(quantity) => setQuantity(quantity)}
+              value={amount}
+              onChangeText={(amount) => setAmount(amount)}
             />
             <TouchableOpacity style={styles.touchable} onPress={handleSubmit}>
               <Text style={{ color: "rgb(65, 140, 115)" }}>
