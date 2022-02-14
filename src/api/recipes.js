@@ -29,7 +29,7 @@ router.get("/:recipeId", async (req, res, next) => {
   }
 });
 
-
+//get favorites
 router.get("/user/:userUid", async (req, res, next) => {
   try {
     const userFav = await User.findOne({
