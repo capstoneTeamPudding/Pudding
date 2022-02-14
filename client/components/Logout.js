@@ -38,7 +38,7 @@ const Logout = () => {
 const styles = StyleSheet.create({
 
 logout: {
-  shadowColor: "rgb(44, 89, 74)",
+  shadowColor: "#2C594A",
   shadowOffset: { width: -2, height: 4 },
   shadowOpacity: 0.2,
   shadowRadius: 3,
