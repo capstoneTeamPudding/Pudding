@@ -12,7 +12,8 @@ import {
   View,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { getFridgeThunk } from "../store/fridge";
+import { getFridgeThunk, deleteFridgeThunk } from "../store/fridge";
+import { auth } from "../firebaseAuth/firebase"
 
 export default function Fridge({ navigation }) {
   const dispatch = useDispatch();
@@ -23,7 +24,9 @@ export default function Fridge({ navigation }) {
   };
 
   useEffect((userUid) => {
-    viewFridge("u087CSU21PhXkg73Rd4Uxa2ugtw2");
+    const uid = auth.currentUser.uid
+    console.log(`**************${auth.currentUser.uid}`)
+    viewFridge(uid);
   }, []);
 
   const FridgeFlatList = ({ item, onPress, backgroundColor, textColor }) => (
@@ -49,7 +52,12 @@ export default function Fridge({ navigation }) {
       <FridgeFlatList
         item={item}
         onPress={() => {
-          navigationOpacity(item.id, "u087CSU21PhXkg73Rd4Uxa2ugtw2");
+          setSelectedId(item.id);
+          navigationOpacity(
+            item.id,
+            userUid,
+            item.fridge.quantity
+          );
         }}
       />
     );

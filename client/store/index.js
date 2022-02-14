@@ -13,7 +13,7 @@ import auth from "./auth";
 //add reducers here! Don't forget to import!
 
 const reducer = combineReducers({
-  auth,
+  auth: auth,
   recipesReducer,
   recipeReducer,
   foodItemsReducer,
