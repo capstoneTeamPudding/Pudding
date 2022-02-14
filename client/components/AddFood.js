@@ -12,6 +12,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { addFoodItemThunk } from "../store/foodItems";
 import { addToFridgeThunk } from "../store/fridge";
+import { auth } from "../firebaseAuth/firebase";
 
 export default function AddFood({ navigation }) {
   let dispatch = useDispatch();
@@ -21,13 +22,14 @@ export default function AddFood({ navigation }) {
   const addFoodItem = (foodItem) => {
     dispatch(addFoodItemThunk(foodItem));
   };
-  const addToFridge = (uid, foodItem_name, quantity) => {
-    dispatch(addToFridgeThunk(uid, foodItem_name, quantity));
+  const addToFridge = (uid, foodItem_name, amount) => {
+    let userUid = auth.currentUser.uid;
+    dispatch(addToFridgeThunk(userUid, name, quantity));
   };
 
   const handleSubmit = async () => {
     try {
-      await addToFridge("u087CSU21PhXkg73Rd4Uxa2ugtw2", name, quantity);
+      await addToFridge(auth.currentUser.uid, name, quantity);
     } catch (error) {
       console.log(error);
     }

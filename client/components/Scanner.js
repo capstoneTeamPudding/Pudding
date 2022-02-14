@@ -56,7 +56,7 @@ export default function Scanner({ navigation }) {
       {
         text: "Yes",
         onPress: () => {
-          addToFridge("u087CSU21PhXkg73Rd4Uxa2ugtw2" , foodName, 1);
+          addToFridge(auth.currentUser.uid, foodName, 1);
           Alert.alert(`Successfully added ${foodName} to your fridge!`);
         },
       },

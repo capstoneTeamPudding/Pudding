@@ -61,7 +61,7 @@ router.put("/:userUid/:foodItemId", async (req, res, next) => {
       where: { userUid: req.params.userUid, foodItemId: req.params.foodItemId },
     });
     await userFridge.update(req.body);
-    res.json(userFridge);
+    res.json("USER********************************************", userFridge);
   } catch (error) {
     next(error);
   }
@@ -79,6 +79,7 @@ router.post("/:uid", async (req, res, next) => {
     let fridge = await currentUser.addFoodItem(fooditem[0], {
       through: { quantity: req.body.quantity },
     });
+    console.log(fridge);
     res.status(201).json(fridge);
   } catch (error) {
     next(error);

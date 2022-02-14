@@ -13,9 +13,10 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { getFridgeThunk, deleteFridgeThunk } from "../store/fridge";
-import { auth } from "../firebaseAuth/firebase"
+import { auth } from "../firebaseAuth/firebase";
 
 export default function Fridge({ navigation }) {
+  const [DATA, setDATA] = useState();
   const dispatch = useDispatch();
   const fridgeSelector = useSelector((state) => state.fridgeReducer);
 
@@ -24,9 +25,13 @@ export default function Fridge({ navigation }) {
   };
 
   useEffect((userUid) => {
-    const uid = auth.currentUser.uid
-    console.log(`**************${auth.currentUser.uid}`)
+    const uid = auth.currentUser.uid;
     viewFridge(uid);
+    if (fridgeSelector.foodItems === undefined) {
+      setDATA([]);
+    } else {
+      setDATA(fridgeSelector.foodItems);
+    }
   }, []);
 
   const FridgeFlatList = ({ item, onPress, backgroundColor, textColor }) => (
@@ -43,8 +48,8 @@ export default function Fridge({ navigation }) {
     </TouchableOpacity>
   );
 
-  const navigationOpacity = (foodItemId, userUid) => {
-    navigation.navigate("SingleFoodItem", { foodItemId, userUid });
+  const navigationOpacity = (foodItemId, userUid, quantity) => {
+    navigation.navigate("SingleFoodItem", { foodItemId, userUid, quantity });
   };
 
   const renderFridgeFlatList = ({ item }) => {
@@ -52,18 +57,16 @@ export default function Fridge({ navigation }) {
       <FridgeFlatList
         item={item}
         onPress={() => {
-          setSelectedId(item.id);
           navigationOpacity(
             item.id,
-            userUid,
+            auth.currentUser.uid,
             item.fridge.quantity
           );
         }}
       />
     );
   };
-  let DATA = fridgeSelector.foodItems;
-  console.log(DATA, "FRIDGE");
+
   return (
     <SafeAreaView style={styles.container}>
       <SafeAreaView>
@@ -76,7 +79,10 @@ export default function Fridge({ navigation }) {
       </SafeAreaView>
       <Text>My Food</Text>
       {!DATA ? (
-        <Text> Loading... </Text>
+        <Text style={styles.title}>
+          {" "}
+          Sorry your fridge is EMPTY! Try adding something to your fridge{" "}
+        </Text>
       ) : (
         <SafeAreaView>
           <FlatList
