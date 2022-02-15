@@ -43,6 +43,7 @@ export default function EditFood({ route, navigation }) {
   const handleName = async () => {
     try {
       await editFoodItem({ id: id, foodItem_name: name });
+      editFridgeItem({ userUid: uid, foodItemId: id, quantity: amount });
       setTitle(name);
       Alert.alert(`Successfully updated ${name}!`);
     } catch (error) {
@@ -51,7 +52,11 @@ export default function EditFood({ route, navigation }) {
   };
 
   const handleSubmit = (userUid, foodItemId, quantity) => {
-    editFridgeItem({ userUid: uid, foodItemId: id, quantity: amount });
+    editFridgeItem({
+      userUid: route.params.userUid,
+      foodItemId: route.params.id,
+      quantity: amount,
+    });
     Alert.alert(`Successfully updated ${name}!`);
   };
 
@@ -148,7 +153,7 @@ const styles = StyleSheet.create({
     padding: 30,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 30
+    marginTop: 30,
   },
   input: {
     backgroundColor: "#E6EDE9",
@@ -168,7 +173,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     margin: 16,
     marginLeft: 40,
-    marginRight: 40
+    marginRight: 40,
   },
   button: {
     backgroundColor: "#418C73",
@@ -194,7 +199,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "teal",
     fontFamily: "Avenir",
-    textAlign: 'center',
+    textAlign: "center",
   },
   tinyThyme: {
     width: 100,
@@ -202,7 +207,7 @@ const styles = StyleSheet.create({
   },
   footerView: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
     marginBottom: 10,
   },
   // title: {
