@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { getFavoritesThunk } from "../store/favorites";
+import { auth } from "../firebaseAuth/firebase";
 
 export default function Favorites({ navigation }) {
   const [selectedId, setSelectedId] = useState(null);
@@ -24,8 +25,9 @@ export default function Favorites({ navigation }) {
     dispatch(getFavoritesThunk(userUid));
   };
 
-  useEffect((userUid) => {
-    getFav("u087CSU21PhXkg73Rd4Uxa2ugtw2");
+  useEffect(() => {
+    const uid = auth.currentUser.uid;
+    getFav(uid);
   }, []);
 
   const FavoritesFlatList = ({ item, onPress, backgroundColor, textColor }) => (
@@ -52,6 +54,7 @@ export default function Favorites({ navigation }) {
   const renderFavoritesFlatList = ({ item }) => {
       
     return (
+      
       <FavoritesFlatList
         item={item}
         onPress={() => {
@@ -67,12 +70,14 @@ export default function Favorites({ navigation }) {
       {!DATA ? (
         <Text> Loading... </Text>
       ) : (
+        
           <FlatList
             data={favoritesSelector.recipes}
             renderItem={renderFavoritesFlatList}
             keyExtractor={(item) => item.id}
             extraData={favoritesSelector}
           />
+          
       )}
     </SafeAreaView>
   );
