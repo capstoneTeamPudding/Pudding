@@ -37,7 +37,7 @@ export default function Fridge({ navigation }) {
   const FridgeFlatList = ({ item, onPress, backgroundColor, textColor }) => (
     <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
       <Text style={[styles.title, textColor]}>{item.foodItem_name}</Text>
-      <Text style={styles.itemText2}> Amount: 1 </Text>
+      <Text style={styles.itemText2}> Amount: {item.fridge.quantity} </Text>
     </TouchableOpacity>
   );
 
@@ -50,7 +50,11 @@ export default function Fridge({ navigation }) {
       <FridgeFlatList
         item={item}
         onPress={() => {
-          navigationOpacity(item.id, auth.currentUser.uid, 1);
+          navigationOpacity(
+            item.id,
+            auth.currentUser.uid,
+            item.fridge.quantity
+          );
         }}
       />
     );
