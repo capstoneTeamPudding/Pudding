@@ -78,12 +78,12 @@ const Recipes = ({ route, navigation }) => {
         </SafeAreaView>
       ) : (
         <View style={styles.list}>
-          <Text style={styles.title}>
+          <Text style={styles.textSubheader}>
             Hey, we're sorry, it looks like we can't find anything with that
             ingredient name! You'll likely get better results if you shorten the
             name!
           </Text>
-          <Text style={styles.title}>
+          <Text style={styles.textSubheader}>
             Here's an example! Changing "Trader Joe's Organic Tahini 10.6 oz" to
             simply "tahini"
           </Text>
