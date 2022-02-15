@@ -64,9 +64,6 @@ export default function AddFood({ navigation }) {
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Submit</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Fridge")}>
-        <Text style={styles.buttonText}>Fridge</Text>
-      </TouchableOpacity>
     </SafeAreaView>
   );
 }
