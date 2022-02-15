@@ -335,8 +335,12 @@ footerLink: {
     fontSize: 16,
   },
   heading: {
+    fontSize: 24,
+    color: "#20097B",
+    marginTop: 50,
+    marginBottom: 30,
+    fontWeight: "bold",
     fontFamily: "Avenir",
-    fontSize: 38,
-    color: "#20097B"
+    textAlign: 'center',
   },
 });

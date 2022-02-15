@@ -27,8 +27,8 @@ const Logout = () => {
 
   return (
     <View>
-      <TouchableOpacity style={styles.logout} onPress={onPressLogout}>
-        <Text>Logout</Text>
+      <TouchableOpacity style={styles.button} onPress={onPressLogout}>
+        <Text style={styles.buttonText}>Logout</Text>
       </TouchableOpacity>
       {error && <Text>{error}</Text>}
     </View>
@@ -36,21 +36,40 @@ const Logout = () => {
 };
 
 const styles = StyleSheet.create({
+  buttonText: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    justifyContent: "center",
+    margin: 16,
+    marginLeft: 40,
+    marginRight: 40
+  },
+  button: {
+    backgroundColor: "#418C73",
+    borderRadius: 30,
+    alignSelf: "center",
+    shadowColor: "#2C594A",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    margin: 20,
+  },
 
-logout: {
-  shadowColor: "#2C594A",
-  shadowOffset: { width: -2, height: 4 },
-  shadowOpacity: 0.2,
-  shadowRadius: 3,
-  backgroundColor: "white",
-  padding: 16,
-  width: "100%",
-  borderRadius: 30,
-  flexDirection: "row",
-  alignItems: "flex-start",
-  justifyContent: "space-between",
-  marginBottom: 20,
-  }
+// logout: {
+//   shadowColor: "#2C594A",
+//   shadowOffset: { width: -2, height: 4 },
+//   shadowOpacity: 0.2,
+//   shadowRadius: 3,
+//   backgroundColor: "white",
+//   padding: 16,
+//   width: "100%",
+//   borderRadius: 30,
+//   flexDirection: "row",
+//   alignItems: "flex-start",
+//   justifyContent: "space-between",
+//   marginBottom: 20,
+//   }
 })
 
 export default Logout;
