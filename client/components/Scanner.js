@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button, Alert, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, Button, Alert, TouchableOpacity, ImageBackground } from "react-native";
 import { Overlay } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
 import { BarCodeScanner } from "expo-barcode-scanner";
@@ -107,11 +107,11 @@ export default function Scanner({ navigation }) {
     );
   }
 
-  return (
+  return ( 
     <Overlay>
       <View>
         {/* <Text style={styles.textSmall}>To scan an item, hold the item's barcode infront of the camera until barcode is in focus</Text> */}
-        <Text style={styles.textSmall}>{text}</Text>
+        <Text style={styles.textSubheader}>{text}</Text>
         <BarCodeScanner
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
           style={styles.barcode}
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     margin: 20,
   },
-  textSmall: {
+  textSubheader: {
     fontSize: 20,
     margin: 20,
     fontWeight: "bold",

@@ -39,30 +39,30 @@ export default function AddFood({ navigation }) {
     <SafeAreaView style={styles.container}>
       <SafeAreaView style={styles.item}>
         {/* <Text style={styles.heading}>Add Your Food Here</Text> */}
-        <Text style={styles.itemText2}>Food Name:</Text>
+        <Text style={styles.textSubheader}>Food Name:</Text>
         <TextInput
           style={styles.input}
-          placeholder="I.E. Russet Potato"
+          autoFocus={true}
+          placeholder="i.e. Tomato"
+          fontSize={22}
           value={name}
           onChangeText={(name) => setName(name)}
         />
-        <Image
-          style={styles.tinyThyme}
-          source={{
-            uri:
-              "https://us.123rf.com/450wm/eridanka/eridanka2103/eridanka210300026/165315737-a-sprig-of-rosemary-hand-drawn-sketch-style-illustration-design-element.jpg?ver=6",
-          }}
-        />
-        <Text style={styles.itemText2}>Quantity:</Text>
+        <Text style={styles.textSubheader}>Quantity:</Text>
         <TextInput
           style={styles.input}
-          placeholder="How Much Do You Have?"
+          placeholder="How Much?"
+          fontSize={22}
           value={quantity}
           onChangeText={(quantity) => setQuantity(quantity)}
         />
+        {/* <Image
+          style={styles.tinyThyme}
+          source={ require("../../assets/thyme-1.png")}
+        /> */}
       </SafeAreaView>
-      <TouchableOpacity style={styles.touchable} onPress={handleSubmit}>
-        <Text style={{ color: "rgb(65, 140, 115)" }}>Submit</Text>
+      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+        <Text style={styles.buttonText}>Submit</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -76,13 +76,19 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "column",
   },
+  containerRow: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    flexDirection: "row",
+  },
   item: {
     shadowColor: "rgb(44, 89, 74)",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
     backgroundColor: "white",
-    width: 300,
+    width: "90%",
     height: "60%",
     borderRadius: 30,
     padding: 30,
@@ -101,19 +107,34 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   input: {
+    backgroundColor: "#E6EDE9",
+    flexDirection: "row",
+    padding: 8,
+    marginBottom: 30,
+    width: "80%",
+    fontSize: 20,
+    color: "#20097B",
+    borderBottomColor: "#418C73",
+    borderBottomWidth: 2,
+  },
+  // input: {
+  //   shadowColor: "rgb(44, 89, 74)",
+  //   shadowOffset: { width: -2, height: 4 },
+  //   shadowOpacity: 0.2,
+  //   shadowRadius: 3,
+  //   backgroundColor: "white",
+  //   padding: 16,
+  //   borderRadius: 30,
+  //   flexDirection: "row",
+  //   margin: 10,
+  // },
+  tinyThyme: {
+    width: 100,
+    height: 100,
     shadowColor: "rgb(44, 89, 74)",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
-    backgroundColor: "white",
-    padding: 16,
-    borderRadius: 30,
-    flexDirection: "row",
-    margin: 10,
-  },
-  tinyThyme: {
-    width: 100,
-    height: 100,
   },
   title: {
     fontSize: 16,
@@ -123,21 +144,31 @@ const styles = StyleSheet.create({
     alignItems: "center",
     fontFamily: "Avenir",
   },
-  heading: {
-    fontSize: 25,
-    margin: 15,
-    color: "rgb(65, 140, 115)",
+  buttonText: {
+    color: "white",
     fontWeight: "bold",
+    textAlign: "center",
     justifyContent: "center",
-    alignItems: "center",
-    fontFamily: "Avenir",
+    margin: 16,
+    marginLeft: 40,
+    marginRight: 40
   },
-  itemText2: {
-    fontSize: 16,
-    color: "rgb(65, 140, 115)",
-    justifyContent: "center",
-    flexDirection: "row",
-    alignItems: "center",
+  button: {
+    backgroundColor: "#418C73",
+    borderRadius: 30,
+    alignSelf: "center",
+    shadowColor: "#2C594A",
+    shadowOffset: { width: -4, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    margin: 20,
+  },
+  textSubheader: {
+    fontSize: 20,
+    margin: 20,
+    fontWeight: "bold",
+    color: "teal",
     fontFamily: "Avenir",
+    textAlign: 'center',
   },
 });
