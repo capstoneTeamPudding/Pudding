@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, SafeAreaView, ImageBackground, KeyboardAwareScrollView, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TextInput, SafeAreaView, ImageBackground, ScrollView, Image, TouchableOpacity } from "react-native";
 import Logout from './Logout';
 import { auth } from "../firebaseAuth/firebase"
 import { useDispatch } from 'react-redux';
@@ -40,21 +40,26 @@ export default function Profile({ navigation }) {
     }
   };
 
+  const goToFav = () => {
+    navigation.navigate("Favorites", { 
+    });
+  };
+
   const dispatch = useDispatch();
 
   return (
     <SafeAreaView style={styles.container}>
-      <ImageBackground
+      {/* <ImageBackground
         source={require("../../assets/thyme_logo.png")}
         style={styles.logo_sm}
-      />
-      <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+      /> */}
+      <ScrollView>
         <View >
-          <Text style={styles.text}>Welcome {auth.currentUser.email}</Text>
-          <Image
+          <Text style={styles.heading}>Hi, Cody Fullstack!</Text>
+          {/* <Image
             style={styles.logo_sm}
             source={require("../../assets/thyme_logo.png")}
-          ></Image>
+          ></Image> */}
         </View>
         <View>
           <View>
@@ -68,12 +73,14 @@ export default function Profile({ navigation }) {
                 </TextInput>
                 <TextInput
                   editable={true}
+                  placeholder="Enter firstname*"
                   onChangeText={(firstName) => setFirstName(firstName)}
                   value={firstName}
                   style={styles.firstnameInput}>
                 </TextInput>
                 <TextInput
                   editable={true}
+                  placeholder="Enter lastname*"
                   onChangeText={(lastName) => setLastName(lastName)}
                   value={lastName}
                   style={styles.lastnameInput}
@@ -102,14 +109,16 @@ export default function Profile({ navigation }) {
                 >
                   Last Name: Fullstack
                 </TextInput>
-
-                <TouchableOpacity style={styles.button} onPress={() => setIsEdit(true)}>
+              <TouchableOpacity style={styles.button} onPress={() => setIsEdit(true)}>
                   <Text style={styles.buttonText}>Edit Profile</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={goToFav}>
+                  <Text style={styles.buttonText}>View Favorite Recipes</Text>
                 </TouchableOpacity>
               </View>
             )}
           </View>
-          <View>
+          {/* <View>
             {isEditPassword ? (
               <View style={{ margin: 20 }}>
                 <TextInput
@@ -150,7 +159,7 @@ export default function Profile({ navigation }) {
                     onPress={handleUpdatePassword}
                     style={styles.passwordInput}
                   >
-                    <Text style={styles.buttonText}>Update Password</Text>
+                    <Text style={styles.button}>Update Password</Text>
                   </TouchableOpacity>
                 )}
               </View>
@@ -173,15 +182,16 @@ export default function Profile({ navigation }) {
                     onPress={() => setIsEditPassword(true)}
                     style={styles.passwordInput}
                   >
-                    <Text style={styles.buttonText}>Change Password</Text>
+                    <Text style={styles.button}>Change Password</Text>
                   </TouchableOpacity>
                 </View>
               
             )}
             <Logout />
-          </View>
+          </View> */}
+          <Logout />
         </View>
-      </KeyboardAwareScrollView>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -221,7 +231,7 @@ text: {
 firstnameInput: {
   textAlign: "center",
   justifyContent: "center",
-  width: "80%",
+  width: "100%",
   height: 50,
   backgroundColor: "#EFEEEE",
   borderWidth: 2,
@@ -233,7 +243,7 @@ firstnameInput: {
 lastnameInput: {
   textAlign: "center",
   justifyContent: "center",
-  width: "80%",
+  width: "100%",
   height: 50,
   backgroundColor: "#EFEEEE",
   borderWidth: 2,
@@ -245,7 +255,7 @@ lastnameInput: {
 emailInput: {
   textAlign: "center",
   justifyContent: "center",
-  width: "80%",
+  width: "100%",
   height: 50,
   backgroundColor: "#EFEEEE",
   borderWidth: 2,
@@ -323,5 +333,10 @@ footerLink: {
   fontExtraSmall: {
     fontFamily: "Avenir",
     fontSize: 16,
+  },
+  heading: {
+    fontFamily: "Avenir",
+    fontSize: 38,
+    color: "#20097B"
   },
 });
