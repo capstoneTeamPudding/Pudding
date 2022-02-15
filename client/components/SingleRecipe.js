@@ -6,6 +6,7 @@ import { SPOON_API_KEY } from "../../.keys";
 const axios = require("axios");
 const spnAPI = 'https://api.spoonacular.com/recipes/';
 import { useSelector, useDispatch } from "react-redux";
+import { auth } from "../firebaseAuth/firebase";
 
 export default function SingleRecipe({route, navigation}) {
   const [recipe, setRecipe] = useState( null );
@@ -31,8 +32,10 @@ export default function SingleRecipe({route, navigation}) {
   }, 
   []);
   const saveToFav = () => {
+    const uid = auth.currentUser.uid;
+    console.log(uid)
     alert('saved!')
-    dispatch(saveRecipeThunk("u087CSU21PhXkg73Rd4Uxa2ugtw2", recipe, image));
+    dispatch(saveRecipeThunk(uid, recipe, image));
   };
   const goToFav = () => {
     navigation.navigate("Favorites", { 
@@ -53,7 +56,7 @@ export default function SingleRecipe({route, navigation}) {
         />
         <Text style={styles.text2}>{ recipe.readyInMinutes } Minutes </Text>
         {
-            recipe.extendedIngredients.map((ingredient) => (<Text style={styles.text3}> { ingredient.original }</Text>))
+            recipe.extendedIngredients.map((ingredient, index) => (<Text key={index} style={styles.text3}> { ingredient.original }</Text>))
         } 
         <Text style={styles.text2}>Preparation steps: </Text> 
         {
