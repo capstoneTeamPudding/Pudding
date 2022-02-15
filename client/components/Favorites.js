@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { getFavoritesThunk } from "../store/favorites";
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { auth } from "../firebaseAuth/firebase";
 
 export default function Favorites({ navigation }) {
@@ -32,14 +33,17 @@ export default function Favorites({ navigation }) {
 
   const FavoritesFlatList = ({ item, onPress, backgroundColor, textColor }) => (
     <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
-      <Text style={[styles.title, textColor]}>{item.recipe_name}</Text>
-      <Image
-        style={styles.thumbnail}
-        source={{
-          uri:
-            item.imageUrl,
-        }}
-      />
+      <View style={styles.containerRow}>
+        <Image
+          style={styles.thumbnail}
+          source={{
+            uri:
+              item.imageUrl,
+          }}
+        />
+        <MaterialCommunityIcons style={styles.icon} name={"heart"} size={32} color={"#20097B"} />
+      </View>
+      <Text style={[styles.textSubheader, textColor]}>{item.recipe_name}</Text>  
     </TouchableOpacity>
   );
 
@@ -54,7 +58,6 @@ export default function Favorites({ navigation }) {
   const renderFavoritesFlatList = ({ item }) => {
       
     return (
-      
       <FavoritesFlatList
         item={item}
         onPress={() => {
@@ -70,14 +73,14 @@ export default function Favorites({ navigation }) {
       {!DATA ? (
         <Text> Loading... </Text>
       ) : (
-        
+        <SafeAreaView style={styles.list}>
           <FlatList
             data={favoritesSelector.recipes}
             renderItem={renderFavoritesFlatList}
             keyExtractor={(item) => item.id}
             extraData={favoritesSelector}
           />
-          
+        </SafeAreaView>  
       )}
     </SafeAreaView>
   );
@@ -86,10 +89,20 @@ export default function Favorites({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "whitesmoke",
+    backgroundColor: "#E6EDE9",
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "column",
+  },
+  containerRow: {
+    justifyContent: "center",
+    width: "100%",
+    flexDirection: "row",
+  },
+  list: {
+    flex: 1,
+    width: "90%",
+    paddingTop: 100,
   },
   item: {
     shadowColor: "rgb(44, 89, 74)",
@@ -97,13 +110,22 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
     backgroundColor: "white",
-    //padding: 16,
-    width: "100%",
-    //borderRadius: 30,
-    flexDirection: "row",
-    alignItems: "flex-start",
-    justifyContent: "space-between",
+    padding: 16,
+    borderRadius: 30,
+    justifyContent: "space-evenly",
     marginBottom: 20,
+  },
+  textSubheader: {
+    flex: 2,
+    fontSize: 20,
+    color: "#20097B",
+    fontWeight: "bold",
+    justifyContent: "center",
+    alignItems: "center",
+    fontFamily: "Avenir",
+    flexWrap: "wrap",
+    marginLeft: 30,
+    marginTop: 10,
   },
   touchable: {
     shadowColor: "rgb(44, 89, 74)",
@@ -117,9 +139,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     margin: 20,
   },
-  tinyThyme: {
-    width: 20,
-    height: 20,
+  icon: {
+    shadowColor: "rgb(44, 89, 74)",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+    alignItems: "flex-end",
+    paddingLeft: "20%",
+    paddingBottom: 10
   },
   title1: {
     fontSize: 16,
@@ -133,10 +160,8 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: "rgb(65, 140, 115)",
     fontWeight: "bold",
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: "flex-end",
     fontFamily: "Avenir",
-    margin: 20,
   },
   itemText2: {
     fontSize: 16,
@@ -145,23 +170,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     fontFamily: "Avenir",
-  },
-  list: {
-    flex: 1,
-    width: "90%",
-    //paddingTop: 100,
-  },
-  item: {
-    backgroundColor: "#dce6df",
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    //backgroundColor: "#dce6df",
-    borderRadius: 20,
-    borderColor: "teal",
-    borderWidth: 1,
-    alignItems: "center",
-    justifyContent: "center",
   },
   title: {
     fontSize: 24,

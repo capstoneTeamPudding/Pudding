@@ -36,13 +36,6 @@ export default function Fridge({ navigation }) {
 
   const FridgeFlatList = ({ item, onPress, backgroundColor, textColor }) => (
     <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
-      {/* <Image
-        style={styles.tinyThyme}
-        source={{
-          uri:
-            "https://us.123rf.com/450wm/eridanka/eridanka2103/eridanka210300026/165315737-a-sprig-of-rosemary-hand-drawn-sketch-style-illustration-design-element.jpg?ver=6",
-        }}
-      /> */}
       <Text style={[styles.title, textColor]}>{item.foodItem_name}</Text>
       <Text style={styles.itemText2}> Amount: 1 </Text>
     </TouchableOpacity>
