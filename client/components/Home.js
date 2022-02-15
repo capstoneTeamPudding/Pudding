@@ -24,7 +24,7 @@ const Home = ({ navigation }) => {
   useEffect(() => {
     const fetchRecipes = async () => {
       const res = await axios.get(
-        `${spnAPI}random?number=1&tags=vegetarian,dessert&apiKey=${SPOON_API_KEY}`
+        `${spnAPI}random?number=3&tags=vegetarian,dessert&apiKey=${SPOON_API_KEY}`
       );
       setRecipes(res.data.recipes);
       console.log(recipes)
@@ -65,10 +65,12 @@ const Home = ({ navigation }) => {
             Welcome! 
           </Text>
           <FlatList
+            horizontal
             data={recipes}
             renderItem={renderRecipe}
             keyExtractor={(item) => item.id}
             extraData={currentRecipe}
+            showsHorizontalScrollIndicator={false}
           />
           <View style={styles.containerRow}>
             <Image
@@ -100,6 +102,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  list: {
+    flex: 1,
+    width: "90%",
+    paddingTop: 100,
+  },
   containerRow: {
     alignItems: "center",
     justifyContent: "center",
@@ -111,6 +118,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
+    width: 300,
     backgroundColor: "white",
     padding: 20,
     borderRadius: 30,
@@ -137,8 +145,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   thumbnail: {
-    width: 150,
-    height: 150,
+    width: 180,
+    height: 180,
     borderRadius: 10,
   },
   tinyThyme: {

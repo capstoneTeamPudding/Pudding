@@ -11,6 +11,7 @@ import { auth } from "../firebaseAuth/firebase";
 
 export default function SingleRecipe({route, navigation}) {
   const [recipe, setRecipe] = useState( null );
+  const [favorite, setFavorite] = useState( null );
   const id = route.params.id
   const name = route.params.title
   const image = route.params.image
@@ -36,6 +37,7 @@ export default function SingleRecipe({route, navigation}) {
     const uid = auth.currentUser.uid;
     console.log(uid)
     alert('saved!')
+    setFavorite(recipe)
     dispatch(saveRecipeThunk(uid, recipe, image));
   };
   const goToFav = () => {
@@ -54,7 +56,13 @@ export default function SingleRecipe({route, navigation}) {
             }}
           />
           <TouchableOpacity style={styles.button} onPress={saveToFav} >
-            <MaterialCommunityIcons style={styles.icon} name={"heart"} size={32} color={"#20097B"} />
+            {!favorite ? (<MaterialCommunityIcons style={styles.icon} name={"heart-outline"} size={32} color={"#20097B"} />
+            ) : (
+              <MaterialCommunityIcons style={styles.icon} name={"heart"} size={32} color={"#20097B"} />
+            )
+
+            }
+            
           </TouchableOpacity>
         </View>
         <Text style={styles.title}>{name}</Text> 
