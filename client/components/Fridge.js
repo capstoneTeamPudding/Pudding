@@ -27,22 +27,15 @@ export default function Fridge({ navigation }) {
   useEffect((userUid) => {
     const uid = auth.currentUser.uid;
     viewFridge(uid);
-    if (fridgeSelector.foodItems === null) {
-      setDATA([]);
-    } else if (fridgeSelector.foodItems) {
-      setDATA(fridgeSelector.foodItems);
-    }
+    // if (fridgeSelector.foodItems === null) {
+    //   setDATA([]);
+    // } else if (fridgeSelector.foodItems) {
+    //   setDATA(fridgeSelector.foodItems);
+    // }
   }, []);
 
   const FridgeFlatList = ({ item, onPress, backgroundColor, textColor }) => (
     <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
-      {/* <Image
-        style={styles.tinyThyme}
-        source={{
-          uri:
-            "https://us.123rf.com/450wm/eridanka/eridanka2103/eridanka210300026/165315737-a-sprig-of-rosemary-hand-drawn-sketch-style-illustration-design-element.jpg?ver=6",
-        }}
-      /> */}
       <Text style={[styles.title, textColor]}>{item.foodItem_name}</Text>
       <Text style={styles.itemText2}> Amount: 1 </Text>
     </TouchableOpacity>
@@ -79,7 +72,7 @@ export default function Fridge({ navigation }) {
           <Text style={styles.buttonText}>Scan</Text>
         </TouchableOpacity>
       </SafeAreaView>
-      {!DATA ? (
+      {!fridgeSelector.foodItems ? (
         <Text style={styles.title}>
           {" "}
           Sorry your fridge is EMPTY! Try adding something to your fridge{" "}
@@ -87,7 +80,7 @@ export default function Fridge({ navigation }) {
       ) : (
         <SafeAreaView style={styles.list}>
           <FlatList
-            data={DATA}
+            data={fridgeSelector.foodItems}
             renderItem={renderFridgeFlatList}
             keyExtractor={(item) => item.id}
             extraData={fridgeSelector}

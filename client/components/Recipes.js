@@ -19,7 +19,7 @@ const spnAPI = "https://api.spoonacular.com/recipes/";
 const Recipe = ({ title, image, onPress }) => (
   <TouchableOpacity onPress={onPress} style={styles.item}>
     <Image style={styles.thumbnail} source={{ uri: image }} />
-    <Text style={styles.title}>{title}</Text>
+    <Text style={styles.textSubheader}>{title}</Text>
   </TouchableOpacity>
 );
 
@@ -106,7 +106,7 @@ export default Recipes;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#eee",
+    backgroundColor: "#E6EDE9",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -127,6 +127,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     alignItems: "center",
     justifyContent: "center",
+  },
+  textSubheader: {
+    fontSize: 20,
+    margin: 10,
+    fontWeight: "bold",
+    color: "#20097B",
+    fontFamily: "Avenir",
+    textAlign: 'center',
   },
   title: {
     fontSize: 24,

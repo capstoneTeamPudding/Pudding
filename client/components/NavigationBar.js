@@ -14,7 +14,7 @@ export default function NavigationBar() {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
           if (route.name === 'RecipeNav') {
-            iconName = 'book';
+            iconName = 'heart';
           } else if (route.name === 'HomeNav') {
             iconName = 'chef-hat'; 
           } else if (route.name === 'FridgeNav') {
@@ -34,8 +34,8 @@ export default function NavigationBar() {
       })}
       >
       <Tab.Screen name="HomeNav" component={HomeNav} />
-      <Tab.Screen name="RecipeNav" component={RecipeNav} />
       <Tab.Screen name="FridgeNav" component={FridgeNav} />
+      <Tab.Screen name="RecipeNav" component={RecipeNav} />
       <Tab.Screen name="ProfileNav" component={ProfileNav} />
     </Tab.Navigator>
   );

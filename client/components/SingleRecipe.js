@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { Button, StyleSheet, TouchableOpacity, Image, FlatList, SafeAreaView, Text, View, ScrollView } from 'react-native';
 import { saveRecipeThunk } from "../store/singleRecipe";
 import { SPOON_API_KEY } from "../../.keys";
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 const axios = require("axios");
 const spnAPI = 'https://api.spoonacular.com/recipes/';
 import { useSelector, useDispatch } from "react-redux";
@@ -43,40 +44,48 @@ export default function SingleRecipe({route, navigation}) {
   };
   if (recipe) {
       return (
-      <ScrollView>
-      <View style={styles.container}>
-      
-        
-        <Text style={styles.text}>{name}</Text> 
-        <Image
-          style={styles.recipeimg}
-          source={{
-          uri:image,
-          }}
-        />
-        <Text style={styles.text2}>{ recipe.readyInMinutes } Minutes </Text>
+      <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scroll}>
+        <View style={styles.containerRow}>
+          <Image
+            style={styles.recipeimg}
+            source={{
+            uri:image,
+            }}
+          />
+          <TouchableOpacity style={styles.button} onPress={saveToFav} >
+            <MaterialCommunityIcons style={styles.icon} name={"heart"} size={32} color={"#20097B"} />
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.title}>{name}</Text> 
+        <Text style={styles.text2}>Preparation Time: { recipe.readyInMinutes } Minutes </Text>
+        <Text style={styles.text}>Ingredients </Text> 
         {
             recipe.extendedIngredients.map((ingredient, index) => (<Text key={index} style={styles.text3}> { ingredient.original }</Text>))
         } 
-        <Text style={styles.text2}>Preparation steps: </Text> 
+        <Text style={styles.text}>Preparation steps: </Text> 
         {
             recipe.analyzedInstructions[0].steps ? (recipe.analyzedInstructions[0].steps.map((item, index) => ( <Text key={index} style={styles.text3}>{item.number}. {item.step}</Text>  ))) : (<Text>Loading...</Text>)
         }
-        <TouchableOpacity style={styles.button} >
-        <Text style={styles.buttonText} onPress={saveToFav}>Save to favorites</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} >
+        {/* <TouchableOpacity style={styles.button} >
         <Text style={styles.buttonText} onPress={goToFav}>Favorites</Text>
-        </TouchableOpacity>
-        <Image
-          style={styles.tinyThyme}
-          source={{
-          uri:
-              "https://us.123rf.com/450wm/eridanka/eridanka2103/eridanka210300026/165315737-a-sprig-of-rosemary-hand-drawn-sketch-style-illustration-design-element.jpg?ver=6",
-          }}
-        />
-      </View> 
-    </ScrollView>
+        </TouchableOpacity> */}
+        <View style={styles.containerRow}>
+            <Image
+              style={styles.tinyThyme}
+              source={ require("../../assets/thyme-1.png")}
+            />
+            <Image
+              style={styles.tinyThyme}
+              source={ require("../../assets/thyme-2.png")}
+            />
+            <Image
+              style={styles.tinyThyme}
+              source={ require("../../assets/thyme-1.png")}
+            />
+          </View>
+      </ScrollView> 
+    </SafeAreaView>
   ) } else {
       return (
         <View>
@@ -90,74 +99,99 @@ export default function SingleRecipe({route, navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "whitesmoke",
     alignItems: "center",
-    justifyContent: "center",
-    
+    justifyContent: "center", 
   },
-  
+  scroll: {
+    flex: 1,
+    width: "90%",
+  },
+  containerRow: {
+    justifyContent: "center",
+    width: "100%",
+    flexDirection: "row",
+    marginTop: 20
+  },
+  title: {
+    fontSize: 24,
+    color: "#20097B",
+    marginTop: 30,
+    marginBottom: 5,
+    fontWeight: "bold",
+    fontFamily: "Avenir",
+    textAlign: 'center',
+  },
   text:{
-    fontSize: 20, 
-    fontWeight: 'bold',
-    justifyContent: 'center', 
-    alignItems: 'center',
-    color: 'teal',
-    fontFamily: 'Avenir',
-    paddingTop: 40,
+    fontSize: 24,
+    color: "teal",
+    marginTop: 30,
+    marginBottom: 10,
+    fontWeight: "bold",
+    fontFamily: "Avenir",
+    textAlign: 'center',
+
   },
   text2:{
-    fontSize: 16, 
-    fontWeight: 'bold',
-    justifyContent: 'center', 
-    alignItems: 'center',
-    color: 'darkblue',
-    fontFamily: 'Avenir',
-    paddingTop: 20,
+    fontSize: 18,
+    color: "#20097B",
+    marginBottom: 30,
+    fontWeight: "bold",
+    fontFamily: "Avenir",
+    textAlign: 'center',
   },
   text3:{
-    fontSize: 14, 
-    color: 'green',
-    //fontWeight: 'bold',
+    fontSize: 18, 
+    color: 'black',
+    // fontWeight: 'bold',
     justifyContent: 'center', 
     alignItems: 'center',
     fontFamily: 'Avenir',
     padding: 5, 
   },
   tinyThyme: {
-    width: 40,
-    height: 40,
-  },
-  recipeimg: {
     width: 100,
     height: 100,
-    borderColor: "lightblue",
+  },
+  recipeimg: {
+    width: 160,
+    height: 150,
     borderRadius: 15,
-    borderWidth: 5,
+    // borderColor: "lightblue",
+    // borderWidth: 2,
   },
-  buttonText: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
+  icon: {
+    shadowColor: "rgb(44, 89, 74)",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+    alignItems: "flex-end",
+    paddingLeft: "20%",
+    paddingBottom: 10
   },
-  button: {
-    width: 150,
-    padding: 5,
-    backgroundColor: "lightgrey",
-    borderWidth: 2,
-    borderColor: "lightblue",
-    borderRadius: 15,
-    alignSelf: "center",
-    margin: 8,
-  },
-  buttonPressed: {
-    width: 150,
-    padding: 5,
-    backgroundColor: "lightblue",
-    borderWidth: 2,
-    borderColor: "lightgrey",
-    borderRadius: 15,
-    alignSelf: "center",
-    margin: 8,
-  },
+  // button: {
+  //   shadowColor: "rgb(44, 89, 74)",
+  //   shadowOffset: { width: -2, height: 4 },
+  //   shadowOpacity: 0.3,
+  //   shadowRadius: 3,
+  //   alignItems: "flex-end",
+  //   paddingLeft: "30%",
+  //   paddingBottom: 10
+  // },
+  // buttonText: {
+  //   color: "white",
+  //   fontWeight: "bold",
+  //   textAlign: "center",
+  // },
+  // buttonPressed: {
+  //   width: 150,
+  //   padding: 5,
+  //   backgroundColor: "lightblue",
+  //   borderWidth: 2,
+  //   borderColor: "lightgrey",
+  //   borderRadius: 15,
+  //   alignSelf: "center",
+  //   margin: 8,
+  // },
 });
 

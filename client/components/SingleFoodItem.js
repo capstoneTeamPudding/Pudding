@@ -12,12 +12,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFocusEffect } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
 import { getFridgeItemThunk } from "../store/fridgeItem";
+const axios = require("axios");
 
 export default function SingleFoodItem({ route, navigation }) {
   const [foodObj, setFoodObj] = useState(null);
   const dispatch = useDispatch();
   const fridgeSelector = useSelector((state) => state.fridgeReducer);
   const foodItemSelector = useSelector((state) => state.foodItemReducer);
+  const [image, setImage] = useState([]);
   let id = route.params.foodItemId;
   let userUid = route.params.userUid;
   let quantity = route.params.quantity;
@@ -51,27 +53,29 @@ export default function SingleFoodItem({ route, navigation }) {
         <SafeAreaView style={styles.item}>
           <Text style={styles.heading}>{foodObj.foodItem_name}</Text>
           <View>
-            <Text style={styles.title}>Type of Food:</Text>
-            <Text style={styles.itemText2}>{foodObj.category}</Text>
-            <Text style={styles.title}> Quantity: {quantity}</Text>
-          </View>
-          <View>
+            {/* <Text style={styles.title}>Type of Food:</Text> */}
+            {/* <Text style={styles.itemText2}>{foodObj.category}</Text> */}
+            <Text style={styles.textSubheader}> Quantity: {quantity}</Text>
             <Image
+              style={styles.tinyThyme}
+              source={ require("../../assets/thyme-1.png")}
+            />
+            {/* <Image
               style={styles.tinyThyme}
               source={{
                 uri:
-                  "https://us.123rf.com/450wm/eridanka/eridanka2103/eridanka210300026/165315737-a-sprig-of-rosemary-hand-drawn-sketch-style-illustration-design-element.jpg?ver=6",
+                  `https://spoonacular.com/cdn/ingredients_100x100/${(foodObj.foodItem_name).toLowerCase()}.jpg`,
               }}
-            />
+            /> */}
           </View>
           <Text style={styles.heading}></Text>
         </SafeAreaView>
       )}
-      <TouchableOpacity style={styles.logout} onPress={onPressRecipe}>
-        <Text style={{ color: "rgb(65, 140, 115)" }}>Recipe Suggestions</Text>
+      <TouchableOpacity style={styles.button} onPress={onPressRecipe}>
+        <Text style={styles.buttonText}>Recipe Suggestions</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={styles.logout}
+        style={styles.button}
         onPress={() =>
           navigation.navigate("Edit", {
             userUid,
@@ -80,7 +84,7 @@ export default function SingleFoodItem({ route, navigation }) {
           })
         }
       >
-        <Text style={{ color: "rgb(65, 140, 115)" }}>Edit</Text>
+        <Text style={styles.buttonText}>Edit</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -121,13 +125,21 @@ const styles = StyleSheet.create({
     fontFamily: "Noteworthy",
   },
   heading: {
-    color: "rgb(65, 140, 115)",
+    fontSize: 32,
     paddingTop: 30,
-    fontSize: 30,
+    color: "#20097B",
     fontWeight: "bold",
-    fontFamily: "Avenir",
-    alignItems: "center",
     justifyContent: "center",
+    alignItems: "center",
+    fontFamily: "Avenir",
+  },
+  textSubheader: {
+    fontSize: 20,
+    margin: 20,
+    fontWeight: "bold",
+    color: "teal",
+    fontFamily: "Avenir",
+    textAlign: 'center',
   },
   item: {
     shadowColor: "rgb(44, 89, 74)",
@@ -143,20 +155,40 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     margin: 20,
   },
-  touchable: {
-    shadowColor: "rgb(44, 89, 74)",
-    shadowOffset: { width: -2, height: 4 },
+  buttonText: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    justifyContent: "center",
+    margin: 16,
+    marginLeft: 40,
+    marginRight: 40
+  },
+  button: {
+    backgroundColor: "#418C73",
+    borderRadius: 30,
+    alignSelf: "center",
+    shadowColor: "#2C594A",
+    shadowOffset: { width: -4, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
-    backgroundColor: "white",
-    padding: 16,
-    color: "red",
-    borderRadius: 30,
-    flexDirection: "row",
-    margin: 20,
+    marginTop: 20,
   },
+  // touchable: {
+  //   shadowColor: "rgb(44, 89, 74)",
+  //   shadowOffset: { width: -2, height: 4 },
+  //   shadowOpacity: 0.2,
+  //   shadowRadius: 3,
+  //   backgroundColor: "white",
+  //   padding: 16,
+  //   color: "red",
+  //   borderRadius: 30,
+  //   flexDirection: "row",
+  //   margin: 20,
+  // },
   tinyThyme: {
     width: 100,
     height: 100,
+    alignSelf: "center"
   },
 });
