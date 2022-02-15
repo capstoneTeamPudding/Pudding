@@ -24,7 +24,7 @@ const AppSource = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator 
-        initialRouteName="Login "
+        initialRouteName="Login"
         screenOptions={{
           headerShown: false
         }}

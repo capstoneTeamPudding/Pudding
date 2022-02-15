@@ -1,19 +1,14 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { Button, StyleSheet, Image, Text, SafeAreaView, FlatList, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Image, Text, SafeAreaView, FlatList, View, TouchableOpacity } from "react-native";
 import Logout from "./Logout";
 const axios = require("axios");
 import { SPOON_API_KEY } from "../../.keys";
-import SingleRecipe from "./SingleRecipe";
-import { auth } from "../firebaseAuth/firebase";
 
 
 const spnAPI = "https://api.spoonacular.com/recipes/";
 
-const user = auth.currentUser.email;
-
-console.log(user)
 
 const Recipe = ({ title, image, onPress }) => (
   <TouchableOpacity onPress={onPress} style={styles.item}>
@@ -32,6 +27,7 @@ const Home = ({ navigation }) => {
         `${spnAPI}random?number=1&tags=vegetarian,dessert&apiKey=${SPOON_API_KEY}`
       );
       setRecipes(res.data.recipes);
+      console.log(recipes)
     };
     fetchRecipes();
   }, []);
@@ -66,7 +62,7 @@ const Home = ({ navigation }) => {
       ) : (
         <SafeAreaView style={styles.list}>
           <Text style={styles.title}>
-            Welcome {user}! 
+            Welcome! 
           </Text>
           <FlatList
             data={recipes}
