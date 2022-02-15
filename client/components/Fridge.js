@@ -27,11 +27,11 @@ export default function Fridge({ navigation }) {
   useEffect((userUid) => {
     const uid = auth.currentUser.uid;
     viewFridge(uid);
-    if (fridgeSelector.foodItems === null) {
-      setDATA([]);
-    } else if (fridgeSelector.foodItems) {
-      setDATA(fridgeSelector.foodItems);
-    }
+    // if (fridgeSelector.foodItems === null) {
+    //   setDATA([]);
+    // } else if (fridgeSelector.foodItems) {
+    //   setDATA(fridgeSelector.foodItems);
+    // }
   }, []);
 
   const FridgeFlatList = ({ item, onPress, backgroundColor, textColor }) => (
@@ -72,7 +72,7 @@ export default function Fridge({ navigation }) {
           <Text style={styles.buttonText}>Scan</Text>
         </TouchableOpacity>
       </SafeAreaView>
-      {!DATA ? (
+      {!fridgeSelector.foodItems ? (
         <Text style={styles.title}>
           {" "}
           Sorry your fridge is EMPTY! Try adding something to your fridge{" "}
@@ -80,7 +80,7 @@ export default function Fridge({ navigation }) {
       ) : (
         <SafeAreaView style={styles.list}>
           <FlatList
-            data={DATA}
+            data={fridgeSelector.foodItems}
             renderItem={renderFridgeFlatList}
             keyExtractor={(item) => item.id}
             extraData={fridgeSelector}
