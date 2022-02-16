@@ -17,9 +17,9 @@ Do you struggle with what to choose for dinner every night? Or maybe, you’re t
 # Developers 
 
 Ann (Ania) Marecki - [GitHub](https://github.com/annmarecki) | [LinkedIn](https://www.linkedin.com/in/annmarecki/)
-Elena Zobak -
-Krystin Fields - 
-Keranie Theodosiou - 
+Elena Zobak - [GitHub](https://github.com/elenazobak) | [LinkedIn](https://www.linkedin.com/in/elenazobak/)
+Krystin Fields -  [GitHub](https://github.com/krysfields12) | [LinkedIn](https://www.linkedin.com/in/krystin-fields-1a0b1a131/)
+Keranie Theodosiou -  [GitHub](https://github.com/kez-theo) | [LinkedIn](https://www.linkedin.com/in/ktheodosiou/)
 
 # Features
 
@@ -75,6 +75,11 @@ module.exports = {
 
 download expo go on your phone OR if you have XCode, the simulator will run there
 run npm run start:dev
+
+If using expo go:
+use your phone camera to scan the QR code and begin!
+
+
 
 ```
   
