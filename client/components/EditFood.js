@@ -1,11 +1,13 @@
 //if route.params.userId, then show quantity?
 import React, { useState, useEffect } from "react";
 import {
+  Keyboard,
   Text,
   StyleSheet,
   SafeAreaView,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   Alert,
   View,
   Image,
@@ -17,6 +19,14 @@ import {
   deleteFoodItemFromFridgeThunk,
   updateFridgeThunk,
 } from "../store/fridgeItem";
+
+export function HideKeyboard({ children }) {
+  return (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      {children}
+    </TouchableWithoutFeedback>
+  );
+}
 
 export default function EditFood({ route, navigation }) {
   let dispatch = useDispatch();
@@ -40,7 +50,7 @@ export default function EditFood({ route, navigation }) {
     dispatch(updateFoodItemThunk(fooditem));
   };
 
-  const handleName = async () => {
+  const handleSubmit = async () => {
     try {
       await editFoodItem({ id: id, foodItem_name: name });
       editFridgeItem({ userUid: uid, foodItemId: id, quantity: amount });
@@ -49,15 +59,6 @@ export default function EditFood({ route, navigation }) {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const handleSubmit = (userUid, foodItemId, quantity) => {
-    editFridgeItem({
-      userUid: route.params.userUid,
-      foodItemId: route.params.id,
-      quantity: amount,
-    });
-    Alert.alert(`Successfully updated ${name}!`);
   };
 
   const deleteFromFridge = (foodItemId, userUid) => {
@@ -74,55 +75,43 @@ export default function EditFood({ route, navigation }) {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
-      {!fridgeSelector ? (
-        <Text> Loading... </Text>
-      ) : (
-        <View style={styles.container}>
-          <View style={styles.item}>
-            <Text style={styles.heading}>{title}</Text>
-            <Text style={styles.textSubheader}>Edit Name:</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Can You Think of A Better Name?"
-              value={name}
-              onChangeText={(name) => setName(name)}
-            />
-            <Text style={styles.textSubheader}>Edit Quantity:</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="How Much Do You Have?"
-              value={amount}
-              onChangeText={(amount) => setAmount(amount)}
-            />
-            {/* <Image
-              style={styles.tinyThyme}
-              source={{
-                uri:
-                  "https://us.123rf.com/450wm/eridanka/eridanka2103/eridanka210300026/165315737-a-sprig-of-rosemary-hand-drawn-sketch-style-illustration-design-element.jpg?ver=6",
-              }}
-            /> */}
+    <HideKeyboard>
+      <SafeAreaView style={styles.container}>
+        {!fridgeSelector ? (
+          <Text> Loading... </Text>
+        ) : (
+          <View style={styles.container}>
+            <View style={styles.item}>
+              <Text style={styles.heading}>{title}</Text>
+              <Text style={styles.textSubheader}>Edit Name:</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Can You Think of A Better Name?"
+                value={name}
+                onChangeText={(name) => setName(name)}
+              />
+              <Text style={styles.textSubheader}>Edit Quantity:</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="How Much Do You Have?"
+                value={amount}
+                onChangeText={(amount) => setAmount(amount)}
+              />
+            </View>
+            <View>
+              <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                <Text style={styles.buttonText}>Update Item</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.footerView}>
+              <TouchableOpacity style={styles.button} onPress={deleteHandle}>
+                <Text style={styles.buttonText}>Delete From Fridge</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-          {/* <Text>
-            {"  "}
-            {"  "}
-          </Text> */}
-          <View>
-            <TouchableOpacity style={styles.button} onPress={handleName}>
-              <Text style={styles.buttonText}>Update Item</Text>
-            </TouchableOpacity>
-            {/* <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-              <Text style={styles.buttonText}>Submit Quantity</Text>
-            </TouchableOpacity> */}
-          </View>
-          <View style={styles.footerView}>
-            <TouchableOpacity style={styles.button} onPress={deleteHandle}>
-              <Text style={styles.buttonText}>Delete From Fridge</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      )}
-    </SafeAreaView>
+        )}
+      </SafeAreaView>
+    </HideKeyboard>
   );
 }
 

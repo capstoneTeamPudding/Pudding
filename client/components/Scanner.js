@@ -1,6 +1,14 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button, Alert, TouchableOpacity, ImageBackground } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Button,
+  Alert,
+  TouchableOpacity,
+  ImageBackground,
+} from "react-native";
 import { Overlay } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
 import { BarCodeScanner } from "expo-barcode-scanner";
@@ -26,6 +34,7 @@ export default function Scanner({ navigation }) {
     dispatch(addFoodItemThunk(foodItem));
   };
   const addToFridge = (userUid, foodItem, quantity) => {
+    console.log(quantity);
     dispatch(addToFridgeThunk(userUid, foodItem, quantity));
   };
 
@@ -107,7 +116,7 @@ export default function Scanner({ navigation }) {
     );
   }
 
-  return ( 
+  return (
     <Overlay>
       <View>
         {/* <Text style={styles.textSmall}>To scan an item, hold the item's barcode infront of the camera until barcode is in focus</Text> */}
@@ -116,10 +125,13 @@ export default function Scanner({ navigation }) {
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
           style={styles.barcode}
         />
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Fridge")}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("Fridge")}
+        >
           <Text style={styles.buttonText}>Back to Fridge</Text>
         </TouchableOpacity>
-        </View>
+      </View>
 
       {scanned && (
         <View>
@@ -162,7 +174,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     margin: 16,
     marginLeft: 40,
-    marginRight: 40
+    marginRight: 40,
   },
   button: {
     backgroundColor: "#418C73",
@@ -180,12 +192,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "teal",
     fontFamily: "Avenir",
-    textAlign: 'center',
+    textAlign: "center",
   },
   maintext: {
     fontSize: 16,
     margin: 20,
     fontFamily: "Avenir",
-    textAlign: 'center',
+    textAlign: "center",
   },
 });

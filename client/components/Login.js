@@ -9,15 +9,12 @@ import {
   StatusBar,
   SafeAreaView,
   Image,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
+import { HideKeyboard } from "./EditFood";
 import { auth } from "../firebaseAuth/firebase";
 import { authenticateLogin } from "../store";
-//import { useDispatch } from 'react-redux';
-//Text - A React component for displaying text. Text supports nesting, styling, and touch handling.
-//View - The most fundamental component for building a UI, View is a container that supports layout with flexbox, style, some touch handling, and accessibility controls.
-//Button - A basic button component that should render nicely on any platform. Supports a minimal level of customization.
-//TextInput - The most basic use case is to plop down a TextInput and subscribe to the onChangeText events to read the user input.
-//TouchableOpacity - A wrapper for making views respond properly to touches. On press down, the opacity of the wrapped view is decreased, dimming it.
 
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
@@ -48,51 +45,47 @@ export default function Login({ navigation }) {
       }
     } catch (error) {
       console.log(error);
-      // Alert.alert("Incorrect Email or Password")
     }
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar
-        animated={true}
-        backgroundColor="#61dafb"
-       />
-      <Image 
+    <HideKeyboard>
+      <SafeAreaView style={styles.container}>
+        <StatusBar animated={true} backgroundColor="#61dafb" />
+        <Image
           style={styles.logo_sm}
-          source={ require("../../assets/thyme_logo.png")}
-
+          source={require("../../assets/thyme_logo.png")}
         />
-      {/* <Text style={styles.text}>Enter your email and password to sign in:</Text> */}
-      <TextInput
-        style={styles.emailInput}
-        placeholder="Enter your email*"
-        value={email}
-        onChangeText={(email) => setEmail(email)}
-        autoCapitalize="none"
-      />
-      <TextInput
-        style={styles.passwordInput}
-        placeholder="Enter your password*"
-        value={password}
-        onChangeText={(password) => setPassword(password)}
-        secureTextEntry={true}
-      />
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Log In</Text>
-      </TouchableOpacity>
-      {/* <TouchableOpacity style={styles.forgotButton} onPress={()=>navigation.navigate('forgotPassword')}>
+        <TextInput
+          style={styles.emailInput}
+          placeholder="Enter your email*"
+          value={email}
+          onChangeText={(email) => setEmail(email)}
+          autoCapitalize="none"
+        />
+        <TextInput
+          style={styles.passwordInput}
+          placeholder="Enter your password*"
+          value={password}
+          onChangeText={(password) => setPassword(password)}
+          secureTextEntry={true}
+        />
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+          <Text style={styles.buttonText}>Log In</Text>
+        </TouchableOpacity>
+        {/* <TouchableOpacity style={styles.forgotButton} onPress={()=>navigation.navigate('forgotPassword')}>
             // <Text style={styles.buttonText}>Forgot password!!!</Text>
           </TouchableOpacity> */}
-      <View style={styles.footerView}>
-        <Text style={styles.footerText}>
-          Don't have an account?{" "}
-          <Text onPress={onFooterLinkPress} style={styles.footerLink}>
-            Sign up
+        <View style={styles.footerView}>
+          <Text style={styles.footerText}>
+            Don't have an account?{" "}
+            <Text onPress={onFooterLinkPress} style={styles.footerLink}>
+              Sign up
+            </Text>
           </Text>
-        </Text>
-      </View>
-    </SafeAreaView>
+        </View>
+      </SafeAreaView>
+    </HideKeyboard>
   );
 }
 
@@ -141,7 +134,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     margin: 16,
     marginLeft: 40,
-    marginRight: 40
+    marginRight: 40,
   },
   button: {
     backgroundColor: "#418C73",
@@ -174,7 +167,7 @@ const styles = StyleSheet.create({
   },
   footerView: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
     marginBottom: 36,
   },
   footerText: {

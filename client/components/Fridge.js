@@ -16,30 +16,36 @@ import { getFridgeThunk, deleteFridgeThunk } from "../store/fridge";
 import { auth } from "../firebaseAuth/firebase";
 
 export default function Fridge({ navigation }) {
-  const [DATA, setDATA] = useState();
+  const [DATA, setDATA] = useState(1);
+  const [text, setText] = useState("");
   const dispatch = useDispatch();
   const fridgeSelector = useSelector((state) => state.fridgeReducer);
+  const data = fridgeSelector;
 
   const viewFridge = (userUid) => {
     dispatch(getFridgeThunk(userUid));
   };
 
-  useEffect((userUid) => {
+  useEffect(() => {
     const uid = auth.currentUser.uid;
     viewFridge(uid);
-    // if (fridgeSelector.foodItems === null) {
-    //   setDATA([]);
-    // } else if (fridgeSelector.foodItems) {
-    //   setDATA(fridgeSelector.foodItems);
-    // }
   }, []);
 
-  const FridgeFlatList = ({ item, onPress, backgroundColor, textColor }) => (
-    <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
-      <Text style={[styles.title, textColor]}>{item.foodItem_name}</Text>
-      <Text style={styles.itemText2}> Amount: {item.fridge.quantity} </Text>
-    </TouchableOpacity>
-  );
+  const FridgeFlatList = ({ item, onPress, backgroundColor }) => {
+    setText(item.foodItem_name);
+    return (
+      <TouchableOpacity
+        onPress={onPress}
+        style={[styles.item, backgroundColor]}
+      >
+        <Text style={styles.title}>{item ? item.foodItem_name : text}</Text>
+        <Text style={styles.itemText2}>
+          {" "}
+          Amount: {item.fridge ? item.fridge.quantity : DATA}{" "}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
 
   const navigationOpacity = (foodItemId, userUid, quantity) => {
     navigation.navigate("SingleFoodItem", { foodItemId, userUid, quantity });
@@ -53,7 +59,7 @@ export default function Fridge({ navigation }) {
           navigationOpacity(
             item.id,
             auth.currentUser.uid,
-            item.fridge.quantity
+            item.fridge ? item.fridge.quantity : DATA
           );
         }}
       />
@@ -76,7 +82,7 @@ export default function Fridge({ navigation }) {
           <Text style={styles.buttonText}>Scan</Text>
         </TouchableOpacity>
       </SafeAreaView>
-      {!fridgeSelector.foodItems ? (
+      {!data || data === null || data.length === null ? (
         <Text style={styles.title}>
           {" "}
           Sorry your fridge is EMPTY! Try adding something to your fridge{" "}
@@ -84,10 +90,10 @@ export default function Fridge({ navigation }) {
       ) : (
         <SafeAreaView style={styles.list}>
           <FlatList
-            data={fridgeSelector.foodItems}
+            data={data.foodItems}
             renderItem={renderFridgeFlatList}
             keyExtractor={(item) => item.id}
-            extraData={fridgeSelector}
+            extraData={data.foodItems}
           />
         </SafeAreaView>
       )}
