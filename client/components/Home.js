@@ -27,7 +27,6 @@ const Home = ({ navigation }) => {
         `${spnAPI}random?number=3&tags=vegetarian,dessert&apiKey=${SPOON_API_KEY}`
       );
       setRecipes(res.data.recipes);
-      console.log(recipes)
     };
     fetchRecipes();
   }, []);
