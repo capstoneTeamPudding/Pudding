@@ -16,27 +16,23 @@ import { getFridgeThunk, deleteFridgeThunk } from "../store/fridge";
 import { auth } from "../firebaseAuth/firebase";
 
 export default function Fridge({ navigation }) {
-  const [DATA, setDATA] = useState();
+  const [DATA, setDATA] = useState([]);
   const dispatch = useDispatch();
   const fridgeSelector = useSelector((state) => state.fridgeReducer);
+  const data = fridgeSelector;
 
   const viewFridge = (userUid) => {
     dispatch(getFridgeThunk(userUid));
   };
 
-  useEffect((userUid) => {
+  useEffect(() => {
     const uid = auth.currentUser.uid;
     viewFridge(uid);
-    // if (fridgeSelector.foodItems === null) {
-    //   setDATA([]);
-    // } else if (fridgeSelector.foodItems) {
-    //   setDATA(fridgeSelector.foodItems);
-    // }
   }, []);
 
-  const FridgeFlatList = ({ item, onPress, backgroundColor, textColor }) => (
+  const FridgeFlatList = ({ item, onPress, backgroundColor }) => (
     <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
-      <Text style={[styles.title, textColor]}>{item.foodItem_name}</Text>
+      <Text style={styles.title}>{item.foodItem_name}</Text>
       <Text style={styles.itemText2}> Amount: {item.fridge.quantity} </Text>
     </TouchableOpacity>
   );
@@ -76,7 +72,7 @@ export default function Fridge({ navigation }) {
           <Text style={styles.buttonText}>Scan</Text>
         </TouchableOpacity>
       </SafeAreaView>
-      {!fridgeSelector.foodItems ? (
+      {!data ? (
         <Text style={styles.title}>
           {" "}
           Sorry your fridge is EMPTY! Try adding something to your fridge{" "}
@@ -84,10 +80,10 @@ export default function Fridge({ navigation }) {
       ) : (
         <SafeAreaView style={styles.list}>
           <FlatList
-            data={fridgeSelector.foodItems}
+            data={data.foodItems}
             renderItem={renderFridgeFlatList}
             keyExtractor={(item) => item.id}
-            extraData={fridgeSelector}
+            extraData={data.foodItems}
           />
         </SafeAreaView>
       )}
