@@ -72,7 +72,7 @@ export default function Fridge({ navigation }) {
           <Text style={styles.buttonText}>Scan</Text>
         </TouchableOpacity>
       </SafeAreaView>
-      {!data ? (
+      {!data || data === null || data.length === null ? (
         <Text style={styles.title}>
           {" "}
           Sorry your fridge is EMPTY! Try adding something to your fridge{" "}

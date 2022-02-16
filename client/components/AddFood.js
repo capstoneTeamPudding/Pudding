@@ -8,11 +8,14 @@ import {
   Alert,
   View,
   Image,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { addFoodItemThunk } from "../store/foodItems";
 import { addToFridgeThunk } from "../store/fridge";
 import { auth } from "../firebaseAuth/firebase";
+import { HideKeyboard } from "./EditFood";
 
 export default function AddFood({ navigation }) {
   let dispatch = useDispatch();
@@ -36,35 +39,37 @@ export default function AddFood({ navigation }) {
     Alert.alert(`Successfully added ${name} to your fridge!`);
   };
   return (
-    <SafeAreaView style={styles.container}>
-      <SafeAreaView style={styles.item}>
-        {/* <Text style={styles.heading}>Add Your Food Here</Text> */}
-        <Text style={styles.textSubheader}>Food Name:</Text>
-        <TextInput
-          style={styles.input}
-          autoFocus={true}
-          placeholder="i.e. Tomato"
-          fontSize={22}
-          value={name}
-          onChangeText={(name) => setName(name)}
-        />
-        <Text style={styles.textSubheader}>Quantity:</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="How Much?"
-          fontSize={22}
-          value={quantity}
-          onChangeText={(quantity) => setQuantity(quantity)}
-        />
-        {/* <Image
+    <HideKeyboard>
+      <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.item}>
+          {/* <Text style={styles.heading}>Add Your Food Here</Text> */}
+          <Text style={styles.textSubheader}>Food Name:</Text>
+          <TextInput
+            style={styles.input}
+            autoFocus={true}
+            placeholder="i.e. Tomato"
+            fontSize={22}
+            value={name}
+            onChangeText={(name) => setName(name)}
+          />
+          <Text style={styles.textSubheader}>Quantity:</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="How Much?"
+            fontSize={22}
+            value={quantity}
+            onChangeText={(quantity) => setQuantity(quantity)}
+          />
+          {/* <Image
           style={styles.tinyThyme}
           source={ require("../../assets/thyme-1.png")}
         /> */}
+        </SafeAreaView>
+        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+          <Text style={styles.buttonText}>Submit</Text>
+        </TouchableOpacity>
       </SafeAreaView>
-      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.buttonText}>Submit</Text>
-      </TouchableOpacity>
-    </SafeAreaView>
+    </HideKeyboard>
   );
 }
 
@@ -151,7 +156,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     margin: 16,
     marginLeft: 40,
-    marginRight: 40
+    marginRight: 40,
   },
   button: {
     backgroundColor: "#418C73",
@@ -169,6 +174,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "teal",
     fontFamily: "Avenir",
-    textAlign: 'center',
+    textAlign: "center",
   },
 });

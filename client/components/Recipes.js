@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
+  TouchableWithoutFeedback,
+  Keyboard,
   TouchableOpacity,
   Image,
   FlatList,
@@ -12,7 +14,7 @@ import {
 const axios = require("axios");
 import { SPOON_API_KEY } from "../../.keys";
 import SingleRecipe from "./SingleRecipe";
-
+import { HideKeyboard } from "./EditFood";
 
 const spnAPI = "https://api.spoonacular.com/recipes/";
 
@@ -62,41 +64,43 @@ const Recipes = ({ route, navigation }) => {
   };
   //cannot figure out how to get loading OR the message to show
   return (
-    <View style={styles.container}>
-      {recipes.length === null ? (
-        <View style={styles.list}>
-          <Text style={styles.title}>Loading... </Text>
-        </View>
-      ) : recipes.length > 1 ? (
-        <SafeAreaView style={styles.list}>
-          <FlatList
-            data={recipes}
-            renderItem={renderRecipe}
-            keyExtractor={(item) => item.id}
-            extraData={currentRecipe}
-          />
-        </SafeAreaView>
-      ) : (
-        <View style={styles.list}>
-          <Text style={styles.textSubheader}>
-            Hey, we're sorry, it looks like we can't find anything with that
-            ingredient name! You'll likely get better results if you shorten the
-            name!
-          </Text>
-          <Text style={styles.textSubheader}>
-            Here's an example! Changing "Trader Joe's Organic Tahini 10.6 oz" to
-            simply "tahini"
-          </Text>
-          <Button
-            style={styles.button}
-            title="Go Back to Ingredient and Try Again"
-            onPress={() =>
-              navigation.navigate("SingleFoodItem", { foodItemId, userUid })
-            }
-          />
-        </View>
-      )}
-    </View>
+    <HideKeyboard>
+      <View style={styles.container}>
+        {recipes.length === null ? (
+          <View style={styles.list}>
+            <Text style={styles.title}>Loading... </Text>
+          </View>
+        ) : recipes.length > 1 ? (
+          <SafeAreaView style={styles.list}>
+            <FlatList
+              data={recipes}
+              renderItem={renderRecipe}
+              keyExtractor={(item) => item.id}
+              extraData={currentRecipe}
+            />
+          </SafeAreaView>
+        ) : (
+          <View style={styles.list}>
+            <Text style={styles.textSubheader}>
+              Hey, we're sorry, it looks like we can't find anything with that
+              ingredient name! You'll likely get better results if you shorten
+              the name!
+            </Text>
+            <Text style={styles.textSubheader}>
+              Here's an example! Changing "Trader Joe's Organic Tahini 10.6 oz"
+              to simply "tahini"
+            </Text>
+            <Button
+              style={styles.button}
+              title="Go Back to Ingredient and Try Again"
+              onPress={() =>
+                navigation.navigate("SingleFoodItem", { foodItemId, userUid })
+              }
+            />
+          </View>
+        )}
+      </View>
+    </HideKeyboard>
   );
 };
 
@@ -134,7 +138,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#20097B",
     fontFamily: "Avenir",
-    textAlign: 'center',
+    textAlign: "center",
   },
   title: {
     fontSize: 24,
