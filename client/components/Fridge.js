@@ -16,7 +16,8 @@ import { getFridgeThunk, deleteFridgeThunk } from "../store/fridge";
 import { auth } from "../firebaseAuth/firebase";
 
 export default function Fridge({ navigation }) {
-  const [DATA, setDATA] = useState([]);
+  const [DATA, setDATA] = useState(1);
+  const [text, setText] = useState("");
   const dispatch = useDispatch();
   const fridgeSelector = useSelector((state) => state.fridgeReducer);
   const data = fridgeSelector;
@@ -30,12 +31,21 @@ export default function Fridge({ navigation }) {
     viewFridge(uid);
   }, []);
 
-  const FridgeFlatList = ({ item, onPress, backgroundColor }) => (
-    <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
-      <Text style={styles.title}>{item.foodItem_name}</Text>
-      <Text style={styles.itemText2}> Amount: {item.fridge.quantity} </Text>
-    </TouchableOpacity>
-  );
+  const FridgeFlatList = ({ item, onPress, backgroundColor }) => {
+    setText(item.foodItem_name);
+    return (
+      <TouchableOpacity
+        onPress={onPress}
+        style={[styles.item, backgroundColor]}
+      >
+        <Text style={styles.title}>{item ? item.foodItem_name : text}</Text>
+        <Text style={styles.itemText2}>
+          {" "}
+          Amount: {item.fridge ? item.fridge.quantity : DATA}{" "}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
 
   const navigationOpacity = (foodItemId, userUid, quantity) => {
     navigation.navigate("SingleFoodItem", { foodItemId, userUid, quantity });
@@ -49,7 +59,7 @@ export default function Fridge({ navigation }) {
           navigationOpacity(
             item.id,
             auth.currentUser.uid,
-            item.fridge.quantity
+            item.fridge ? item.fridge.quantity : DATA
           );
         }}
       />
