@@ -5,7 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, LogBox } from "react-native";
 import Login from "./client/components/Login";
 import Registration from "./client/components/Registration";
 import NavigationBar from "./client/components/NavigationBar";
@@ -13,6 +13,7 @@ import NavigationBar from "./client/components/NavigationBar";
 const Stack = createNativeStackNavigator();
 
 const App = () => {
+  LogBox.ignoreAllLogs();
   return (
     <Provider store={store}>
       <AppSource />
@@ -23,12 +24,12 @@ const App = () => {
 const AppSource = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator 
+      <Stack.Navigator
         initialRouteName="Login"
         screenOptions={{
-          headerShown: false
+          headerShown: false,
         }}
-        >
+      >
         <Stack.Screen
           name="Login"
           component={Login}
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
 });
 

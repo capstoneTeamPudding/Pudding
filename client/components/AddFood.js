@@ -27,6 +27,7 @@ export default function AddFood({ navigation }) {
   };
   const addToFridge = (uid, foodItem_name, amount) => {
     let userUid = auth.currentUser.uid;
+    dispatch(addFoodItemThunk(name));
     dispatch(addToFridgeThunk(userUid, name, quantity));
   };
 
@@ -42,7 +43,6 @@ export default function AddFood({ navigation }) {
     <HideKeyboard>
       <SafeAreaView style={styles.container}>
         <SafeAreaView style={styles.item}>
-          {/* <Text style={styles.heading}>Add Your Food Here</Text> */}
           <Text style={styles.textSubheader}>Food Name:</Text>
           <TextInput
             style={styles.input}

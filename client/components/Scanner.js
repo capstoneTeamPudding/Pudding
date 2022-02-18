@@ -34,7 +34,6 @@ export default function Scanner({ navigation }) {
     dispatch(addFoodItemThunk(foodItem));
   };
   const addToFridge = (userUid, foodItem, quantity) => {
-    console.log(quantity);
     dispatch(addToFridgeThunk(userUid, foodItem, quantity));
   };
 
@@ -75,7 +74,7 @@ export default function Scanner({ navigation }) {
   const foodName = (foodItemData) => {
     let foodObject = foodItemData.hints[0].food;
     let foodName = foodObject.label;
-    addFoodItem(foodName);
+    // addFoodItem(foodName);
     setText(foodName);
     addToFridgeAlert(foodName);
   };
@@ -136,16 +135,14 @@ export default function Scanner({ navigation }) {
       {scanned && (
         <View>
           <BarCodeScanner style={{ height: 0 }} />
-          <Button
-            title={"Tap to Scan Again"}
+          <TouchableOpacity
+            style={styles.button}
             onPress={() => {
               reScan();
             }}
-          />
-          <Button
-            title="Go to Fridge"
-            onPress={() => navigation.navigate("Fridge")}
-          />
+          >
+            <Text style={styles.buttonText}>Tap to Scan Again</Text>
+          </TouchableOpacity>
         </View>
       )}
     </Overlay>

@@ -5,46 +5,62 @@ import {
   Text,
   SafeAreaView,
   StyleSheet,
-  Button,
+  ActivityIndicator,
   FlatList,
   TouchableOpacity,
-  Image,
-  View,
+  RefreshControl,
+  ScrollView,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { getFridgeThunk, deleteFridgeThunk } from "../store/fridge";
+import { getFridgeThunk } from "../store/fridge";
 import { auth } from "../firebaseAuth/firebase";
 
 export default function Fridge({ navigation }) {
-  const [DATA, setDATA] = useState(1);
-  const [text, setText] = useState("");
+  const [refreshing, setRefreshing] = useState(false);
+  const [DATA, setDATA] = useState("");
+  const [fridge, setFridge] = useState([]);
   const dispatch = useDispatch();
   const fridgeSelector = useSelector((state) => state.fridgeReducer);
-  const data = fridgeSelector;
+  const fridge2 = fridgeSelector;
 
-  const viewFridge = (userUid) => {
-    dispatch(getFridgeThunk(userUid));
+  const viewFridge = async (userUid) => {
+    await dispatch(getFridgeThunk(userUid));
   };
 
   useEffect(() => {
     const uid = auth.currentUser.uid;
     viewFridge(uid);
+    setFridge(fridge2);
   }, []);
 
   const FridgeFlatList = ({ item, onPress, backgroundColor }) => {
-    setText(item.foodItem_name);
+    const [DATA, setDATA] = useState("");
+    const [text, setText] = useState(
+      "Please pull again to refresh your fridge!"
+    );
     return (
       <TouchableOpacity
         onPress={onPress}
         style={[styles.item, backgroundColor]}
       >
-        <Text style={styles.title}>{item ? item.foodItem_name : text}</Text>
+        <Text style={styles.title}>
+          {item.fridge ? item.foodItem_name : text}
+        </Text>
         <Text style={styles.itemText2}>
           {" "}
-          Amount: {item.fridge ? item.fridge.quantity : DATA}{" "}
+          {item.fridge ? `Amount:  ${item.fridge.quantity}` : DATA}{" "}
         </Text>
       </TouchableOpacity>
     );
+  };
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    setFridge([]);
+    const uid = auth.currentUser.uid;
+    viewFridge(uid);
+    setFridge(fridge2);
+    setRefreshing(false);
   };
 
   const navigationOpacity = (foodItemId, userUid, quantity) => {
@@ -68,6 +84,7 @@ export default function Fridge({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
+      {refreshing ? <ActivityIndicator /> : null}
       <SafeAreaView style={styles.containerRow}>
         <TouchableOpacity
           style={styles.button}
@@ -82,21 +99,33 @@ export default function Fridge({ navigation }) {
           <Text style={styles.buttonText}>Scan</Text>
         </TouchableOpacity>
       </SafeAreaView>
-      {!data || data === null || data.length === null ? (
-        <Text style={styles.title}>
-          {" "}
-          Sorry your fridge is EMPTY! Try adding something to your fridge{" "}
-        </Text>
+      {!fridge2 || fridge2 === null || fridge2.length === null ? (
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
+          <Text style={styles.title}>
+            {" "}
+            Sorry your fridge is EMPTY! Try adding something to your fridge{" "}
+          </Text>
+        </ScrollView>
       ) : (
         <SafeAreaView style={styles.list}>
           <FlatList
-            data={data.foodItems}
+            data={fridge2.foodItems}
             renderItem={renderFridgeFlatList}
             keyExtractor={(item) => item.id}
-            extraData={data.foodItems}
+            // extraData={fridge.foodItems}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
           />
         </SafeAreaView>
       )}
+      <Text style={styles.hint}>
+        Don't see your changes updated? Try pulling to refresh the screen!
+      </Text>
     </SafeAreaView>
   );
 }
@@ -170,6 +199,11 @@ const styles = StyleSheet.create({
   },
   itemText2: {
     fontSize: 20,
+    color: "teal",
+    fontFamily: "Avenir",
+  },
+  hint: {
+    fontSize: 10,
     color: "teal",
     fontFamily: "Avenir",
   },
