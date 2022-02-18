@@ -101,7 +101,14 @@ export default function fridgeReducer(state = initialState, action) {
     case GET_FRIDGE:
       return action.fridge;
     case ADD_TO_FRIDGE:
-      return { ...state, foodItems: [...state.foodItems, action.foodItem[0]] };
+      if (state === null) {
+        return { ...state, foodItems: [action.foodItem[0]] };
+      } else {
+        return {
+          ...state,
+          foodItems: [...state.foodItems, action.foodItem[0]],
+        };
+      }
     case DELETE_FRIDGE:
       const updatedFridge = state.foodItems.filter(
         (user) => user.uid !== action.user.uid
