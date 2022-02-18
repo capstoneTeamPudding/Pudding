@@ -7,7 +7,6 @@ import Recipes from "./Recipes";
 import SingleRecipe from "./SingleRecipe";
 import Favorites from "./Favorites";
 import SingleFoodItem from "./SingleFoodItem";
-import SearchSingleRecipe  from "./SearchSingleRecipe";
 import EditFood from "./EditFood";
 import AddFood from "./AddFood";
 import Home from "./Home";
@@ -157,13 +156,6 @@ export function FridgeNav() {
           component={SingleFoodItem}
           options={{
             title: "Food Details"
-          }}
-        />
-        <Stack.Screen
-          name="SearchSingleRecipe"
-          component={SearchSingleRecipe}
-          options={{
-            title: "Recipe"
           }}
         />
         <Stack.Screen

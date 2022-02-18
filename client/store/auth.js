@@ -3,14 +3,14 @@ import { auth } from '../firebaseAuth/firebase'
 import firebase from "firebase";
 
 
-//Action Type
+//Action Types
 // const SET_USER = "SET_USER";
 const LOGIN = 'LOGIN';
 const SIGNUP = 'SIGNUP';
 const LOGOUT = 'LOGOUT';
 
 
-//Action Types
+//Action Creators
 //A user signs in (the current user is set)
 // const setUser = (user) => ({ type: SET_USER, user });
 const _login = (user) => {

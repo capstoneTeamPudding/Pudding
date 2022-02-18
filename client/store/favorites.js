@@ -1,8 +1,6 @@
 import axios from "axios";
-import { SPOON_API_KEY } from "../../.keys";
-const spnAPI = "https://api.spoonacular.com/recipes/";
 
-//Action
+//Action Types
 const GET_FAVORITES = "GET_FAVORITES";
 
 //Action Creators
@@ -12,13 +10,11 @@ export const getFavorites = (recipes) => ({
 });
 
 //Thunks
-
 export const getFavoritesThunk = (userUid) => {
   return async (dispatch) => {
     try {
       const { data: favorites } = await axios.get(
         `https://the-thymely-cook.herokuapp.com/api/recipes/user/${userUid}`
-        //`https://fuzzy-cow-61.loca.lt/api/recipes/user/${userUid}`
       );
       dispatch(getFavorites(favorites));
     } catch (error) {
@@ -27,7 +23,7 @@ export const getFavoritesThunk = (userUid) => {
   };
 };
 
-//reducer
+//Reducer
 const initialState = [];
 
 export default function favoritesReducer(state = initialState, action) {

@@ -1,11 +1,11 @@
 import axios from "axios";
 const spnAPI = 'https://api.spoonacular.com/recipes/'
 
-//ACTIONS
+//Action Types
 const GET_RECIPE = "GET_RECIPE";
 const SAVE_RECIPE = "SAVE_RECIPE";
 
-//ACTION CREATORS
+//Action Creators
 export const getSingleRecipe = (recipe) => ({
   type: GET_RECIPE,
   recipe,
@@ -15,8 +15,7 @@ export const saveRecipe = (recipe) => ({
   recipe,
 });
 
-//THUNK
-
+//Thunks
 export const saveRecipeThunk = (userUid, recipeObj, image) => {
   //let userUid = 1;
   let recipeName = recipeObj.title;
@@ -45,8 +44,7 @@ const initialState = {
   savedRecipes: [],
 };
 
-//REDUCER
-
+//Reducer
 export default function recipeReducer(state = [], action) {
   switch (action.type) {
     case SAVE_RECIPE:

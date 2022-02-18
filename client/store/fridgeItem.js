@@ -1,9 +1,11 @@
 import axios from "axios";
 
+//Action Types
 export const GET_FRIDGE_ITEM = "GET_FRIDGE_ITEM";
 export const UPDATE_FRIDGE = "UPDATE_FRIDGE";
 export const DELETE_FOODITEM_FROM_FRIDGE = "DELETE_FOODITEM_FROM_FRIDGE";
 
+//Action Creators
 export const _getFridgeItem = (foodItem) => {
   return {
     type: GET_FRIDGE_ITEM,
@@ -23,6 +25,7 @@ export const _deleteFoodItemFromFridge = (foodItem) => {
   };
 };
 
+//Thunks
 export const getFridgeItemThunk = (foodItemId, userUid) => {
   return async (dispatch) => {
     try {
@@ -64,6 +67,7 @@ export const deleteFoodItemFromFridgeThunk = (foodItemId, userUid) => {
   };
 };
 
+//Reducer
 export default function fridgeItemReducer(state = [], action) {
   switch (action.type) {
     case GET_FRIDGE_ITEM:

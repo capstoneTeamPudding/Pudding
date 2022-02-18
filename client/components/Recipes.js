@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
-  TouchableWithoutFeedback,
-  Keyboard,
   TouchableOpacity,
   Image,
   FlatList,
@@ -13,7 +11,6 @@ import {
 } from "react-native";
 const axios = require("axios");
 import { SPOON_API_KEY } from "../../.keys";
-import SingleRecipe from "./SingleRecipe";
 import { HideKeyboard } from "./EditFood";
 
 const spnAPI = "https://api.spoonacular.com/recipes/";
@@ -62,7 +59,6 @@ const Recipes = ({ route, navigation }) => {
       />
     );
   };
-  //cannot figure out how to get loading OR the message to show
   return (
     <HideKeyboard>
       <View style={styles.container}>
@@ -120,11 +116,11 @@ const styles = StyleSheet.create({
     paddingTop: 100,
   },
   item: {
-    shadowColor: "rgb(44, 89, 74)",
+    shadowColor: "#2C594A",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
-    backgroundColor: "white",
+    backgroundColor: "#FFFFFF",
     padding: 20,
     borderRadius: 30,
     marginVertical: 8,
@@ -139,13 +135,6 @@ const styles = StyleSheet.create({
     color: "#20097B",
     fontFamily: "Avenir",
     textAlign: "center",
-  },
-  title: {
-    fontSize: 24,
-    color: "teal",
-    paddingTop: 5,
-    fontWeight: "bold",
-    fontFamily: "Avenir",
   },
   thumbnail: {
     width: 150,

@@ -1,10 +1,12 @@
 import axios from "axios";
 import { auth } from "../firebaseAuth/firebase";
 
+//Action Types
 export const GET_FRIDGE = "GET_FRIDGE";
 export const ADD_TO_FRIDGE = "ADD_TO_FRIDGE";
 export const DELETE_FRIDGE = "DELETE_FRIDGE";
 
+//Action Creators
 export const _getFridge = (fridge) => {
   return {
     type: GET_FRIDGE,
@@ -25,9 +27,9 @@ export const _deleteFridge = (fridge) => {
     fridge,
   };
 };
-//unsure
 
-//thunks
+
+//Thunks
 export const getFridgeThunk = (userUid) => {
   return async (dispatch) => {
     try {
@@ -94,6 +96,7 @@ export const deleteFridgeThunk = (userUid) => {
     }
   };
 };
+
 let initialState = { foodItems: [] };
 
 export default function fridgeReducer(state = initialState, action) {

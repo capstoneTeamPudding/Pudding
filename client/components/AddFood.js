@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Text,
   StyleSheet,
@@ -6,12 +6,8 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
-  View,
-  Image,
-  TouchableWithoutFeedback,
-  Keyboard,
 } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addFoodItemThunk } from "../store/foodItems";
 import { addToFridgeThunk } from "../store/fridge";
 import { auth } from "../firebaseAuth/firebase";
@@ -25,6 +21,7 @@ export default function AddFood({ navigation }) {
   const addFoodItem = (foodItem) => {
     dispatch(addFoodItemThunk(foodItem));
   };
+
   const addToFridge = (uid, foodItem_name, amount) => {
     let userUid = auth.currentUser.uid;
     dispatch(addFoodItemThunk(name));
@@ -37,7 +34,8 @@ export default function AddFood({ navigation }) {
     } catch (error) {
       console.log(error);
     }
-    Alert.alert(`Successfully added ${name} to your fridge!`);
+    Alert.alert(`Successfully added ${name} to your fridge!`, );
+    navigation.navigate("Fridge");
   };
   return (
     <HideKeyboard>
@@ -60,10 +58,6 @@ export default function AddFood({ navigation }) {
             value={quantity}
             onChangeText={(quantity) => setQuantity(quantity)}
           />
-          {/* <Image
-          style={styles.tinyThyme}
-          source={ require("../../assets/thyme-1.png")}
-        /> */}
         </SafeAreaView>
         <TouchableOpacity style={styles.button} onPress={handleSubmit}>
           <Text style={styles.buttonText}>Submit</Text>
@@ -88,28 +82,24 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   item: {
-    shadowColor: "rgb(44, 89, 74)",
+    shadowColor: "#2C594A",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
-    backgroundColor: "white",
     width: "90%",
-    height: "60%",
+    backgroundColor: "#FFFFFF",
     borderRadius: 30,
     padding: 30,
     alignItems: "center",
     justifyContent: "center",
   },
-  touchable: {
-    shadowColor: "rgb(44, 89, 74)",
-    shadowOffset: { width: -2, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-    backgroundColor: "white",
-    padding: 16,
-    borderRadius: 30,
-    flexDirection: "row",
+  textSubheader: {
+    fontSize: 20,
     margin: 20,
+    fontWeight: "bold",
+    color: "teal",
+    fontFamily: "Avenir",
+    textAlign: "center",
   },
   input: {
     backgroundColor: "#E6EDE9",
@@ -122,17 +112,6 @@ const styles = StyleSheet.create({
     borderBottomColor: "#418C73",
     borderBottomWidth: 2,
   },
-  // input: {
-  //   shadowColor: "rgb(44, 89, 74)",
-  //   shadowOffset: { width: -2, height: 4 },
-  //   shadowOpacity: 0.2,
-  //   shadowRadius: 3,
-  //   backgroundColor: "white",
-  //   padding: 16,
-  //   borderRadius: 30,
-  //   flexDirection: "row",
-  //   margin: 10,
-  // },
   tinyThyme: {
     width: 100,
     height: 100,
@@ -140,14 +119,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
-  },
-  title: {
-    fontSize: 16,
-    color: "rgb(65, 140, 115)",
-    fontWeight: "bold",
-    justifyContent: "center",
-    alignItems: "center",
-    fontFamily: "Avenir",
   },
   buttonText: {
     color: "white",
@@ -167,13 +138,5 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
     margin: 20,
-  },
-  textSubheader: {
-    fontSize: 20,
-    margin: 20,
-    fontWeight: "bold",
-    color: "teal",
-    fontFamily: "Avenir",
-    textAlign: "center",
   },
 });

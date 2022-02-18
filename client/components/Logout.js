@@ -1,5 +1,5 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { View, TouchableOpacity, Text, StyleSheet, Alert } from "react-native";
 import { logout } from "../store/auth";
 import { auth } from "../firebaseAuth/firebase";
@@ -9,8 +9,7 @@ const Logout = () => {
 
   const navigation = useNavigation()
   const dispatch = useDispatch();
-  const [error, setError] = React.useState(null);
-
+  const [error, setError] = useState(null);
 
   const onPressLogout = async () => {
     
@@ -37,7 +36,7 @@ const Logout = () => {
 
 const styles = StyleSheet.create({
   buttonText: {
-    color: "white",
+    color: "#FFFFFF",
     fontWeight: "bold",
     textAlign: "center",
     justifyContent: "center",
@@ -55,21 +54,6 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     margin: 20,
   },
-
-// logout: {
-//   shadowColor: "#2C594A",
-//   shadowOffset: { width: -2, height: 4 },
-//   shadowOpacity: 0.2,
-//   shadowRadius: 3,
-//   backgroundColor: "white",
-//   padding: 16,
-//   width: "100%",
-//   borderRadius: 30,
-//   flexDirection: "row",
-//   alignItems: "flex-start",
-//   justifyContent: "space-between",
-//   marginBottom: 20,
-//   }
 })
 
 export default Logout;

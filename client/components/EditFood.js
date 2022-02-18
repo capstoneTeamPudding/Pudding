@@ -1,16 +1,15 @@
-//if route.params.userId, then show quantity?
 import React, { useState, useEffect } from "react";
 import {
   Keyboard,
   Text,
   StyleSheet,
   SafeAreaView,
+  ScrollView,
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
   Alert,
-  View,
-  Image,
+  View
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { updateFoodItemThunk } from "../store/foodItem";
@@ -56,6 +55,7 @@ export default function EditFood({ route, navigation }) {
       editFridgeItem({ userUid: uid, foodItemId: id, quantity: amount });
       setTitle(name);
       Alert.alert(`Successfully updated ${name}!`);
+      navigation.navigate("Fridge");
     } catch (error) {
       console.log(error);
     }
@@ -67,6 +67,8 @@ export default function EditFood({ route, navigation }) {
 
   const deleteHandle = (foodItemId, userUid) => {
     deleteFromFridge(id, uid);
+    Alert.alert(`Successfully deleted ${name}!`);
+    navigation.navigate("Fridge");
   };
 
   useEffect(() => {
@@ -80,7 +82,7 @@ export default function EditFood({ route, navigation }) {
         {!fridgeSelector ? (
           <Text> Loading... </Text>
         ) : (
-          <View style={styles.container}>
+          <ScrollView>
             <View style={styles.item}>
               <Text style={styles.heading}>{title}</Text>
               <Text style={styles.textSubheader}>Edit Name:</Text>
@@ -108,7 +110,7 @@ export default function EditFood({ route, navigation }) {
                 <Text style={styles.buttonText}>Delete From Fridge</Text>
               </TouchableOpacity>
             </View>
-          </View>
+          </ScrollView>
         )}
       </SafeAreaView>
     </HideKeyboard>
@@ -123,26 +125,34 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "column",
   },
-  containerRow: {
-    backgroundColor: "#E6EDE9",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
-    flexDirection: "row",
-  },
   item: {
-    shadowColor: "rgb(44, 89, 74)",
+    shadowColor: "#2C594A",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
     backgroundColor: "white",
     width: "90%",
-    height: "60%",
     borderRadius: 30,
     padding: 30,
     alignItems: "center",
     justifyContent: "center",
     marginTop: 30,
+  },
+  heading: {
+    fontSize: 32,
+    color: "#20097B",
+    fontWeight: "bold",
+    justifyContent: "center",
+    alignItems: "center",
+    fontFamily: "Avenir",
+  },
+  textSubheader: {
+    fontSize: 20,
+    margin: 20,
+    fontWeight: "bold",
+    color: "teal",
+    fontFamily: "Avenir",
+    textAlign: "center",
   },
   input: {
     backgroundColor: "#E6EDE9",
@@ -174,56 +184,9 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     marginTop: 20,
   },
-  heading: {
-    fontSize: 32,
-    color: "#20097B",
-    fontWeight: "bold",
-    justifyContent: "center",
-    alignItems: "center",
-    fontFamily: "Avenir",
-  },
-  textSubheader: {
-    fontSize: 20,
-    margin: 20,
-    fontWeight: "bold",
-    color: "teal",
-    fontFamily: "Avenir",
-    textAlign: "center",
-  },
-  tinyThyme: {
-    width: 100,
-    height: 100,
-  },
   footerView: {
     flex: 1,
     justifyContent: "flex-end",
     marginBottom: 10,
   },
-  // title: {
-  //   fontSize: 16,
-  //   color: "rgb(65, 140, 115)",
-  //   fontWeight: "bold",
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  //   fontFamily: "Avenir",
-  // },
-  // touchable: {
-  //   shadowColor: "rgb(44, 89, 74)",
-  //   shadowOffset: { width: -2, height: 4 },
-  //   shadowOpacity: 0.2,
-  //   shadowRadius: 3,
-  //   backgroundColor: "white",
-  //   padding: 16,
-  //   borderRadius: 30,
-  //   flexDirection: "row",
-  //   margin: 40,
-  // },
-  // itemText2: {
-  //   fontSize: 16,
-  //   color: "rgb(65, 140, 115)",
-  //   justifyContent: "center",
-  //   flexDirection: "row",
-  //   alignItems: "center",
-  //   fontFamily: "Avenir",
-  // },
 });
