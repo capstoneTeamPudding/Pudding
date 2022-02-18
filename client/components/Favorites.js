@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { getFavoritesThunk } from "../store/favorites";
-import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { auth } from "../firebaseAuth/firebase";
 
 export default function Favorites({ navigation }) {
@@ -37,26 +37,29 @@ export default function Favorites({ navigation }) {
         <Image
           style={styles.thumbnail}
           source={{
-            uri:
-              item.imageUrl,
+            uri: item.imageUrl,
           }}
         />
-        <MaterialCommunityIcons style={styles.icon} name={"heart"} size={32} color={"#20097B"} />
+        <MaterialCommunityIcons
+          style={styles.icon}
+          name={"heart"}
+          size={32}
+          color={"#20097B"}
+        />
       </View>
-      <Text style={[styles.textSubheader, textColor]}>{item.recipe_name}</Text>  
+      <Text style={[styles.textSubheader, textColor]}>{item.recipe_name}</Text>
     </TouchableOpacity>
   );
 
   const navigationOpacity = (item) => {
     //console.log("my item",item)
     navigation.navigate("SingleRecipe", {
-        id: item.id,
-        title: item.recipe_name,
-        image: item.imageUrl,
-      });
+      id: item.id,
+      title: item.recipe_name,
+      image: item.imageUrl,
+    });
   };
   const renderFavoritesFlatList = ({ item }) => {
-      
     return (
       <FavoritesFlatList
         item={item}
@@ -67,11 +70,11 @@ export default function Favorites({ navigation }) {
       />
     );
   };
-  let DATA = favoritesSelector.recipes;
+  let DATA = favoritesSelector;
   return (
     <SafeAreaView style={styles.container}>
       {!DATA ? (
-        <Text> Loading... </Text>
+        <Text> No Favorties :( </Text>
       ) : (
         <SafeAreaView style={styles.list}>
           <FlatList
@@ -80,7 +83,7 @@ export default function Favorites({ navigation }) {
             keyExtractor={(item) => item.id}
             extraData={favoritesSelector}
           />
-        </SafeAreaView>  
+        </SafeAreaView>
       )}
     </SafeAreaView>
   );
@@ -135,7 +138,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     //padding: 16,
     color: "red",
-   // borderRadius: 30,
+    // borderRadius: 30,
     flexDirection: "row",
     margin: 20,
   },
@@ -146,7 +149,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     alignItems: "flex-end",
     paddingLeft: "20%",
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   title1: {
     fontSize: 16,
