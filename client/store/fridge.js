@@ -96,7 +96,7 @@ export const deleteFridgeThunk = (userUid) => {
 };
 let initialState = { foodItems: [] };
 
-export default function fridgeReducer(state = {}, action) {
+export default function fridgeReducer(state = initialState, action) {
   switch (action.type) {
     case GET_FRIDGE:
       return action.fridge;

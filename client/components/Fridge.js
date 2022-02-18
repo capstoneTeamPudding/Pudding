@@ -8,19 +8,42 @@ import {
   Button,
   FlatList,
   TouchableOpacity,
-  Image,
-  View,
+  RefreshControl,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { getFridgeThunk, deleteFridgeThunk } from "../store/fridge";
 import { auth } from "../firebaseAuth/firebase";
 
+const wait = (timeout) => {
+  return new Promise((resolve) => setTimeout(resolve, timeout));
+};
+
+const FridgeFlatList = ({ item, onPress, backgroundColor }) => {
+  const [DATA, setDATA] = useState("");
+  const [text, setText] = useState("");
+  return (
+    <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
+      <Text style={styles.title}>{item ? item.foodItem_name : text}</Text>
+      <Text style={styles.itemText2}>
+        {" "}
+        Amount: {item.fridge ? item.fridge.quantity : DATA}{" "}
+      </Text>
+    </TouchableOpacity>
+  );
+};
+
 export default function Fridge({ navigation }) {
-  const [DATA, setDATA] = useState(1);
+  const [refreshing, setRefreshing] = React.useState(false);
+  const [DATA, setDATA] = useState("");
   const [text, setText] = useState("");
   const dispatch = useDispatch();
   const fridgeSelector = useSelector((state) => state.fridgeReducer);
   const data = fridgeSelector;
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
 
   const viewFridge = (userUid) => {
     dispatch(getFridgeThunk(userUid));
@@ -30,22 +53,6 @@ export default function Fridge({ navigation }) {
     const uid = auth.currentUser.uid;
     viewFridge(uid);
   }, []);
-
-  const FridgeFlatList = ({ item, onPress, backgroundColor }) => {
-    setText(item.foodItem_name);
-    return (
-      <TouchableOpacity
-        onPress={onPress}
-        style={[styles.item, backgroundColor]}
-      >
-        <Text style={styles.title}>{item ? item.foodItem_name : text}</Text>
-        <Text style={styles.itemText2}>
-          {" "}
-          Amount: {item.fridge ? item.fridge.quantity : DATA}{" "}
-        </Text>
-      </TouchableOpacity>
-    );
-  };
 
   const navigationOpacity = (foodItemId, userUid, quantity) => {
     navigation.navigate("SingleFoodItem", { foodItemId, userUid, quantity });
@@ -94,6 +101,9 @@ export default function Fridge({ navigation }) {
             renderItem={renderFridgeFlatList}
             keyExtractor={(item) => item.id}
             extraData={data.foodItems}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
           />
         </SafeAreaView>
       )}

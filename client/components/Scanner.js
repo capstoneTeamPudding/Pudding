@@ -34,7 +34,6 @@ export default function Scanner({ navigation }) {
     dispatch(addFoodItemThunk(foodItem));
   };
   const addToFridge = (userUid, foodItem, quantity) => {
-    console.log(quantity);
     dispatch(addToFridgeThunk(userUid, foodItem, quantity));
   };
 
