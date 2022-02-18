@@ -1,8 +1,10 @@
 import axios from "axios";
 
+//Action Types
 export const GET_FOOD_ITEM = "GET_FOOD_ITEM";
 export const UPDATE_FOOD_ITEM = "UPDATE_FOOD_ITEM";
 
+//Action Creators
 export const _getFoodItem = (foodItem) => {
   return {
     type: GET_FOOD_ITEM,
@@ -17,6 +19,7 @@ export const _updateFoodItem = (foodItem) => {
   };
 };
 
+//Thunks
 export const getFoodItemThunk = (foodItemId) => {
   return async (dispatch) => {
     try {
@@ -46,6 +49,7 @@ export const updateFoodItemThunk = (foodItem) => {
 
 let initialState = [];
 
+//Reducer
 export default function foodItemReducer(state = initialState, action) {
   switch (action.type) {
     case GET_FOOD_ITEM:

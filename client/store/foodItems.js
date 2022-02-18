@@ -1,7 +1,11 @@
 import axios from "axios";
+
+//Action Types
 export const GET_FOOD_ITEMS = "GET_FOOD_ITEMS";
 export const ADD_FOOD_ITEM = "ADD_FOOD_ITEM";
 
+
+//Action Creators
 export const _getFoodItems = (foodItems) => {
   return {
     type: ADD_FOOD_ITEM,
@@ -16,8 +20,7 @@ export const _addFoodItem = (foodItem) => {
   };
 };
 
-//thunks
-
+//Thunks
 export const addFoodItemThunk = (foodItem_name) => {
   return async (dispatch) => {
     try {
@@ -36,6 +39,7 @@ export const addFoodItemThunk = (foodItem_name) => {
 
 let initialState = [];
 
+//Reducer
 export default function foodItemsReducer(state = initialState, action) {
   switch (action.type) {
     case GET_FOOD_ITEMS:
