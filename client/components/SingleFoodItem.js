@@ -55,7 +55,7 @@ export default function SingleFoodItem({ route, navigation }) {
               <Text style={styles.textSubheader}> Quantity: {quantity}</Text>
               <Image
                 style={styles.tinyThyme}
-                source={ require("../../assets/thyme-1.png")}
+                source={require("../../assets/thyme-1.png")}
               />
             </View>
             <Text style={styles.heading}></Text>

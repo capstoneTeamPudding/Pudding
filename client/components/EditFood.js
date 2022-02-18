@@ -67,6 +67,8 @@ export default function EditFood({ route, navigation }) {
 
   const deleteHandle = (foodItemId, userUid) => {
     deleteFromFridge(id, uid);
+    Alert.alert(`Successfully deleted ${name}!`);
+    navigation.navigate("Fridge");
   };
 
   useEffect(() => {
