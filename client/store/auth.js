@@ -4,7 +4,7 @@ import firebase from "firebase";
 
 
 //Action Types
-// const SET_USER = "SET_USER";
+const SET_USER = "SET_USER";
 const LOGIN = 'LOGIN';
 const SIGNUP = 'SIGNUP';
 const LOGOUT = 'LOGOUT';
@@ -12,7 +12,7 @@ const LOGOUT = 'LOGOUT';
 
 //Action Creators
 //A user signs in (the current user is set)
-// const setUser = (user) => ({ type: SET_USER, user });
+const setUser = (user) => ({ type: SET_USER, user });
 const _login = (user) => {
   return {
     type: LOGIN,
@@ -35,53 +35,53 @@ export const _logout = (user) => {
 };
 
 //Thunks
-// export const setUserThunk = () => async (dispatch) => {
-//   const idToken = await auth.currentUser.getIdToken(true);
-//   if (idToken) {
-//     const { data } = await axios.get(`https://the-thymely-cook.herokuapp.com/auth/me`, {
-//       headers: {
-//         authtoken: idToken,
-//       },
-//     });
-//     return dispatch(setUser(data));
-//   }
-// };
+export const setUserThunk = () => async (dispatch) => {
+  const idToken = await auth.currentUser.getIdToken(true);
+  if (idToken) {
+    const { data } = await axios.get(`https://the-thymely-cook.herokuapp.com/auth/me`, {
+      headers: {
+        authtoken: idToken,
+      },
+    });
+    return dispatch(setUser(data));
+  }
+};
 
-// export const updateUserThunk =
-//   ({ firstName, lastName }) =>
-//   async (dispatch) => {
-//     try {
-//       const idToken = await auth.currentUser.getIdToken(true);
-//       if (idToken) {
-//         const { data } = await axios.put(`https://the-thymely-cook.herokuapp.com/auth/update`,
-//           {
-//             firstName,
-//             lastName,
-//           },
-//           {
-//             headers: {
-//               authtoken: idToken,
-//             },
-//           }
-//         );
-//         dispatch(setUser(data));
-//         return true;
-//       }
-//     } catch (err) {
-//       console.log("thunk error: ", err);
-//     }
-//   };
+export const updateUserThunk =
+  ({ firstName, lastName }) =>
+  async (dispatch) => {
+    try {
+      const idToken = await auth.currentUser.getIdToken(true);
+      if (idToken) {
+        const { data } = await axios.put(`https://the-thymely-cook.herokuapp.com/auth/update`,
+          {
+            firstName,
+            lastName,
+          },
+          {
+            headers: {
+              authtoken: idToken,
+            },
+          }
+        );
+        dispatch(setUser(data));
+        return true;
+      }
+    } catch (err) {
+      console.log("thunk error: ", err);
+    }
+  };
 
-// export const updatePassword = async (password) => {
-//   try {
-//     const user = await auth.currentUser;
-//     await user.updatePassword(password);
-//     return true;
-//   } catch (err) {
-//     console.log("update password thunk error");
-//     return err.message;
-//   }
-// };
+export const updatePassword = async (password) => {
+  try {
+    const user = await auth.currentUser;
+    await user.updatePassword(password);
+    return true;
+  } catch (err) {
+    console.log("update password thunk error");
+    return err.message;
+  }
+};
 // const verify = (data, dispatch) => {
 //   if (data.uid) {
 //     dispatch(setUserThunk());
@@ -141,6 +141,8 @@ export const authenticateLogin = ({ email, password, method }) =>
 //Reducer
 export default function (state = {}, action) {
   switch (action.type) {
+    case SET_USER: 
+      return action.user
     case LOGIN:
       return action.user
     case SIGNUP:

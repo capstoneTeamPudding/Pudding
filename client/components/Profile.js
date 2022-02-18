@@ -14,20 +14,33 @@ import {
 } from "react-native";
 import Logout from "./Logout";
 import { auth } from "../firebaseAuth/firebase";
-import { useDispatch } from "react-redux";
-import { updateUserThunk, updatePassword } from "../store";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUserThunk, updatePassword } from "../store/auth";
 import { HideKeyboard } from "./EditFood";
 
 // @Elena grab the route parameter
 export default function Profile({ navigation }) {
-  // const user = useSelector((state) => state.auth.user);
+  const user = useSelector((state => state.auth));
+  console.log(user.firstName);
+  console.log(user.lastName)
+  console.log(user.email)
+
   const [error, setError] = React.useState(null);
   const [isEdit, setIsEdit] = React.useState(false);
   const [isEditPassword, setIsEditPassword] = React.useState(false);
-  const [firstName, setFirstName] = React.useState("");
-  const [lastName, setLastName] = React.useState("");
+  const [firstName, setFirstName] = React.useState(user.firstName);
+  const [lastName, setLastName] = React.useState(user.lastName);
   const [password, setPassword] = React.useState("123456");
   const [confirmPassword, setConfirmPassword] = React.useState("123456");
+
+  React.useEffect(() => {
+    setFirstName(user.firstName);
+  }, [user.firstName]);
+
+  React.useEffect(() => {
+    setLastName(user.lastName);
+  }, [user.lastName]);
+
 
   const handleUpdateUser = async () => {
     try {
@@ -67,7 +80,7 @@ export default function Profile({ navigation }) {
       /> */}
         <ScrollView>
           <View>
-            <Text style={styles.heading}>Hi, Cody Fullstack!</Text>
+            <Text style={styles.heading}>Hi, {user.firstName}</Text>
             {/* <Image
             style={styles.logo_sm}
             source={require("../../assets/thyme_logo.png")}
@@ -78,7 +91,7 @@ export default function Profile({ navigation }) {
               {isEdit ? (
                 <View style={{ margin: 20 }}>
                   <TextInput editable={false} style={styles.emailInput}>
-                    Email: {auth.currentUser.email}
+                    Email: {user.email}
                   </TextInput>
                   <TextInput
                     editable={true}
@@ -107,10 +120,10 @@ export default function Profile({ navigation }) {
                     Email: {auth.currentUser.email}
                   </TextInput>
                   <TextInput editable={false} style={styles.firstnameInput}>
-                    First Name: Cody
+                    First Name: {user.firstName}
                   </TextInput>
                   <TextInput editable={false} style={styles.lastnameInput}>
-                    Last Name: Fullstack
+                    Last Name: {user.lastName}
                   </TextInput>
                   <TouchableOpacity
                     style={styles.button}
