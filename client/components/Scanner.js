@@ -7,7 +7,6 @@ import {
   Button,
   Alert,
   TouchableOpacity,
-  ImageBackground,
 } from "react-native";
 import { Overlay } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
@@ -119,7 +118,6 @@ export default function Scanner({ navigation }) {
   return (
     <Overlay>
       <View>
-        {/* <Text style={styles.textSmall}>To scan an item, hold the item's barcode infront of the camera until barcode is in focus</Text> */}
         <Text style={styles.textSubheader}>{text}</Text>
         <BarCodeScanner
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
@@ -152,6 +150,7 @@ export default function Scanner({ navigation }) {
   );
 }
 
+//styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -166,6 +165,20 @@ const styles = StyleSheet.create({
     width: 300,
     overflow: "hidden",
     borderRadius: 30,
+  },
+  textSubheader: {
+    fontSize: 20,
+    margin: 20,
+    fontWeight: "bold",
+    color: "teal",
+    fontFamily: "Avenir",
+    textAlign: "center",
+  },
+  maintext: {
+    fontSize: 16,
+    margin: 20,
+    fontFamily: "Avenir",
+    textAlign: "center",
   },
   buttonText: {
     color: "white",
@@ -185,19 +198,5 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
     margin: 20,
-  },
-  textSubheader: {
-    fontSize: 20,
-    margin: 20,
-    fontWeight: "bold",
-    color: "teal",
-    fontFamily: "Avenir",
-    textAlign: "center",
-  },
-  maintext: {
-    fontSize: 16,
-    margin: 20,
-    fontFamily: "Avenir",
-    textAlign: "center",
   },
 });

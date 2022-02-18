@@ -198,20 +198,6 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     margin: 20,
   },
-  forgotButton: {
-    width: 200,
-    padding: 6,
-    backgroundColor: "#8F540E",
-    borderWidth: 2,
-    borderColor: "#AD8557",
-    borderRadius: 15,
-    alignSelf: "center",
-    margin: 5,
-  },
-  scrollView: {
-    backgroundColor: "white",
-    marginHorizontal: 20,
-  },
   logo_sm: {
     width: 200,
     height: 200,

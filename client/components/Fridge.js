@@ -39,7 +39,7 @@ export default function Fridge({ navigation }) {
         style={[styles.item, backgroundColor]}
       >
         <Text style={styles.title}>{item ? item.foodItem_name : text}</Text>
-        <Text style={styles.itemText2}>
+        <Text style={styles.thinText}>
           {" "}
           Amount: {item.fridge ? item.fridge.quantity : DATA}{" "}
         </Text>
@@ -107,31 +107,46 @@ const styles = StyleSheet.create({
     backgroundColor: "#E6EDE9",
     alignItems: "center",
     justifyContent: "center",
-    width: "100%",
   },
   containerRow: {
-    backgroundColor: "#E6EDE9",
-    alignItems: "center",
     justifyContent: "center",
-    width: "100%",
     flexDirection: "row",
   },
   list: {
     flex: 1,
-    width: "90%",
+    width: "100%",
     paddingTop: 100,
   },
   item: {
-    shadowColor: "rgb(44, 89, 74)",
+    shadowColor: "#2C594A",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
-    backgroundColor: "white",
+    backgroundColor: "#FFFFFF",
     padding: 16,
     borderRadius: 30,
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 20,
+    marginLeft: "5%",
+    marginRight: "5%"
+  },
+  title: {
+    flex: 3,
+    fontSize: 20,
+    color: "#20097B",
+    fontWeight: "bold",
+    justifyContent: "center",
+    alignItems: "center",
+    fontFamily: "Avenir",
+    flexWrap: "wrap",
+    paddingLeft: 20,
+    paddingRight: 15,
+  },
+  thinText: {
+    fontSize: 20,
+    color: "teal",
+    fontFamily: "Avenir",
   },
   buttonText: {
     color: "white",
@@ -156,33 +171,4 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
   },
-  title: {
-    flex: 3,
-    fontSize: 20,
-    color: "#20097B",
-    fontWeight: "bold",
-    justifyContent: "center",
-    alignItems: "center",
-    fontFamily: "Avenir",
-    flexWrap: "wrap",
-    paddingLeft: 20,
-    paddingRight: 15,
-  },
-  itemText2: {
-    fontSize: 20,
-    color: "teal",
-    fontFamily: "Avenir",
-  },
-  // touchable: {
-  //   shadowColor: "rgb(44, 89, 74)",
-  //   shadowOffset: { width: -2, height: 4 },
-  //   shadowOpacity: 0.2,
-  //   shadowRadius: 3,
-  //   backgroundColor: "white",
-  //   padding: 16,
-  //   color: "red",
-  //   borderRadius: 30,
-  //   flexDirection: "row",
-  //   margin: 20,
-  // },
 });

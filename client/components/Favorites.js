@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
+import { StatusBar } from "expo-status-bar";
 import {
   Text,
   SafeAreaView,
@@ -47,12 +47,12 @@ export default function Favorites({ navigation }) {
     </TouchableOpacity>
   );
 
-  const navigationOpacity = (item) => {
-    //console.log("my item",item)
+  const navigationOpacity = (item, userUid) => {
     navigation.navigate("SingleRecipe", {
         id: item.id,
         title: item.recipe_name,
         image: item.imageUrl,
+        userUid
       });
   };
   const renderFavoritesFlatList = ({ item }) => {
@@ -62,7 +62,7 @@ export default function Favorites({ navigation }) {
         item={item}
         onPress={() => {
           setSelectedId(item.id);
-          navigationOpacity(item, "u087CSU21PhXkg73Rd4Uxa2ugtw2");
+          navigationOpacity(item, auth.currentUser.uid);
         }}
       />
     );
@@ -105,11 +105,11 @@ const styles = StyleSheet.create({
     paddingTop: 100,
   },
   item: {
-    shadowColor: "rgb(44, 89, 74)",
+    shadowColor: "#2C594A",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
-    backgroundColor: "white",
+    backgroundColor: "#FFFFFF",
     padding: 16,
     borderRadius: 30,
     justifyContent: "space-evenly",
@@ -127,18 +127,6 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     marginTop: 10,
   },
-  touchable: {
-    shadowColor: "rgb(44, 89, 74)",
-    shadowOffset: { width: -2, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-    backgroundColor: "white",
-    //padding: 16,
-    color: "red",
-   // borderRadius: 30,
-    flexDirection: "row",
-    margin: 20,
-  },
   icon: {
     shadowColor: "rgb(44, 89, 74)",
     shadowOffset: { width: -2, height: 4 },
@@ -147,36 +135,6 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     paddingLeft: "20%",
     paddingBottom: 10
-  },
-  title1: {
-    fontSize: 16,
-    color: "rgb(65, 140, 115)",
-    fontWeight: "bold",
-    justifyContent: "center",
-    alignItems: "center",
-    fontFamily: "Avenir",
-  },
-  heading: {
-    fontSize: 25,
-    color: "rgb(65, 140, 115)",
-    fontWeight: "bold",
-    justifyContent: "flex-end",
-    fontFamily: "Avenir",
-  },
-  itemText2: {
-    fontSize: 16,
-    color: "rgb(65, 140, 115)",
-    justifyContent: "center",
-    flexDirection: "row",
-    alignItems: "center",
-    fontFamily: "Avenir",
-  },
-  title: {
-    fontSize: 24,
-    color: "teal",
-    //paddingTop: 5,
-    fontWeight: "bold",
-    fontFamily: "Avenir",
   },
   thumbnail: {
     width: 150,

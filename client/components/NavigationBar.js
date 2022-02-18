@@ -40,12 +40,3 @@ export default function NavigationBar() {
     </Tab.Navigator>
   );
 }
-
-// const styles = StyleSheet.create({
-//   icon: {
-//     shadowColor: "rgb(44, 89, 74)",
-//     shadowOffset: { width: -2, height: 4 },
-//     shadowOpacity: 0.3,
-//     shadowRadius: 3,
-//   },
-// });

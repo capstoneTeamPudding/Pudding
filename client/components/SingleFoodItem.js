@@ -19,7 +19,6 @@ export default function SingleFoodItem({ route, navigation }) {
   const dispatch = useDispatch();
   const fridgeSelector = useSelector((state) => state.fridgeReducer);
   const foodItemSelector = useSelector((state) => state.foodItemReducer);
-  const [image, setImage] = useState([]);
   let id = route.params.foodItemId;
   let userUid = route.params.userUid;
   let quantity = route.params.quantity;
@@ -50,40 +49,31 @@ export default function SingleFoodItem({ route, navigation }) {
       {!foodObj ? (
         <Text> Loading... </Text>
       ) : (
-        <SafeAreaView style={styles.item}>
-          <Text style={styles.heading}>{foodObj.foodItem_name}</Text>
-          <View>
-            {/* <Text style={styles.title}>Type of Food:</Text> */}
-            {/* <Text style={styles.itemText2}>{foodObj.category}</Text> */}
-            <Text style={styles.textSubheader}> Quantity: {quantity}</Text>
-            <Image
-              style={styles.tinyThyme}
-              source={ require("../../assets/thyme-1.png")}
-            />
-            {/* <Image
-              style={styles.tinyThyme}
-              source={{
-                uri:
-                  `https://spoonacular.com/cdn/ingredients_100x100/${(foodObj.foodItem_name).toLowerCase()}.jpg`,
-              }}
-            /> */}
-          </View>
-          <Text style={styles.heading}></Text>
-        </SafeAreaView>
-      )}
-      <TouchableOpacity style={styles.button} onPress={onPressRecipe}>
-        <Text style={styles.buttonText}>Recipe Suggestions</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() =>
-          navigation.navigate("Edit", {
-            userUid,
-            id,
-            name: foodObj.foodItem_name,
-          })
-        }
-      >
+          <TouchableOpacity style={styles.item}>
+            <Text style={styles.heading}>{foodObj.foodItem_name}</Text>
+            <View>
+              <Text style={styles.textSubheader}> Quantity: {quantity}</Text>
+              <Image
+                style={styles.tinyThyme}
+                source={ require("../../assets/thyme-1.png")}
+              />
+            </View>
+            <Text style={styles.heading}></Text>
+          </TouchableOpacity>
+        )}
+        <TouchableOpacity style={styles.button} onPress={onPressRecipe}>
+          <Text style={styles.buttonText}>Recipe Suggestions</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() =>
+            navigation.navigate("Edit", {
+              userUid,
+              id,
+              name: foodObj.foodItem_name,
+            })
+          }
+        >
         <Text style={styles.buttonText}>Edit</Text>
       </TouchableOpacity>
     </SafeAreaView>
@@ -97,32 +87,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  logout: {
-    shadowColor: "rgb(44, 89, 74)",
+  item: {
+    shadowColor: "#2C594A",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
-    backgroundColor: "white",
-    padding: 16,
-    color: "red",
+    backgroundColor: "#FFFFFF",
+    width: "80%",
+    paddingLeft: 20,
+    paddingRight: 20,
     borderRadius: 30,
-    flexDirection: "row",
-    margin: 20,
-  },
-  itemText2: {
-    fontSize: 16,
-    color: "rgb(65, 140, 115)",
-    justifyContent: "center",
+    flexDirection: "column",
     alignItems: "center",
-    fontFamily: "Avenir",
-  },
-  hint: {
-    paddingTop: 50,
-    fontSize: 16,
-    color: "rgb(255, 36, 131)",
-    justifyContent: "center",
-    alignItems: "center",
-    fontFamily: "Noteworthy",
+    justifyContent: "space-between",
   },
   heading: {
     fontSize: 32,
@@ -140,20 +117,6 @@ const styles = StyleSheet.create({
     color: "teal",
     fontFamily: "Avenir",
     textAlign: 'center',
-  },
-  item: {
-    shadowColor: "rgb(44, 89, 74)",
-    shadowOffset: { width: -2, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-    backgroundColor: "white",
-    width: "75%",
-    height: "50%",
-    borderRadius: 30,
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "space-between",
-    margin: 20,
   },
   buttonText: {
     color: "white",
@@ -174,18 +137,6 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     marginTop: 20,
   },
-  // touchable: {
-  //   shadowColor: "rgb(44, 89, 74)",
-  //   shadowOffset: { width: -2, height: 4 },
-  //   shadowOpacity: 0.2,
-  //   shadowRadius: 3,
-  //   backgroundColor: "white",
-  //   padding: 16,
-  //   color: "red",
-  //   borderRadius: 30,
-  //   flexDirection: "row",
-  //   margin: 20,
-  // },
   tinyThyme: {
     width: 100,
     height: 100,

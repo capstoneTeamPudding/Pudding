@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Image, Text, SafeAreaView, FlatList, View, TouchableOpacity } from "react-native";
-import Logout from "./Logout";
 const axios = require("axios");
 import { SPOON_API_KEY } from "../../.keys";
 
@@ -24,7 +23,7 @@ const Home = ({ navigation }) => {
   useEffect(() => {
     const fetchRecipes = async () => {
       const res = await axios.get(
-        `${spnAPI}random?number=3&tags=vegetarian,dessert&apiKey=${SPOON_API_KEY}`
+        `${spnAPI}random?number=3&tags=dessert&apiKey=${SPOON_API_KEY}`
       );
       setRecipes(res.data.recipes);
     };
@@ -51,7 +50,6 @@ const Home = ({ navigation }) => {
       />
     );
   };
-  //cannot figure out how to get loading OR the message to show
   return (
     <SafeAreaView style={styles.container}> 
       {recipes.length === null ? (
@@ -101,38 +99,29 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  list: {
-    flex: 1,
-    width: "90%",
-    paddingTop: 100,
-  },
   containerRow: {
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
     flexDirection: "row",
   },
+  list: {
+    flex: 1,
+    width: "90%",
+    paddingTop: 100,
+  },
   item: {
-    shadowColor: "rgb(44, 89, 74)",
+    shadowColor: "#2C594A",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
     width: 300,
-    backgroundColor: "white",
-    padding: 20,
+    backgroundColor: "#FFFFFF",
     borderRadius: 30,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    padding: 20,
+    margin: 20,
     alignItems: "center",
     justifyContent: "center",
-  },
-  textSubheader: {
-    fontSize: 20,
-    margin: 10,
-    fontWeight: "bold",
-    color: "#20097B",
-    fontFamily: "Avenir",
-    textAlign: 'center',
   },
   title: {
     fontSize: 24,
@@ -140,6 +129,14 @@ const styles = StyleSheet.create({
     marginTop: 50,
     marginBottom: 30,
     fontWeight: "bold",
+    fontFamily: "Avenir",
+    textAlign: 'center',
+  },
+  textSubheader: {
+    fontSize: 20,
+    margin: 10,
+    fontWeight: "bold",
+    color: "#20097B",
     fontFamily: "Avenir",
     textAlign: 'center',
   },
@@ -152,14 +149,5 @@ const styles = StyleSheet.create({
     width: 120,
     height: 150,
     opacity: .2,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: "#E6EDE9",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  button: {
-    margin: 10,
   },
 });
