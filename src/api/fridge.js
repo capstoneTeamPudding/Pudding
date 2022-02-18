@@ -68,24 +68,24 @@ router.put("/:userUid/:foodItemId", async (req, res, next) => {
 
 router.post("/:uid", async (req, res, next) => {
   try {
-    let fooditem = await FoodItem.findOrCreate({
+    let fooditem = await FoodItem.findOne({
       where: { foodItem_name: req.body.foodItem_name },
     });
+
     let currentUser = await User.findOne({
       where: { uid: req.params.uid },
     });
-
-    let fridge = await currentUser.addFoodItem(fooditem[0], {
-      through: { quantity: req.body.quantity },
-    });
-    console.log(fridge);
-    res.status(201).json(fridge);
+    if (fooditem) {
+      let fridge = await currentUser.addFoodItem(fooditem, {
+        through: { quantity: req.body.quantity },
+      });
+      res.status(201).json(fridge);
+    }
   } catch (error) {
     next(error);
   }
 });
 
-//entire fridge?//notreallynecessary
 router.delete("/:uid", async (req, res, next) => {
   try {
     const userFridgeItem = await Fridge.findAll({

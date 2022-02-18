@@ -1,13 +1,19 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Image, Text, SafeAreaView, FlatList, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Image,
+  Text,
+  SafeAreaView,
+  FlatList,
+  View,
+  TouchableOpacity,
+} from "react-native";
 const axios = require("axios");
 import { SPOON_API_KEY } from "../../.keys";
 
-
 const spnAPI = "https://api.spoonacular.com/recipes/";
-
 
 const Recipe = ({ title, image, onPress }) => (
   <TouchableOpacity onPress={onPress} style={styles.item}>
@@ -51,16 +57,14 @@ const Home = ({ navigation }) => {
     );
   };
   return (
-    <SafeAreaView style={styles.container}> 
+    <SafeAreaView style={styles.container}>
       {recipes.length === null ? (
         <View style={styles.list}>
           <Text style={styles.title}>Loading... </Text>
         </View>
       ) : (
         <SafeAreaView style={styles.list}>
-          <Text style={styles.title}>
-            Welcome! 
-          </Text>
+          <Text style={styles.title}>Welcome!</Text>
           <FlatList
             horizontal
             data={recipes}
@@ -72,15 +76,15 @@ const Home = ({ navigation }) => {
           <View style={styles.containerRow}>
             <Image
               style={styles.tinyThyme}
-              source={ require("../../assets/thyme-1.png")}
+              source={require("../../assets/thyme-1.png")}
             />
             <Image
               style={styles.tinyThyme}
-              source={ require("../../assets/thyme-2.png")}
+              source={require("../../assets/thyme-2.png")}
             />
             <Image
               style={styles.tinyThyme}
-              source={ require("../../assets/thyme-1.png")}
+              source={require("../../assets/thyme-1.png")}
             />
           </View>
         </SafeAreaView>
@@ -130,7 +134,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     fontWeight: "bold",
     fontFamily: "Avenir",
-    textAlign: 'center',
+    textAlign: "center",
   },
   textSubheader: {
     fontSize: 20,
@@ -148,6 +152,6 @@ const styles = StyleSheet.create({
   tinyThyme: {
     width: 120,
     height: 150,
-    opacity: .2,
+    opacity: 0.2,
   },
 });

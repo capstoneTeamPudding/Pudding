@@ -7,20 +7,25 @@ import {
   StyleSheet,
   Button,
   FlatList,
+  ActivityIndicator,
   TouchableOpacity,
   Image,
+  RefreshControl,
+  ScrollView,
   View,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { getFavoritesThunk } from "../store/favorites";
-import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { auth } from "../firebaseAuth/firebase";
 
 export default function Favorites({ navigation }) {
+  const [refreshing, setRefreshing] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [Favorites, setFavorites] = useState([]);
   const dispatch = useDispatch();
   const favoritesSelector = useSelector((state) => state.favoritesReducer);
+  const fav2 = favoritesSelector;
 
   const getFav = (userUid) => {
     dispatch(getFavoritesThunk(userUid));
@@ -29,6 +34,7 @@ export default function Favorites({ navigation }) {
   useEffect(() => {
     const uid = auth.currentUser.uid;
     getFav(uid);
+    setFavorites(fav2);
   }, []);
 
   const FavoritesFlatList = ({ item, onPress, backgroundColor, textColor }) => (
@@ -37,26 +43,38 @@ export default function Favorites({ navigation }) {
         <Image
           style={styles.thumbnail}
           source={{
-            uri:
-              item.imageUrl,
+            uri: item.imageUrl,
           }}
         />
-        <MaterialCommunityIcons style={styles.icon} name={"heart"} size={32} color={"#20097B"} />
+        <MaterialCommunityIcons
+          style={styles.icon}
+          name={"heart"}
+          size={32}
+          color={"#20097B"}
+        />
       </View>
-      <Text style={[styles.textSubheader, textColor]}>{item.recipe_name}</Text>  
+      <Text style={[styles.textSubheader, textColor]}>{item.recipe_name}</Text>
     </TouchableOpacity>
   );
 
-  const navigationOpacity = (item, userUid) => {
+  const onRefresh = () => {
+    setRefreshing(true);
+    setFavorites([]);
+    const uid = auth.currentUser.uid;
+    getFav(uid);
+    setFavorites(fav2);
+    setRefreshing(false);
+  };
+
+  const navigationOpacity = (item) => {
+    //console.log("my item",item)
     navigation.navigate("SingleRecipe", {
-        id: item.id,
-        title: item.recipe_name,
-        image: item.imageUrl,
-        userUid
-      });
+      id: item.id,
+      title: item.recipe_name,
+      image: item.imageUrl,
+    });
   };
   const renderFavoritesFlatList = ({ item }) => {
-      
     return (
       <FavoritesFlatList
         item={item}
@@ -67,20 +85,30 @@ export default function Favorites({ navigation }) {
       />
     );
   };
-  let DATA = favoritesSelector.recipes;
+
   return (
     <SafeAreaView style={styles.container}>
-      {!DATA ? (
-        <Text> Loading... </Text>
+      {refreshing ? <ActivityIndicator /> : null}
+      {!fav2 || fav2 === null || fav2.length === null ? (
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
+          <Text> No Favorties :( </Text>
+        </ScrollView>
       ) : (
         <SafeAreaView style={styles.list}>
           <FlatList
-            data={favoritesSelector.recipes}
+            data={fav2.recipes}
             renderItem={renderFavoritesFlatList}
             keyExtractor={(item) => item.id}
             extraData={favoritesSelector}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
           />
-        </SafeAreaView>  
+        </SafeAreaView>
       )}
     </SafeAreaView>
   );
@@ -134,7 +162,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     alignItems: "flex-end",
     paddingLeft: "20%",
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   thumbnail: {
     width: 150,

@@ -24,6 +24,7 @@ export default function AddFood({ navigation }) {
 
   const addToFridge = (uid, foodItem_name, amount) => {
     let userUid = auth.currentUser.uid;
+    dispatch(addFoodItemThunk(name));
     dispatch(addToFridgeThunk(userUid, name, quantity));
   };
 
