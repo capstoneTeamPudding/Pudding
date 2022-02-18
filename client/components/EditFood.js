@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Alert,
-  View
+  View,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { updateFoodItemThunk } from "../store/foodItem";
@@ -36,9 +36,11 @@ export default function EditFood({ route, navigation }) {
   let uid = route.params.userUid;
   let id = route.params.id;
   let nameFood = route.params.name;
+  let quantity = route.params.quantity;
 
   const viewFoodItem = (foodItemId, userUid) => {
     dispatch(getFridgeItemThunk(foodItemId, userUid));
+    setAmount(route.params.quantity);
   };
 
   const editFridgeItem = (fooditem) => {

@@ -43,37 +43,38 @@ export default function SingleFoodItem({ route, navigation }) {
       name: foodObj.foodItem_name,
       foodItemId: foodObj.foodItemId,
       userUid: userUid,
+      quantity,
     });
   return (
     <SafeAreaView style={styles.container}>
       {!foodObj ? (
         <Text> Loading... </Text>
       ) : (
-          <TouchableOpacity style={styles.item}>
-            <Text style={styles.heading}>{foodObj.foodItem_name}</Text>
-            <View>
-              <Text style={styles.textSubheader}> Quantity: {quantity}</Text>
-              <Image
-                style={styles.tinyThyme}
-                source={require("../../assets/thyme-1.png")}
-              />
-            </View>
-            <Text style={styles.heading}></Text>
-          </TouchableOpacity>
-        )}
-        <TouchableOpacity style={styles.button} onPress={onPressRecipe}>
-          <Text style={styles.buttonText}>Recipe Suggestions</Text>
+        <TouchableOpacity style={styles.item}>
+          <Text style={styles.heading}>{foodObj.foodItem_name}</Text>
+          <View>
+            <Text style={styles.textSubheader}> Quantity: {quantity}</Text>
+            <Image
+              style={styles.tinyThyme}
+              source={require("../../assets/thyme-1.png")}
+            />
+          </View>
+          <Text style={styles.heading}></Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() =>
-            navigation.navigate("Edit", {
-              userUid,
-              id,
-              name: foodObj.foodItem_name,
-            })
-          }
-        >
+      )}
+      <TouchableOpacity style={styles.button} onPress={onPressRecipe}>
+        <Text style={styles.buttonText}>Recipe Suggestions</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() =>
+          navigation.navigate("Edit", {
+            userUid,
+            id,
+            name: foodObj.foodItem_name,
+          })
+        }
+      >
         <Text style={styles.buttonText}>Edit</Text>
       </TouchableOpacity>
     </SafeAreaView>
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "teal",
     fontFamily: "Avenir",
-    textAlign: 'center',
+    textAlign: "center",
   },
   buttonText: {
     color: "white",
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     margin: 16,
     marginLeft: 40,
-    marginRight: 40
+    marginRight: 40,
   },
   button: {
     backgroundColor: "#418C73",
@@ -140,6 +141,6 @@ const styles = StyleSheet.create({
   tinyThyme: {
     width: 100,
     height: 100,
-    alignSelf: "center"
+    alignSelf: "center",
   },
 });
